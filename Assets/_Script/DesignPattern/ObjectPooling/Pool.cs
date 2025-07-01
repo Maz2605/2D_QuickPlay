@@ -1,55 +1,57 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pool : MonoBehaviour
+namespace _Script.DesignPattern.ObjectPooling
 {
-    private readonly Queue<GameObject> _pools;
-    public readonly HashSet<int> IDObject;
-    private readonly GameObject _prefabObject;
-    private int _id = 0;
-    
-    public Pool(GameObject prefab)
+    public class Pool : MonoBehaviour
     {
-        _prefabObject = prefab;
-        _pools = new Queue<GameObject>();
-        IDObject = new HashSet<int>();
-    }
+        private readonly Queue<GameObject> _pools;
+        public readonly HashSet<int> IDObject;
+        private readonly GameObject _prefabObject;
+        private int _id = 0;
     
-    public GameObject Spawn(Vector3 position, Quaternion rotation, Transform parent = null)
-    {
-        while (true)
+        public Pool(GameObject prefab)
         {
-            GameObject newObject;
-            if (_pools.Count == 0)
+            _prefabObject = prefab;
+            _pools = new Queue<GameObject>();
+            IDObject = new HashSet<int>();
+        }
+    
+        public GameObject Spawn(Vector3 position, Quaternion rotation, Transform parent = null)
+        {
+            while (true)
             {
-                newObject = Object.Instantiate(_prefabObject, position, rotation, parent);
-                _id++;
-                IDObject.Add(newObject.GetInstanceID());
-                newObject.name = _prefabObject.name + "_" + _id;
+                GameObject newObject;
+                if (_pools.Count == 0)
+                {
+                    newObject = Object.Instantiate(_prefabObject, position, rotation, parent);
+                    _id++;
+                    IDObject.Add(newObject.GetInstanceID());
+                    newObject.name = _prefabObject.name + "_" + _id;
+                    return newObject;
+                }
+
+                newObject = _pools.Dequeue();
+                if (newObject == null) continue;
+
+                newObject.transform.SetPositionAndRotation(position, rotation);
+                newObject.transform.SetParent(parent);
+                newObject.SetActive(true);
                 return newObject;
             }
-
-            newObject = _pools.Dequeue();
-            if (newObject == null) continue;
-
-            newObject.transform.SetPositionAndRotation(position, rotation);
-            newObject.transform.SetParent(parent);
-            newObject.SetActive(true);
-            return newObject;
         }
-    }
 
-    public T Spawn<T>(Vector3 position, Quaternion rotation, Transform parent = null) where T : Component
-    {
-        return Spawn(position, rotation, parent).GetComponent<T>();
-    }
+        public T Spawn<T>(Vector3 position, Quaternion rotation, Transform parent = null) where T : Component
+        {
+            return Spawn(position, rotation, parent).GetComponent<T>();
+        }
 
-    public void Despawn(GameObject gameObject)
-    {
-        if (!gameObject.activeSelf) return;
+        public void Despawn(GameObject gameObject)
+        {
+            if (!gameObject.activeSelf) return;
 
-        gameObject.SetActive(false);
-        _pools.Enqueue(gameObject);
+            gameObject.SetActive(false);
+            _pools.Enqueue(gameObject);
+        }
     }
 }
