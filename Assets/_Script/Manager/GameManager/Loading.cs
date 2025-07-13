@@ -47,6 +47,6 @@ public class Loading : MonoBehaviour
             });
         yield return new WaitForSeconds(loadingDuration);
         yield return new WaitForSeconds(0.5f);
-        GameLoader.Instance.LoadMainMenuScene();
+        GameLoader.Instance.BackToMainMenu();
     }
 }

@@ -3,13 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIITest : MonoBehaviour
+public class UITest : MonoBehaviour
 {
     private void Start()
     {   
         CheckCamera();
     }
+
+    public void LoadFruitMerge()
+    {
+        GameLoader.Instance.LoadGame("FruitMergeGame");
+    }
+    public void BackToMainMenu()
+    {
+        GameLoader.Instance.BackToMainMenu();
+    }
+
+    public void LoadFlappyJump()
+    {
+        GameLoader.Instance.LoadGame("FlappyJumpGame");
+    }
     
+    public void LoadSudoku()
+    {
+        GameLoader.Instance.LoadGame("SudokuGame");
+    }   
     void CheckCamera()
     {
         Canvas canvas = GetComponent<Canvas>();
@@ -21,4 +39,6 @@ public class UIITest : MonoBehaviour
             }
         }
     }
+    
+    
 }
