@@ -6,9 +6,9 @@ using UnityEngine;
 public class AnimTranslate : Singleton<AnimTranslate>
 {
     public GameObject transitionObject;
-    public float zoomDuration = 0.6f;
-    public float startScale = 0.5f;
-    public float zoomScale = 10f;
+    public float zoomDuration = 1f;
+    public float startScale = 0.1f;
+    public float zoomScale = 5f;
 
     protected override void Awake()
     {

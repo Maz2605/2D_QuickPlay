@@ -50,42 +50,36 @@ public class GameLoader : Singleton<GameLoader>
         yield return AnimTranslate.Instance.HideTransition();
     }
 
-    private IEnumerator LoadGameScene(string sceneName)
+    private IEnumerator LoadGameScene(string sceneName = "MainMenu")
     {
         yield return AnimTranslate.Instance.PlayTransition();
 
-        if (SceneManager.GetSceneByName(sceneName).isLoaded)
-        {
-            ShowAllGameObjectsInScene(sceneName);
-            yield return AnimTranslate.Instance.HideTransition();
-            yield break;
-        }
-
-        string oldScene = _currentSceneName;
+        string oldSceneName = _currentSceneName;
         _currentSceneName = sceneName;
+        HideAllGameObjectsInScene(oldSceneName);
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         asyncLoad.allowSceneActivation = false;
 
         while (asyncLoad.progress < 0.9f)
-            yield return null;
-
-        yield return new WaitForSeconds(0.5f);
-
+        {
+            yield return null; 
+        }
+        
         asyncLoad.allowSceneActivation = true;
-
         while (!asyncLoad.isDone)
+        {
             yield return null;
+        }
 
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
         ShowAllGameObjectsInScene(sceneName);
-
-        // Chỉ unload scene cũ nếu KHÔNG PHẢI MainMenu
-        if (oldScene != _mainMenuSceneName)
-            yield return UnloadGameScene(oldScene);
+        if (oldSceneName != _mainMenuSceneName && oldSceneName != sceneName)
+            yield return UnloadGameScene(oldSceneName);
 
         yield return AnimTranslate.Instance.HideTransition();
     }
+
 
     private IEnumerator UnloadGameScene(string sceneName)
     {
