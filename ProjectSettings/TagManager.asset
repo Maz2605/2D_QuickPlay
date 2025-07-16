@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: UI
+    uniqueID: 1076788181
+    locked: 0
+  - name: Anim
+    uniqueID: 327885419
+    locked: 0

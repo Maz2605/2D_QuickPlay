@@ -6,6 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/_Scenes/Loading.unity
+    guid: fae27d7ca0cd19749b55b6aa6d22ef1e
+  - enabled: 1
+    path: Assets/_Scenes/UICoreScene.unity
+    guid: aa42280c959eda34589546cf4ccfd1ff
+  - enabled: 1
+    path: Assets/_Scenes/MainMenu.unity
+    guid: 73964feb7d04fb345a11c9433685ce55
+  - enabled: 1
+    path: Assets/_Scenes/FruitMergeGame.unity
+    guid: f9ce676df0c4ba343b364635622bf45d
+  - enabled: 1
+    path: Assets/_Scenes/FlappyJumpGame.unity
+    guid: aec80d0a1800ffd40aee681d9092ce6c
+  - enabled: 1
+    path: Assets/_Scenes/SudokuGame.unity
+    guid: 38e2786d62c0ecb40b3e130f99e48d30
   m_configObjects: {}
