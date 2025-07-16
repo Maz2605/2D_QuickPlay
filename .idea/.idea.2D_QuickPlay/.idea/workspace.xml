@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="18bf9dc0-a631-4852-9f8d-a18d3788e52e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/_Scenes/FruitMergeGame.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scenes/FruitMergeGame.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scenes/MainMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Script/Manager/GameManager/GameLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Script/Manager/GameManager/GameLoader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Script/Manager/UI/UIITest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Script/Manager/UI/UITest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Script/Manager/UI/UIITest.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Script/Manager/UI/UITest.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Script/Manager/UI/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Script/Manager/UI/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scenes/UICoreScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scenes/UICoreScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +29,8 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/f6/f81c2272/String.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Script/Manager/Camera/CameraControl.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Script/Manager/UI/EvenSystemManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventSystem.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -114,6 +112,7 @@
       <workItem from="1751950383903" duration="6849000" />
       <workItem from="1752135488735" duration="864000" />
       <workItem from="1752300753723" duration="2791000" />
+      <workItem from="1752401595377" duration="26329000" />
     </task>
     <servers />
   </component>
