@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ba3a23155deeb6b4690072cc4c7253b3
+guid: 79de5e06d8e50d742b319fa4885351eb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -44,7 +44,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 20
+  spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -123,13 +123,160 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_0
+      name: Fruits_2_0
       rect:
         serializedVersion: 2
         x: 0
+        y: 1638
+        width: 145
+        height: 148
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a955c6e4569994b4296c393b80407b07
+      internalID: -334722803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fruits_2_1
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 1452
+        width: 337
+        height: 334
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9206958133945dc4ab221d420cf8af93
+      internalID: 1497476612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fruits_2_2
+      rect:
+        serializedVersion: 2
+        x: 891
+        y: 1371
+        width: 391
+        height: 415
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fae7b5dca31b094b862419eb8cc6455
+      internalID: 345825901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fruits_2_3
+      rect:
+        serializedVersion: 2
+        x: 1544
+        y: 1338
+        width: 456
+        height: 442
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11b4731ab7f93a24f97ae6d41abef4a2
+      internalID: -725341796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fruits_2_4
+      rect:
+        serializedVersion: 2
+        x: 2253
+        y: 1181
+        width: 543
+        height: 532
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 269ced2890532584c8868367c286832f
+      internalID: -1355114957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fruits_2_5
+      rect:
+        serializedVersion: 2
+        x: 3060
+        y: 950
+        width: 741
+        height: 830
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e575dd0459532a545b66fb77e9105557
+      internalID: 64895876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fruits_2_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1358
+        width: 181
+        height: 207
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5492742ab50e6354caa81aceeacc1f59
+      internalID: -1863974520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fruits_2_7
+      rect:
+        serializedVersion: 2
+        x: 6
         y: 0
-        width: 1118
-        height: 1118
+        width: 1113
+        height: 1116
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +284,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec0f9e78fd98b1543b51f1fe8cd3b08a
-      internalID: -1099394138
+      spriteID: 05071806bdccc274b861410de70f683e
+      internalID: 1230402826
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_1
+      name: Fruits_2_8
       rect:
         serializedVersion: 2
-        x: 154
-        y: 1457
-        width: 322
-        height: 319
+        x: 1129
+        y: 1
+        width: 974
+        height: 1078
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,20 +305,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 51ce9cff4826a0544a9496cc449b4865
-      internalID: 79359093
+      spriteID: 38799e52561e9df4eba71e4db0e78b3a
+      internalID: 134622879
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_2
+      name: Fruits_2_9
       rect:
         serializedVersion: 2
-        x: 967
-        y: 612
-        width: 1058
-        height: 1427
+        x: 2842
+        y: 195
+        width: 621
+        height: 618
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,20 +326,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48400de1e8a9c4e4796b8b0749ca13e2
-      internalID: 1350809909
+      spriteID: fd8ea6c26e6f0f845b447909aed99868
+      internalID: -47682466
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_3
+      name: Fruits_2_10
       rect:
         serializedVersion: 2
-        x: 2391
-        y: 719
-        width: 988
-        height: 1329
+        x: 3484
+        y: 293
+        width: 393
+        height: 420
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,146 +347,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3740ec29951c2404db8b498bfb74c885
-      internalID: -30384464
+      spriteID: b1a8731e33a44be4fb0dd5a980a6483a
+      internalID: -578518033
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_4
+      name: Fruits_2_11
       rect:
         serializedVersion: 2
-        x: 2384
-        y: 1028
-        width: 6
-        height: 4
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 97c981e277930264ba9e89b221178dc3
-      internalID: -847033697
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_5
-      rect:
-        serializedVersion: 2
-        x: 3453
-        y: 419
-        width: 643
-        height: 862
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ef53c820c11972744bdd936d3b42d3c6
-      internalID: 553552125
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_6
-      rect:
-        serializedVersion: 2
-        x: 1031
-        y: 0
-        width: 412
-        height: 425
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9d6895a44cba2c6459fd740e7b5668e7
-      internalID: -1739739185
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_7
-      rect:
-        serializedVersion: 2
-        x: 1351
-        y: 351
-        width: 158
-        height: 150
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e42a492b6efac764ba26554df97860a7
-      internalID: 482775584
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_8
-      rect:
-        serializedVersion: 2
-        x: 1603
-        y: 0
-        width: 1478
-        height: 839
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0a9b477819899d24e9e6673bbc262e43
-      internalID: 617176012
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_9
-      rect:
-        serializedVersion: 2
-        x: 3063
-        y: 0
-        width: 562
-        height: 543
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c60ad3516ac604f409be71f00e84ee39
-      internalID: 1174102906
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_10
-      rect:
-        serializedVersion: 2
-        x: 395
-        y: 1123
-        width: 261
-        height: 297
+        x: 2106
+        y: 144
+        width: 713
+        height: 720
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -347,8 +368,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6372a69584044734087f1fa2f87608c2
-      internalID: 417372777
+      spriteID: 0983123856d40db4f84bc5756ea7f8d9
+      internalID: 739863616
       vertices: []
       indices: 
       edges: []
@@ -364,17 +385,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_0: -1099394138
-      sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_1: 79359093
-      sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_10: 417372777
-      sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_2: 1350809909
-      sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_3: -30384464
-      sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_4: -847033697
-      sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_5: 553552125
-      sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_6: -1739739185
-      sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_7: 482775584
-      sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_8: 617176012
-      sactx-0-4096x2048-ETC2-95_WATERMELON_Atlas-5fda3118_9: 1174102906
+      Fruits_2_0: -334722803
+      Fruits_2_1: 1497476612
+      Fruits_2_10: -578518033
+      Fruits_2_11: 739863616
+      Fruits_2_2: 345825901
+      Fruits_2_3: -725341796
+      Fruits_2_4: -1355114957
+      Fruits_2_5: 64895876
+      Fruits_2_6: -1863974520
+      Fruits_2_7: 1230402826
+      Fruits_2_8: 134622879
+      Fruits_2_9: -47682466
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
