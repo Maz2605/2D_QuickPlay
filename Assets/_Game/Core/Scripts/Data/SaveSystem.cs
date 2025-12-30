@@ -1,0 +1,77 @@
+using System;
+using System.IO;
+using System.Text;
+using Newtonsoft.Json;
+using UnityEngine;
+
+namespace _Game.Core.Scripts.Data
+{
+    public class SaveSystem
+    {
+        private static bool USE_ENCRYPTION = true;
+
+        public static void Save<T>(string gameId, T data)
+        {
+            try
+            {
+                string filePath = GetPath(gameId);
+                string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+                
+                if(USE_ENCRYPTION) json = Encrypt(json);
+
+                string tempPath = filePath + ".tmp";
+                File.WriteAllText(tempPath, json);
+                
+                if(File.Exists(filePath))
+                    File.Delete(filePath);
+                
+                File.Move(tempPath, filePath);
+                
+                Debug.Log($"[Save System] Saved: {gameId}");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[SaveSystem] Save ERROR: {e.Message}");
+            }
+        }
+        
+        public static T Load<T>(string gameId) where T : new()
+        {
+            string filePath = GetPath(gameId);
+            if (!File.Exists(filePath)) return new T(); 
+
+            try
+            {
+                string json = File.ReadAllText(filePath);
+                if (USE_ENCRYPTION) json = Decrypt(json);
+                return JsonConvert.DeserializeObject<T>(json);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[SaveSystem] Load Error: {e.Message}");
+                return new T(); 
+            }
+        }
+        
+        //Helpers
+
+        private static string GetPath(string gameId)
+        {
+            return Path.Combine(Application.persistentDataPath,$"{gameId}.json");
+        }
+
+        private static string Encrypt(string data)
+        {
+            var bytes = Encoding.UTF8.GetBytes(data);
+            return Convert.ToBase64String(bytes);
+        }
+
+        private static string Decrypt(string data)
+        {
+            var bytes = Convert.FromBase64String(data);
+            return Encoding.UTF8.GetString(bytes);
+        }
+        
+        
+    }
+}
