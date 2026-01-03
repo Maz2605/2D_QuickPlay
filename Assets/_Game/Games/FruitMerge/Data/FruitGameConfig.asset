@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8145f267db22714da3a245a1e1bcc95, type: 3}
+  m_Name: FruitGameConfig
+  m_EditorClassIdentifier: 
+  gameID: fruit_merge
+  spawnCooldown: 0.5
+  rescueRate: 0.8
+  fruits:
+  - name: Fruit_1
+    visual: {fileID: -1863974520, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
+    scoreValue: 200
+    physicRadius: 0.19
+    mass: 0
+    scale: 1
+    isSpawnable: 1
+    spawnWeight: 20
+  - name: Fruit_2
+    visual: {fileID: 1497476612, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
+    scoreValue: 400
+    physicRadius: 0.3
+    mass: 0
+    scale: 1
+    isSpawnable: 1
+    spawnWeight: 15
+  - name: Fruit_3
+    visual: {fileID: 345825901, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
+    scoreValue: 0
+    physicRadius: 0.38
+    mass: 0
+    scale: 1
+    isSpawnable: 1
+    spawnWeight: 10
+  - name: Fruit_4
+    visual: {fileID: -725341796, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
+    scoreValue: 0
+    physicRadius: 0.43
+    mass: 0
+    scale: 1
+    isSpawnable: 1
+    spawnWeight: 5
+  - name: Fruit_5
+    visual: {fileID: -47682466, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
+    scoreValue: 0
+    physicRadius: 0.58
+    mass: 0
+    scale: 1
+    isSpawnable: 1
+    spawnWeight: 0
+  - name: Fruit_6
+    visual: {fileID: 64895876, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
+    scoreValue: 0
+    physicRadius: 0.7
+    mass: 0
+    scale: 0
+    isSpawnable: 1
+    spawnWeight: 0

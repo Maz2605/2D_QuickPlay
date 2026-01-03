@@ -5,12 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="18bf9dc0-a631-4852-9f8d-a18d3788e52e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/Input/InputManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.2D_QuickPlay/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.2D_QuickPlay/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/FruitMergeGame.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/App/Scenes/FruitMergeGame.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/Input/GameInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/Input/GameInput.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/Input/GameInputHandler.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/Input/GameInputHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/Input/InputManager.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/Manager/BaseScoreManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/Manager/BaseScoreManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Controller/FruitGameEntryPoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Controller/FruitGameEntryPoint.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Controller/FruitSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Controller/FruitSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/View/FruitUnit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/View/FruitUnit.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +64,7 @@
   &quot;keyToString&quot;: {
     &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/game-manager&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -145,6 +149,8 @@
       <workItem from="1767164893245" duration="72000" />
       <workItem from="1767164981209" duration="16195000" />
       <workItem from="1767253295212" duration="7397000" />
+      <workItem from="1767271904677" duration="6512000" />
+      <workItem from="1767373694374" duration="3177000" />
     </task>
     <servers />
   </component>

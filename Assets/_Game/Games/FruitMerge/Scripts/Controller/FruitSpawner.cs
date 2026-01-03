@@ -13,7 +13,8 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
 {
     public class FruitSpawner : MonoBehaviour
     {
-        [Header("Settings")] [SerializeField] private float moveSpeed = 5f;
+        [Header("Settings")] 
+        // [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float xLimit = 2.5f;
         [SerializeField] private Transform dropPoint;
         [SerializeField] private SpriteRenderer currentRenderer;

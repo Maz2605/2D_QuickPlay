@@ -43,7 +43,8 @@ namespace _Game.Games.FruitMerge.Scripts.View
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if(!IsMerge) return;
+            Debug.Log($"Va chạm với: {other.gameObject.name} - Tag: {other.gameObject.tag}");
+            if(IsMerge) return;
 
             if (other.gameObject.CompareTag("Fruits"))
             {

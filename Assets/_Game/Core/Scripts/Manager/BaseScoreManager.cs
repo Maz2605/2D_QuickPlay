@@ -1,5 +1,6 @@
 using System;
 using _Game.Core.Scripts.Data;
+using UnityEngine;
 
 namespace _Game.Core.Scripts.Manager
 {
@@ -17,16 +18,29 @@ namespace _Game.Core.Scripts.Manager
         protected BaseScoreManager(string gameID)
         {
             GameID = gameID;
-            
+            LoadData();
+            NotifyUI();
         }
 
         private void LoadData()
         {
-            UserData = SaveSystem.Load<T>(GameID);
+            try
+            {
+                UserData = SaveSystem.Load<T>(GameID);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Lỗi load save: {e.Message}. Tạo data mới.");
+            }
 
-            if (UserData == null) UserData = new T();
+            if (UserData == null)
+            {
+                UserData = new T();
+                Debug.LogWarning("UserData bị null, đã tạo mới!");
+            }
 
             CurrentScore = 0;
+            NotifyUI();
         }
 
         public virtual void AddScore(int amount)
@@ -37,8 +51,9 @@ namespace _Game.Core.Scripts.Manager
             if (CurrentScore > UserData.HighScore)
             {
                 UserData.HighScore = CurrentScore;
-                OnHighScoreChanged?.Invoke(UserData.HighScore);
             }
+
+            NotifyUI();
         }
 
         public void Save() => SaveSystem.Save(GameID, UserData);

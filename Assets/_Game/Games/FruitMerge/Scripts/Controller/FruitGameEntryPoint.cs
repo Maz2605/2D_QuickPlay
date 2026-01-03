@@ -23,18 +23,18 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
             _scoreManager = new FruitScoreManager(config.gameID);
             _scoreManager.OnHighScoreChanged += (s) => Debug.Log($"Highscore: {s}");
             
-            // spawner.Initialize(config, );
+            spawner.Initialize(config,OnSpawnRequest );
         }
 
         private void OnDestroy() => _scoreManager?.Save();
         
-        // private void OnSpawnRequest(int level, Vector3 position) => Sp
+        private void OnSpawnRequest(int level, Vector3 position) => SpawnFruitsInternal(level, position);
 
         private void SpawnFruitsInternal(int level, Vector3 position)
         {
-            GameObject gameObject =
+            GameObject fruitSpawn =
                 PoolingManager.Instance.Spawn(fruitPrefab, position, Quaternion.identity, fruitContainer);
-            FruitUnit fruit = gameObject.GetComponent<FruitUnit>();
+            FruitUnit fruit = fruitSpawn.GetComponent<FruitUnit>();
             
             fruit.Initialize(level, config.GetInfo(level));
             fruit.OnCollisionWithFruit += HandleCollision;
@@ -42,6 +42,7 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
 
         private void HandleCollision(FruitUnit fruitA, Collision2D collision2D)
         {
+            Debug.Log("EntryPoint nhận tín hiệu Merge!");
             FruitUnit fruitB = collision2D.gameObject.GetComponent<FruitUnit>();
             if(fruitB == null) return;
             
