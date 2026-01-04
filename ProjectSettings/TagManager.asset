@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fruits
   - Enviroment
+  - Effect
   layers:
   - Default
   - TransparentFX
@@ -49,6 +50,9 @@ TagManager:
   - name: UI
     uniqueID: 1076788181
     locked: 0
-  - name: Anim
+  - name: Effect
     uniqueID: 327885419
+    locked: 0
+  - name: Transition
+    uniqueID: 1985541599
     locked: 0

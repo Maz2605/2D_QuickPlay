@@ -261,6 +261,7 @@ MonoBehaviour:
   spawner: {fileID: 1646371285}
   fruitPrefab: {fileID: 8589439480779217831, guid: 5473cf3f8f342964083444585e8115ee, type: 3}
   fruitContainer: {fileID: 133600774}
+  mergeEffectPrefab: {fileID: 8698734370467462918, guid: 7115fc2ab2bb01e4bbf15b04f87314cc, type: 3}
 --- !u!4 &342508305
 Transform:
   m_ObjectHideFlags: 0
@@ -270,7 +271,7 @@ Transform:
   m_GameObject: {fileID: 342508303}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.72105074, y: 0.10856708, z: 0.04302474}
+  m_LocalPosition: {x: 1, y: 1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -478,6 +479,8 @@ MonoBehaviour:
   - {fileID: 1113658798}
   - {fileID: 1277926049}
   - {fileID: 764120077}
+  punchStrength: 0.3
+  duration: 0.2
 --- !u!114 &490067434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1192,50 +1195,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1113658796}
   m_CullTransparentMesh: 1
---- !u!1 &1260117360
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1260117363}
-  - component: {fileID: 1260117362}
-  m_Layer: 0
-  m_Name: Core
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1260117362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1260117360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9838bad9cf8292349a0eced7a565ffa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1260117363
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1260117360}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6810748, y: 0.042212427, z: 0.040468432}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1277926047
 GameObject:
   m_ObjectHideFlags: 0
@@ -1504,6 +1463,37 @@ Transform:
   - {fileID: 1584972458}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1506171299
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1506171300}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1506171300
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506171299}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1646371286}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1584972457
 GameObject:
   m_ObjectHideFlags: 0
@@ -1529,7 +1519,7 @@ Transform:
   m_GameObject: {fileID: 1584972457}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.2, z: 0}
+  m_LocalPosition: {x: 0.2, y: 3.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1565,16 +1555,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2842b1ee5d034f098e22e489671d82c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xLimit: 2.5
-  dropPoint: {fileID: 1646371286}
+  xLimit: 2.1
+  dropPoint: {fileID: 1506171300}
   currentRenderer: {fileID: 1814595993}
   nextFruitPanel: {fileID: 490067433}
-  dangerLine: {fileID: 1584972458}
-  dangerCheckHeight: 2
-  dangerCheckWidth: 6
+  dragScaleFactor: 1.2
+  animDuration: 0.5
+  aimLine: {fileID: 1646371287}
   fruitLayer:
     serializedVersion: 2
     m_Bits: 64
+  dangerLine: {fileID: 1584972458}
+  dangerCheckHeight: 2
+  dangerCheckWidth: 6
 --- !u!4 &1646371286
 Transform:
   m_ObjectHideFlags: 0
@@ -1584,11 +1577,12 @@ Transform:
   m_GameObject: {fileID: 1646371284}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1814595992}
+  - {fileID: 1506171300}
   m_Father: {fileID: 342508305}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &1646371287
@@ -1926,4 +1920,3 @@ SceneRoots:
   - {fileID: 859162149}
   - {fileID: 342508305}
   - {fileID: 133600774}
-  - {fileID: 1260117363}

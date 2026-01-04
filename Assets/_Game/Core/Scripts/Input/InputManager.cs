@@ -10,6 +10,7 @@ namespace _Game.Core.Scripts.Input
     {
         public event Action<Vector2> OnTouchMove;
         public event Action<Vector2> OnTouchEnd;
+        public event Action<Vector2> OnTouchStart; 
         
         private GameInput _inputActions; 
         private Camera _mainCamera;
@@ -25,23 +26,25 @@ namespace _Game.Core.Scripts.Input
         private void OnEnable()
         {
             _inputActions.Enable();
-            _inputActions.Touch.TouchContact.started += OnTouchStart;
+            _inputActions.Touch.TouchContact.started += OnTouchPress;
             _inputActions.Touch.TouchContact.canceled += OnTouchCancel;
             _inputActions.Touch.TouchPosition.performed += OnTouchPosition;
         }
 
         public override void OnDisable()
         {
-            _inputActions.Touch.TouchContact.started -= OnTouchStart;
+            _inputActions.Touch.TouchContact.started -= OnTouchPress;
             _inputActions.Touch.TouchContact.canceled -= OnTouchCancel;
             _inputActions.Touch.TouchPosition.performed -= OnTouchPosition;
             _inputActions.Disable();
         }
 
-        private void OnTouchStart(InputAction.CallbackContext ctx)
+        private void OnTouchPress(InputAction.CallbackContext ctx)
         {
             if (IsPointerOverUI()) return; // Chặn UI
             _isDragging = true;
+
+            OnTouchStart?.Invoke(_inputActions.Touch.TouchPosition.ReadValue<Vector2>());
         }
 
         private void OnTouchCancel(InputAction.CallbackContext ctx)

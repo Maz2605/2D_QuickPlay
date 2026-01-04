@@ -16,51 +16,83 @@ MonoBehaviour:
   spawnCooldown: 0.5
   rescueRate: 0.8
   fruits:
-  - name: Fruit_1
+  - name: Blueberry
+    visual: {fileID: -334722803, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
+    scoreValue: 0
+    physicRadius: 0.13
+    mass: 0.5
+    scale: 1
+    isSpawnable: 0
+    spawnWeight: 40
+  - name: Strawberry
     visual: {fileID: -1863974520, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
-    scoreValue: 200
-    physicRadius: 0.19
-    mass: 0
+    scoreValue: 2
+    physicRadius: 0.17
+    mass: 0.8
     scale: 1
-    isSpawnable: 1
+    isSpawnable: 0
     spawnWeight: 20
-  - name: Fruit_2
+  - name: Raspberry
     visual: {fileID: 1497476612, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
-    scoreValue: 400
-    physicRadius: 0.3
-    mass: 0
+    scoreValue: 4
+    physicRadius: 0.29
+    mass: 1
     scale: 1
-    isSpawnable: 1
+    isSpawnable: 0
     spawnWeight: 15
-  - name: Fruit_3
-    visual: {fileID: 345825901, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
-    scoreValue: 0
+  - name: Peach
+    visual: {fileID: -578518033, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
+    scoreValue: 8
     physicRadius: 0.38
-    mass: 0
+    mass: 1.2
     scale: 1
-    isSpawnable: 1
+    isSpawnable: 0
     spawnWeight: 10
-  - name: Fruit_4
+  - name: Lemon
     visual: {fileID: -725341796, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
-    scoreValue: 0
-    physicRadius: 0.43
-    mass: 0
+    scoreValue: 16
+    physicRadius: 0.42
+    mass: 1.8
     scale: 1
-    isSpawnable: 1
+    isSpawnable: 0
     spawnWeight: 5
-  - name: Fruit_5
+  - name: Plum
+    visual: {fileID: -1355114957, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
+    scoreValue: 32
+    physicRadius: 0.51
+    mass: 2.4
+    scale: 1
+    isSpawnable: 0
+    spawnWeight: 0
+  - name: Orange
     visual: {fileID: -47682466, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
-    scoreValue: 0
-    physicRadius: 0.58
-    mass: 0
+    scoreValue: 64
+    physicRadius: 0.6
+    mass: 2.8
+    scale: 1
+    isSpawnable: 0
+    spawnWeight: 0
+  - name: Pineapple
+    visual: {fileID: 64895876, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
+    scoreValue: 128
+    physicRadius: 0.72
+    mass: 2.8
+    scale: 1
+    isSpawnable: 0
+    spawnWeight: 0
+  - name: Cantaloupe
+    visual: {fileID: 134622879, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
+    scoreValue: 256
+    physicRadius: 1
+    mass: 2.5
     scale: 1
     isSpawnable: 1
     spawnWeight: 0
-  - name: Fruit_6
-    visual: {fileID: 64895876, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
-    scoreValue: 0
-    physicRadius: 0.7
-    mass: 0
-    scale: 0
+  - name: WaterMelon
+    visual: {fileID: 1230402826, guid: 79de5e06d8e50d742b319fa4885351eb, type: 3}
+    scoreValue: 512
+    physicRadius: 1.01
+    mass: 2.8
+    scale: 1
     isSpawnable: 1
     spawnWeight: 0
