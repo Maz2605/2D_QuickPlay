@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8145f267db22714da3a245a1e1bcc95, type: 3}
-  m_Name: FruitGameConfig
+  m_Name: FM_GameConfig
   m_EditorClassIdentifier: 
   gameID: fruit_merge
   spawnCooldown: 0.5

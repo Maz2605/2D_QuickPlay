@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16c824baa0134eee8bebbdd74e9528aa, type: 3}
+  m_Name: FM_AudioConfig
+  m_EditorClassIdentifier: 
+  backgroundMusic: {fileID: 8300000, guid: eb030126b7c45c74e8a4ace28ac52f28, type: 3}
+  dropSound: {fileID: 8300000, guid: 02701c9c84f074d489454956b1ed0cd4, type: 3}
+  mergeSound: {fileID: 8300000, guid: 3c1c49c6157e97f4ebb2804d15b7bbd7, type: 3}
+  bigMergeSound: {fileID: 8300000, guid: adedc9046eddc5943a07ec2ebd0f3f44, type: 3}
+  comboSound: {fileID: 8300000, guid: e667c028a45869e47a91f13021dcbd16, type: 3}
+  pitchVariation: 0.1

@@ -18,6 +18,11 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
         [SerializeField] private GameObject fruitPrefab;
         [SerializeField] private Transform fruitContainer;
         [SerializeField] private GameObject mergeEffectPrefab;
+        
+        [Header("Audio")]
+        [SerializeField] private FruitAudioController fruitAudioController;
+        
+        public event Action<int> OnFruitMerged;
 
         private FruitScoreManager _scoreManager;
 
@@ -27,6 +32,8 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
             _scoreManager.OnScoreChanged += (s) => Debug.Log($"Current Score: {s}");
             _scoreManager.OnHighScoreChanged += (s) => Debug.Log($"Highest core: {s}");
             spawner.Initialize(config,OnSpawnRequest );
+            
+            if(fruitAudioController != null) fruitAudioController.Initialize(this);
         }
 
         private void OnDestroy() => _scoreManager?.Save();
@@ -90,6 +97,8 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
 
                 int nextLevel = fruitA.Level + 1;
                 _scoreManager.AddScore(config.GetInfo(nextLevel).scoreValue);
+                
+                OnFruitMerged?.Invoke(nextLevel);
 
                 Despawn(fruitA);
                 Despawn(fruitB);
