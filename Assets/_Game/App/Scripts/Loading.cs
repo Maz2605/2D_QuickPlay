@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Game.Core.Scripts.SceneFlow;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -47,6 +48,6 @@ public class Loading : MonoBehaviour
             });
         yield return new WaitForSeconds(loadingDuration);
         yield return new WaitForSeconds(0.5f);
-        GameLoader.Instance.BackToMainMenu();
+        SceneLoader.Instance.LoadScene("MainMenu");
     }
 }
