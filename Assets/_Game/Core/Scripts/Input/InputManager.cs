@@ -19,6 +19,7 @@ namespace _Game.Core.Scripts.Input
         protected override void Awake()
         {
             base.Awake();
+            KeepAlive(true);
             _inputActions = new GameInput();
             _mainCamera = Camera.main;
         }

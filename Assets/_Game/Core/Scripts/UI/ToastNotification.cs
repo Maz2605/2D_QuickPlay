@@ -1,3 +1,5 @@
+using _Game.Core.Scripts.Audio;
+using _Game.Core.Scripts.Data;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -10,7 +12,9 @@ namespace _Game.Core.Scripts.UI
         [SerializeField] private TextMeshProUGUI messageText;
         [SerializeField] private RectTransform bgRectTransform;
 
-        public void Show(string message)
+        [SerializeField]
+        private UIAudioConfigSO config;
+        public void Show(string message, UISoundType soundType = UISoundType.ToastInfo)
         {
             messageText.text = message;
             gameObject.SetActive(true);
@@ -31,6 +35,17 @@ namespace _Game.Core.Scripts.UI
             sequence.Join(bgRectTransform.DOMoveY(bgRectTransform.position.y + 100f, 0.3f));
             
             sequence.OnComplete(() => gameObject.SetActive(false));
+            PlaySound(soundType);
+        }
+
+        private void PlaySound(UISoundType soundType)
+        {
+            if(AudioManager.Instance == null || config == null) return;
+            
+            AudioClip clip = config.GetClip(soundType);
+            if(clip == null) return;
+            
+            AudioManager.Instance.PlaySfx(clip, config.uiVolume);
         }
     }
 }

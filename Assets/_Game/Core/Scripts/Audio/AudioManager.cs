@@ -4,9 +4,8 @@ using _Game.Core.Scripts.Data;
 using _Script.DesignPattern.Singleton;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Audio;
 
-namespace _Game.Core.Scripts.Manager
+namespace _Game.Core.Scripts.Audio
 {
     public class AudioManager : Singleton<AudioManager>
     {
