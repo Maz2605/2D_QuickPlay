@@ -1,8 +1,8 @@
-     using System.Collections.Generic;
-    using _Script.DesignPattern.Singleton;
-    using UnityEngine;
+using System.Collections.Generic;
+using _Game.Core.Scripts.Utils.DesignPattern.Singleton;
+using UnityEngine;
 
-    namespace _Script.DesignPattern.ObjectPooling
+namespace _Game.Core.Scripts.Utils.DesignPattern.ObjectPooling
     {
         public class PoolingManager : Singleton<PoolingManager>
         {

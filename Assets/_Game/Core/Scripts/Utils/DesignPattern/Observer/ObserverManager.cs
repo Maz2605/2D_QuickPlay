@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Script.DesignPattern.ObsServer
+namespace _Game.Core.Scripts.Utils.DesignPattern.Observer
 {
     public static class ObserverManager<T> where T : Enum
     {

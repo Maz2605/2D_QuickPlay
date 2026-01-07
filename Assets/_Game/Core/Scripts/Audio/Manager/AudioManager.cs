@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using _Game.Core.Scripts.Data;
-using _Script.DesignPattern.Singleton;
+using _Game.Core.Scripts.Utils.DesignPattern.Singleton; // Giữ nguyên Singleton của bạn
 using DG.Tweening;
 using UnityEngine;
 
@@ -14,29 +13,16 @@ namespace _Game.Core.Scripts.Audio
         [SerializeField] private AudioSource sfxSourcePrefab;
         [SerializeField] private int sfxPoolSize = 15;
         
-        //Data Runtime
-        private GlobalUserSetting _setting;
-        private const string SETTING_FILE_NAME = "globalSettings";
+        private float _masterVolume = 1f;
+        private float _musicVolume = 1f;
+        private float _sfxVolume = 1f;
+
         private Queue<AudioSource> _sfxPool;
-        
-        //Public Properties (Read_Only)
-        public float MasterVolume => _setting.masterVolume;
-        public float MusicVolume => _setting.musicVolume;
-        public float SfxVolume => _setting.sfxVolume;
 
         protected override void Awake()
         {
             base.Awake();
-            LoadSettings();
             InitializePool();
-        }
-
-        private void LoadSettings()
-        {
-            _setting = SaveSystem.Load<GlobalUserSetting>(SETTING_FILE_NAME);
-            if(_setting == null)
-                _setting = new GlobalUserSetting();
-            
         }
 
         private void InitializePool()
@@ -53,45 +39,44 @@ namespace _Game.Core.Scripts.Audio
             }
         }
         
-        //===Public API Setting===
+        //===Public API ===
         
         private void UpdateMusicVolume()
         {
-            if (musicSource != null) musicSource.volume = MusicVolume * MasterVolume;
+            if (musicSource != null) 
+                musicSource.volume = _musicVolume * _masterVolume;
         }
 
         public void SetMasterVolume(float volume)
         {
-            _setting.masterVolume = Mathf.Clamp01(volume);
+            _masterVolume = Mathf.Clamp01(volume);
             UpdateMusicVolume();
-            SaveSystem.Save(SETTING_FILE_NAME, _setting);
         }
 
         public void SetMusicVolume(float volume)
         {
-            _setting.musicVolume = Mathf.Clamp01(volume);
+            _musicVolume = Mathf.Clamp01(volume);
             UpdateMusicVolume();
-            SaveSystem.Save(SETTING_FILE_NAME, _setting);
         }
 
         public void SetSfxVolume(float volume)
         {
-            _setting.sfxVolume = Mathf.Clamp01(volume);
-            SaveSystem.Save(SETTING_FILE_NAME, _setting);
+            _sfxVolume = Mathf.Clamp01(volume);
         }
         
-        //===Playback Logic===
-        public void PlayMusic(AudioClip clip, bool loop = false, float fadeTime = 0.5f)
+        public void PlayMusic(AudioClip clip, bool loop = true, float fadeTime = 0.5f)
         {
             if(clip == null) return;
             if(musicSource.clip == clip) return;
+
+            float targetVol = _musicVolume * _masterVolume;
 
             musicSource.DOFade(0, fadeTime / 2).OnComplete(() =>
             {
                 musicSource.clip = clip;
                 musicSource.loop = loop;
                 musicSource.Play();
-                musicSource.DOFade(MusicVolume * MasterVolume, fadeTime / 2);
+                musicSource.DOFade(targetVol, fadeTime / 2);
             });
         }
         
@@ -101,7 +86,8 @@ namespace _Game.Core.Scripts.Audio
 
             AudioSource source = GetSfxSource();
             source.clip = clip;
-            source.volume = SfxVolume * MasterVolume * volScale;
+            
+            source.volume = _sfxVolume * _masterVolume * volScale;
             
             if (pitchVar > 0) source.pitch = 1f + Random.Range(-pitchVar, pitchVar);
             else source.pitch = 1f;
@@ -113,11 +99,11 @@ namespace _Game.Core.Scripts.Audio
         }
         
         public void StopMusic() => musicSource.Stop();
-        //===Pool Helper==
+        
+        //===Pool Helper (Giữ nguyên)===
         private AudioSource GetSfxSource()
         {
             if (_sfxPool.Count == 0) return Instantiate(sfxSourcePrefab, transform);
-
             return _sfxPool.Dequeue();
         }
 

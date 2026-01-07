@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using _Script.DesignPattern.ObjectPooling;
+using _Game.Core.Scripts.Utils.DesignPattern.ObjectPooling;
 using UnityEngine;
 
 namespace _Game.Core.Scripts.Utils

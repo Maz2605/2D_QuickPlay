@@ -6,12 +6,10 @@ using UnityEngine.Events;
 namespace _Game.Core.Scripts.UI
 {
     [RequireComponent(typeof(CanvasGroup))]
-    public class BasePopup : MonoBehaviour
+    public abstract class BasePopup : MonoBehaviour
     {
-        [Header("Base Settings")] [SerializeField]
-        protected CanvasGroup canvasGroup;
-
-        [SerializeField] protected Transform content;
+        [Header("Base Settings")] 
+        [SerializeField] protected CanvasGroup canvasGroup;
         [SerializeField] protected float animDuration = 0.2f;
 
         public UnityEvent OnOpen;
@@ -27,28 +25,25 @@ namespace _Game.Core.Scripts.UI
             gameObject.SetActive(true);
             OnOpen?.Invoke();
 
-            canvasGroup.alpha = 0f;
-            content.localScale = Vector3.one;
-
             canvasGroup.DOKill();
-            content.DOKill();
-
+            canvasGroup.alpha = 0f;
             canvasGroup.DOFade(1f, animDuration).SetUpdate(true);
-            content.DOScale(1f, animDuration).SetEase(Ease.OutBack).SetUpdate(true);
+            
+            PlayShowAnimation();
         }
 
         public virtual void Hide()
         {
             canvasGroup.DOKill();
-            content.DOKill();
-
-            canvasGroup.DOFade(0f, animDuration).SetUpdate(true);
-            content.DOScale(1f, animDuration).SetEase(Ease.InBack).SetUpdate(true)
-                .OnComplete(() =>
-                {
-                    gameObject.SetActive(false);
-                    OnClose?.Invoke();
-                });
+            
+            PlayHideAnimation(() => 
+            {
+                gameObject.SetActive(false);
+                OnClose?.Invoke();
+            });
         }
+
+        protected abstract void PlayShowAnimation();
+        protected abstract void PlayHideAnimation(Action onComplete);
     }
 }

@@ -1,6 +1,6 @@
 using System.Collections;
 using _Game.Core.Scripts.UI;
-using _Script.DesignPattern.Singleton;
+using _Game.Core.Scripts.Utils.DesignPattern.Singleton;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,7 +15,7 @@ namespace _Game.Core.Scripts.SceneFlow
 
         private IEnumerator LoadSceneRoutine(string sceneName)
         {
-            UIManager.Instance.ToggleLoadingScreen(true);
+            // UIManager.Instance.ToggleLoadingScreen(true);
 
             yield return new WaitForSecondsRealtime(0.5f);
 
@@ -34,7 +34,7 @@ namespace _Game.Core.Scripts.SceneFlow
             }
 
             yield return new WaitForSecondsRealtime(0.5f);
-            UIManager.Instance.ToggleLoadingScreen(false);
+            // UIManager.Instance.ToggleLoadingScreen(false);
             
             Time.timeScale = 1f; 
         }

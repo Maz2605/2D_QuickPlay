@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Script.DesignPattern.ObjectPooling
+namespace _Game.Core.Scripts.Utils.DesignPattern.ObjectPooling
 {
     public class Pool
     {

@@ -1,5 +1,5 @@
 using System;
-using _Script.DesignPattern.Singleton;
+using _Game.Core.Scripts.Utils.DesignPattern.Singleton;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;

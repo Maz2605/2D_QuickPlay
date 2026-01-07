@@ -1,7 +1,7 @@
     using System;
-using _Game.Games.FruitMerge.Scripts.Config;
+    using _Game.Core.Scripts.Utils.DesignPattern.ObjectPooling;
+    using _Game.Games.FruitMerge.Scripts.Config;
 using _Game.Games.FruitMerge.Scripts.View;
-using _Script.DesignPattern.ObjectPooling;
 using DG.Tweening;
 using Unity.Mathematics;
 using UnityEngine;
