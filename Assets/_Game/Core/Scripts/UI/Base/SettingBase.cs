@@ -29,8 +29,8 @@ namespace _Game.Core.Scripts.UI
 
         public override void Show()
         {
-            InitData(); 
             base.Show(); 
+            InitData(); 
         }
 
         private void InitData()
@@ -51,15 +51,15 @@ namespace _Game.Core.Scripts.UI
 
             if (sfxToggle)
             {
+                sfxToggle.onValueChanged.RemoveAllListeners();
                 sfxToggle.ForceSetState(settings.isSfxEnabled);
-                sfxToggle.OnValueChanged.RemoveAllListeners();
-                sfxToggle.OnValueChanged.AddListener(SettingsManager.Instance.SetSfxState);
+                sfxToggle.onValueChanged.AddListener(SettingsManager.Instance.SetSfxState);
             }
             if (vibrationToggle)
             {
+                vibrationToggle.onValueChanged.RemoveAllListeners();
                 vibrationToggle.ForceSetState(settings.isVibrationEnabled);
-                vibrationToggle.OnValueChanged.RemoveAllListeners();
-                vibrationToggle.OnValueChanged.AddListener(SettingsManager.Instance.SetVibrationState);
+                vibrationToggle.onValueChanged.AddListener(SettingsManager.Instance.SetVibrationState);
             }
         }
 

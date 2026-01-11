@@ -104,6 +104,23 @@ namespace _Game.Core.Scripts.Test
         {
             Debug.Log(">>> May quá chưa xóa!");
         }
+        
+        [ContextMenu("Test Open Settings")]
+        public void Test_OpenSettings()
+        {
+            Debug.Log("Đang mở Settings...");
+            UIManager.Instance.OpenSettings();
+        }
+
+        // Cách 2: Test giả lập thay đổi dữ liệu từ bên ngoài (nếu cần)
+        // Để xem khi bật lại Settings, thanh Slider có cập nhật đúng vị trí không
+        [ContextMenu("Test Change Volume Logic")]
+        public void Test_ChangeVolumeExternally()
+        {
+            // Giả sử bạn có SettingsManager
+            // SettingsManager.Instance.SetMusicVolume(0.5f);
+            Debug.Log("Đã chỉnh Volume về 0.5 (Test logic save)");
+        }
     }
     
 }
