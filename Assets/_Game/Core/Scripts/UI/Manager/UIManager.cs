@@ -68,7 +68,7 @@ namespace _Game.Core.Scripts.UI.Manager
         }
 
         // CONFIRMATION SYSTEM
-        public void ShowConfirmation(string title, string message, Action onConfirm, Action onCancel = null)
+        public void ShowConfirmation(string title, string message, Action onConfirm, Action onCancel, string confirmLabel = null, string cancelLabel = null)
         {
             if (_confirmInstance == null)
             {
@@ -76,7 +76,7 @@ namespace _Game.Core.Scripts.UI.Manager
                 _confirmInstance = Instantiate(confirmationPrefab, globalCanvasRoot);
             }
 
-            // _confirmInstance.Setup(title, message, onConfirm, onCancel);
+            _confirmInstance.Setup(title, message, onConfirm, onCancel, confirmLabel, cancelLabel);
             _confirmInstance.Show();
         }
 

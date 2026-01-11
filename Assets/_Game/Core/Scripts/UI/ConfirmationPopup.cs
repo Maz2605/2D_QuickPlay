@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -11,12 +13,19 @@ namespace _Game.Core.Scripts.UI
         [Header("Components")]
         [SerializeField] private TextMeshProUGUI titleText;
         [SerializeField] private TextMeshProUGUI messageText;
+        
+        [SerializeField] private TextMeshProUGUI confirmLabelText; 
+        [SerializeField] private TextMeshProUGUI cancelLabelText;
+        
         [SerializeField] private Button cancelButton;
         [SerializeField] private Button confirmButton;
         [SerializeField] private Button backgroundButton;
         
         [Header("--- Animation ---")]
         [SerializeField] private Transform panelContent;
+        
+        [Header("--- Layout Fix ---")]
+        [SerializeField] private RectTransform mainContentRect;
         
         private Action _onConfirmAction;
         private Action _onCancelAction;
@@ -28,15 +37,42 @@ namespace _Game.Core.Scripts.UI
             if(backgroundButton) backgroundButton.onClick.AddListener(OnCancelClicked);
         }
 
-        public void Setup(string title, string message, Action onConfirm, Action onCancel = null)
+        public void Setup(string title, string message, Action onConfirm, Action onCancel = null, string confirmLabel = null, string cancelLabel = null)
         {
             if(titleText) titleText.text = title;
             if(messageText) messageText.text = message;
 
-            onConfirm = onConfirm;
-            onCancel = onCancel;
+            _onConfirmAction = onConfirm;
+            _onCancelAction = onCancel;
+            
+            if (confirmLabelText != null && !string.IsNullOrEmpty(confirmLabel))
+            {
+                confirmLabelText.text = confirmLabel;
+            }
+
+            if (cancelLabelText != null && !string.IsNullOrEmpty(cancelLabel))
+            {
+                cancelLabelText.text = cancelLabel;
+            }
         }
 
+        public override void Show()
+        {
+            base.Show();
+
+            StartCoroutine(RebuildLayoutRoutine());
+        }
+
+        private IEnumerator RebuildLayoutRoutine()
+        {
+            yield return new WaitForEndOfFrame();
+            
+            if (mainContentRect != null)
+            {
+                LayoutRebuilder.ForceRebuildLayoutImmediate(mainContentRect);
+                LayoutRebuilder.ForceRebuildLayoutImmediate(mainContentRect); //2 lần cho chắc cú vì cả cha và con đều có auto layout
+            }
+        }
         private void OnConfirmClicked()
         {
             _onConfirmAction?.Invoke();
