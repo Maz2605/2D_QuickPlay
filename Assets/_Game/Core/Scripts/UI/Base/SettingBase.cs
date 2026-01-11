@@ -12,7 +12,7 @@ namespace _Game.Core.Scripts.UI
         [Header("--- Data Binding (Logic) ---")]
         [SerializeField] protected Slider masterSlider;
         [SerializeField] protected Slider musicSlider;
-        [SerializeField] protected Slider sfxSlider;
+        [SerializeField] protected SwitchToggle sfxToggle;
         [SerializeField] protected SwitchToggle vibrationToggle;
         
         [Header("--- Buttons ---")]
@@ -48,8 +48,13 @@ namespace _Game.Core.Scripts.UI
 
             Bind(masterSlider, settings.masterVolume, SettingsManager.Instance.SetMasterVolume);
             Bind(musicSlider, settings.musicVolume, SettingsManager.Instance.SetMusicVolume);
-            Bind(sfxSlider, settings.sfxVolume, SettingsManager.Instance.SetSfxVolume);
 
+            if (sfxToggle)
+            {
+                sfxToggle.ForceSetState(settings.isSfxEnabled);
+                sfxToggle.OnValueChanged.RemoveAllListeners();
+                sfxToggle.OnValueChanged.AddListener(SettingsManager.Instance.SetSfxState);
+            }
             if (vibrationToggle)
             {
                 vibrationToggle.ForceSetState(settings.isVibrationEnabled);

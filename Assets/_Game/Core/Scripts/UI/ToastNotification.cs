@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 using UnityEngine.Serialization;
 
 namespace _Game.Core.Scripts.UI
@@ -8,7 +9,7 @@ namespace _Game.Core.Scripts.UI
     public class ToastNotification : BasePopup
     {
         [Header("--- UI References ---")]
-        [SerializeField] private Text messageText;
+        [SerializeField] private TextMeshProUGUI messageText;
         [SerializeField] private RectTransform contentPanel; 
         
         [Header("--- Animation Config ---")]

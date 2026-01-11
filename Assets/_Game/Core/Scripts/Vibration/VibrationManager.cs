@@ -17,7 +17,6 @@ namespace _Game.Core.Scripts.Vibration
         public void ToggleVibration(bool isOn)
         {
             IsVibrationsEnabled = isOn;
-            
         }
         public void HapticLight()
         {

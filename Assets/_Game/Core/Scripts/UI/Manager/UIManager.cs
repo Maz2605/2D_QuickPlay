@@ -13,13 +13,13 @@ namespace _Game.Core.Scripts.UI.Manager
         [SerializeField] private SettingBase settingsPrefab; 
         [SerializeField] private ConfirmationPopup confirmationPrefab;
         [SerializeField] private ToastNotification toastPrefab;
-        [SerializeField] private GameObject loadingScreenPrefab;
+        [SerializeField] private LoadingScreen loadingScreenPrefab;
 
         // --- Instances (Biến lưu bản cached) ---
         private SettingBase _settingInstance;
         private ConfirmationPopup _confirmInstance;
         private ToastNotification _toastInstance;
-        private GameObject _loadingInstance;
+        private LoadingScreen _loadingInstance;
 
         private float _savedTimeScale = 1f;
         
@@ -34,7 +34,8 @@ namespace _Game.Core.Scripts.UI.Manager
             if (loadingScreenPrefab != null && _loadingInstance == null)
             {
                 _loadingInstance = Instantiate(loadingScreenPrefab, globalCanvasRoot);
-                _loadingInstance.SetActive(false);
+                _loadingInstance.transform.SetAsLastSibling();
+                _loadingInstance.gameObject.SetActive(false);
             }
         }
 
@@ -89,19 +90,32 @@ namespace _Game.Core.Scripts.UI.Manager
                 _toastInstance.transform.SetAsLastSibling(); // Đè lên tất cả
             }
 
-            // Gọi hàm ShowToast custom vừa viết
             _toastInstance.ShowToast(message, duration);
         }
 
         // LOADING SYSTEM
-        public void ToggleLoading(bool isShow)
+        
+        public void ShowLoading(Action onCovered = null)
         {
-            if (_loadingInstance == null) InitUI(); // Tạo nếu chưa có
-            
+            if (_loadingInstance == null) InitUI();
+    
             if (_loadingInstance != null)
             {
-                _loadingInstance.SetActive(isShow);
+                _loadingInstance.ShowLoading(onCovered);
             }
+        }
+
+        public void HideLoading()
+        {
+            if (_loadingInstance != null)
+            {
+                _loadingInstance.HideLoading();
+            }
+        }
+        public void ToggleLoading(bool isShow)
+        {
+            if (isShow) ShowLoading();
+            else HideLoading();
         }
     }
 }

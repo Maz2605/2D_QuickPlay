@@ -38,6 +38,7 @@ namespace _Game.Core.Scripts.GameSystem
                 AudioManager.Instance.SetMasterVolume(CurrentSettings.masterVolume);
                 AudioManager.Instance.SetMusicVolume(CurrentSettings.musicVolume);
                 AudioManager.Instance.SetSfxVolume(CurrentSettings.sfxVolume);
+                AudioManager.Instance.SetSfxState(CurrentSettings.isSfxEnabled);
             }
 
             if (VibrationManager.Instance != null)
@@ -88,6 +89,15 @@ namespace _Game.Core.Scripts.GameSystem
             if (AudioManager.Instance != null)
                 AudioManager.Instance.SetSfxVolume(value);
                 
+            SaveData();
+        }
+        
+        public void SetSfxState(bool isOn)
+        {
+            CurrentSettings.isSfxEnabled = isOn;
+            
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.SetSfxState(isOn);
             SaveData();
         }
     }

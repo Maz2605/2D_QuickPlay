@@ -16,6 +16,7 @@ namespace _Game.Core.Scripts.Audio
         private float _masterVolume = 1f;
         private float _musicVolume = 1f;
         private float _sfxVolume = 1f;
+        private bool _isSfxEnabled = false;
 
         private Queue<AudioSource> _sfxPool;
 
@@ -62,6 +63,11 @@ namespace _Game.Core.Scripts.Audio
         public void SetSfxVolume(float volume)
         {
             _sfxVolume = Mathf.Clamp01(volume);
+        }
+
+        public void SetSfxState(bool state)
+        {
+            _isSfxEnabled = state;
         }
         
         public void PlayMusic(AudioClip clip, bool loop = true, float fadeTime = 0.5f)
