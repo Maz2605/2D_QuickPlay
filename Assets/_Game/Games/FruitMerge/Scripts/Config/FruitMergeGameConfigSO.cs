@@ -32,7 +32,7 @@ namespace _Game.Games.FruitMerge.Scripts.Config
 
         //Logic Random
         private int _totalWeight = -1;
-        private List<int> _spawnableIndices = new List<int>();
+        private readonly List<int> _spawnableIndices = new List<int>();
 
         public int GetSmartSpawnLevel(bool isDanger, int lastLevel)
         {

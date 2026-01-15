@@ -1,5 +1,6 @@
 using System;
 using _Game.Core.Scripts.Audio;
+using _Game.Core.Scripts.Audio.Manager;
 using _Game.Core.Scripts.Input;
 using _Game.Games.FruitMerge.Scripts.Config;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
         
         private AudioManager Audio => AudioManager.Instance;
 
-        public void Initialize(FruitGameEntryPoint entryPoint)
+        public void Initialize(FruitGameController controller)
         {
             Audio.PlayMusic(config.backgroundMusic);
 
@@ -21,7 +22,7 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
                 InputManager.Instance.OnTouchEnd += PlayDrop;
             }
 
-            entryPoint.OnFruitMerged += PlayMerge;
+            controller.OnFruitMerged += PlayMerge;
         }
 
         private void OnDestroy()

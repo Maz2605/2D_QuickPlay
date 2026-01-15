@@ -1,4 +1,5 @@
-using _Game.Core.Scripts.Manager;
+using System;
+using _Game.Core.Scripts.GameSystem;
 using _Game.Games.FruitMerge.Scripts.Model;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
         private readonly float _comboWindow = 1.0f;
         private float _lastMergeTime;
         private int _currentCombo = 0;
+        
+        public event Action<int> OnComboUpdated;
         
         public FruitScoreManager(string gameID) : base(gameID)
         {
@@ -24,8 +27,13 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
             {
                 _currentCombo = 1; 
             }
-            
+
             _lastMergeTime = Time.time;
+                
+            if (_currentCombo > 1) 
+            {
+                OnComboUpdated?.Invoke(_currentCombo);
+            }
             int finalScore = amount * _currentCombo;
             
             base.AddScore(finalScore);

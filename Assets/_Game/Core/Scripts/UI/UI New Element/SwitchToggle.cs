@@ -1,10 +1,9 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace _Game.Core.Scripts.UI
+namespace _Game.Core.Scripts.UI.UI_New_Element
 {
     public class SwitchToggle : MonoBehaviour
     {
@@ -35,11 +34,14 @@ namespace _Game.Core.Scripts.UI
         private bool _isOn = false;
         private Button _btn;
         private Sequence _seq;
+        
+        private Vector3 _currentHandleScale;
 
         private void Awake()
         {
             _btn = GetComponent<Button>();
             _btn.onClick.AddListener(ToggleState);
+            _currentHandleScale = handleRect.localScale;
 
             UpdateVisual(false);
         }
@@ -96,6 +98,7 @@ namespace _Game.Core.Scripts.UI
                 if (handleImage != null)
                     handleImage.color = targetHandleColor;
             }
+            handleRect.localScale = _currentHandleScale;
         }
     }
 }

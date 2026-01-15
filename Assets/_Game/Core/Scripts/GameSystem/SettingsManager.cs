@@ -1,4 +1,5 @@
 using _Game.Core.Scripts.Audio;
+using _Game.Core.Scripts.Audio.Manager;
 using _Game.Core.Scripts.Data;
 using _Game.Core.Scripts.Utils.DesignPattern.Singleton;
 using _Game.Core.Scripts.Vibration;

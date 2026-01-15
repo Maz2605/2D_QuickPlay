@@ -1,6 +1,6 @@
 using System;
 using _Game.Core.Scripts.Audio;
-using _Game.Core.Scripts.Manager;
+using _Game.Core.Scripts.Audio.Manager;
 using UnityEngine;
 
 namespace _Game.Core.Scripts.Utils

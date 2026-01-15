@@ -1,4 +1,5 @@
 using System;
+using _Game.Core.Scripts.UI.Base;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;

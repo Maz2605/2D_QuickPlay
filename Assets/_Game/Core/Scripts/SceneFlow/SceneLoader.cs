@@ -1,5 +1,6 @@
+using System;
 using System.Collections;
-using _Game.Core.Scripts.UI;
+using _Game.Core.Scripts.UI.Manager; 
 using _Game.Core.Scripts.Utils.DesignPattern.Singleton;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,17 +9,29 @@ namespace _Game.Core.Scripts.SceneFlow
 {
     public class SceneLoader : Singleton<SceneLoader>
     {
-        public void LoadScene(string sceneName)
+        [Header("Config")]
+        [SerializeField] private float minLoadingTime = 1f;
+        
+        public void LoadScene(string sceneName, Action onSceneLoaded = null)
         {
-            StartCoroutine(LoadSceneRoutine(sceneName));
+            StartCoroutine(LoadSceneRoutine(sceneName, onSceneLoaded));
         }
 
-        private IEnumerator LoadSceneRoutine(string sceneName)
+        private IEnumerator LoadSceneRoutine(string sceneName, Action onSceneLoaded)
         {
-            // UIManager.Instance.ToggleLoadingScreen(true);
+            Time.timeScale = 1f;
 
-            yield return new WaitForSecondsRealtime(0.5f);
+            bool isCovered = false;
+            UIManager.Instance.ShowLoading(() => isCovered = true);
+            
+            yield return new WaitUntil(() => isCovered);
 
+            
+            yield return Resources.UnloadUnusedAssets();
+            GC.Collect();
+            
+            float startTime = Time.unscaledTime; 
+            
             AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
             op.allowSceneActivation = false;
 
@@ -26,17 +39,24 @@ namespace _Game.Core.Scripts.SceneFlow
             {
                 yield return null;
             }
-
-            op.allowSceneActivation = true;
-            while (!op.isDone)
+            
+            float elapsedTime = Time.unscaledTime - startTime;
+            
+            if (elapsedTime < minLoadingTime)
             {
-                yield return null;
+                yield return new WaitForSecondsRealtime(minLoadingTime - elapsedTime);
             }
 
-            yield return new WaitForSecondsRealtime(0.5f);
-            // UIManager.Instance.ToggleLoadingScreen(false);
             
-            Time.timeScale = 1f; 
+            op.allowSceneActivation = true;
+
+            while (!op.isDone) yield return null;
+
+            onSceneLoaded?.Invoke();
+
+            yield return null; 
+
+            UIManager.Instance.HideLoading();
         }
     }
 }

@@ -1,11 +1,9 @@
 using _Game.Core.Scripts.GameSystem;
+using _Game.Core.Scripts.UI.UI_New_Element;
 using UnityEngine;
 using UnityEngine.UI;
-using _Game.Core.Scripts.GameSystem; 
-using _Game.Core.Scripts.UI;
-using UnityEngine.Serialization;
 
-namespace _Game.Core.Scripts.UI
+namespace _Game.Core.Scripts.UI.Base
 {
     public abstract class SettingBase : BasePopup 
     {

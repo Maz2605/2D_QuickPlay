@@ -2,22 +2,22 @@ using System;
 using _Game.Core.Scripts.Data;
 using UnityEngine;
 
-namespace _Game.Core.Scripts.Manager
+namespace _Game.Core.Scripts.GameSystem
 {
     public class BaseScoreManager<T> where T : class, IGameUserData, new()
     {
-        protected string GameID;
-        protected T UserData;
+        private readonly string _gameID;
+        private T _userData;
 
-        private int CurrentScore { get; set; }
-        public int HighScore => UserData.HighScore;
+        public int CurrentScore { get; private set; }
+        public int HighScore => _userData.HighScore;
 
         public event Action<int> OnScoreChanged;
         public event Action<int> OnHighScoreChanged;
 
         protected BaseScoreManager(string gameID)
         {
-            GameID = gameID;
+            _gameID = gameID;
             LoadData();
             NotifyUI();
         }
@@ -26,16 +26,16 @@ namespace _Game.Core.Scripts.Manager
         {
             try
             {
-                UserData = SaveSystem.Load<T>(GameID);
+                _userData = SaveSystem.Load<T>(_gameID);
             }
             catch (Exception e)
             {
                 Debug.LogError($"Lỗi load save: {e.Message}. Tạo data mới.");
             }
 
-            if (UserData == null)
+            if (_userData == null)
             {
-                UserData = new T();
+                _userData = new T();
                 Debug.LogWarning("UserData bị null, đã tạo mới!");
             }
 
@@ -48,20 +48,20 @@ namespace _Game.Core.Scripts.Manager
             CurrentScore += amount;
             OnScoreChanged?.Invoke(CurrentScore);
 
-            if (CurrentScore > UserData.HighScore)
+            if (CurrentScore > _userData.HighScore)
             {
-                UserData.HighScore = CurrentScore;
+                _userData.HighScore = CurrentScore;
             }
 
             NotifyUI();
         }
 
-        public void Save() => SaveSystem.Save(GameID, UserData);
+        public void Save() => SaveSystem.Save(_gameID, _userData);
 
-        protected void NotifyUI()
+        private void NotifyUI()
         {
             OnScoreChanged?.Invoke(CurrentScore);
-            OnHighScoreChanged?.Invoke(UserData.HighScore);
+            OnHighScoreChanged?.Invoke(_userData.HighScore);
         }
     }
 }

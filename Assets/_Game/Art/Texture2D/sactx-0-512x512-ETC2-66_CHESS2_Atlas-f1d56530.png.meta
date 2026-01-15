@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -147,7 +147,112 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: sactx-0-512x512-ETC2-66_CHESS2_Atlas-f1d56530_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 142
+        height: 299
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93c68a8fb61b0e845b5fb04708343c64
+      internalID: -718755801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-512x512-ETC2-66_CHESS2_Atlas-f1d56530_1
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 144
+        width: 107
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad523c96fb43d674fa835c3c9dafa213
+      internalID: 103370103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-512x512-ETC2-66_CHESS2_Atlas-f1d56530_2
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 143
+        width: 119
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da76b30bc88441444814fa562db7c3f7
+      internalID: -1404124397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-512x512-ETC2-66_CHESS2_Atlas-f1d56530_3
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 0
+        width: 138
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c8148ab27c0b2240826210ccd2fde74
+      internalID: -831740874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-512x512-ETC2-66_CHESS2_Atlas-f1d56530_4
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 0
+        width: 110
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83917b2347c18164a9b3ce327dd1773f
+      internalID: -544039623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -158,7 +263,12 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sactx-0-512x512-ETC2-66_CHESS2_Atlas-f1d56530_0: -718755801
+      sactx-0-512x512-ETC2-66_CHESS2_Atlas-f1d56530_1: 103370103
+      sactx-0-512x512-ETC2-66_CHESS2_Atlas-f1d56530_2: -1404124397
+      sactx-0-512x512-ETC2-66_CHESS2_Atlas-f1d56530_3: -831740874
+      sactx-0-512x512-ETC2-66_CHESS2_Atlas-f1d56530_4: -544039623
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

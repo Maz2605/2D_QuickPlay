@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using _Game.Core.Scripts.Utils.DesignPattern.Singleton; // Giữ nguyên Singleton của bạn
+using _Game.Core.Scripts.Utils.DesignPattern.Singleton;
 using DG.Tweening;
 using UnityEngine;
 
-namespace _Game.Core.Scripts.Audio
+namespace _Game.Core.Scripts.Audio.Manager
 {
     public class AudioManager : Singleton<AudioManager>
     {
@@ -16,6 +16,7 @@ namespace _Game.Core.Scripts.Audio
         private float _masterVolume = 1f;
         private float _musicVolume = 1f;
         private float _sfxVolume = 1f;
+        
         private bool _isSfxEnabled = false;
 
         private Queue<AudioSource> _sfxPool;

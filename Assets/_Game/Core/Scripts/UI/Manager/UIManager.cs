@@ -1,4 +1,5 @@
 using System;
+using _Game.Core.Scripts.UI.Base;
 using _Game.Core.Scripts.Utils.DesignPattern.Singleton;
 using UnityEngine;
 

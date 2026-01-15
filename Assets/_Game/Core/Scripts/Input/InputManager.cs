@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using _Game.Core.Scripts.Utils.DesignPattern.Singleton;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,6 +16,9 @@ namespace _Game.Core.Scripts.Input
         private GameInput _inputActions; 
         private Camera _mainCamera;
         private bool _isDragging;
+        
+        private List<RaycastResult> _raycastResults = new List<RaycastResult>();
+        private PointerEventData _pointerEventData;
 
         protected override void Awake()
         {
@@ -75,10 +79,28 @@ namespace _Game.Core.Scripts.Input
 
         private bool IsPointerOverUI()
         {
-            if (EventSystem.current == null) return false;
-            if (UnityEngine.Input.touchCount > 0)
-                return EventSystem.current.IsPointerOverGameObject(UnityEngine.Input.GetTouch(0).fingerId);
-            return EventSystem.current.IsPointerOverGameObject();
+            Vector2 touchPos = _inputActions.Touch.TouchPosition.ReadValue<Vector2>();
+
+            _pointerEventData = new PointerEventData(EventSystem.current)
+            {
+                position = touchPos
+            };
+            _raycastResults.Clear();
+            
+            EventSystem.current.RaycastAll(_pointerEventData, _raycastResults);
+
+            bool isTouchingUI = _raycastResults.Count > 0;
+            
+            if (isTouchingUI)
+            {
+                foreach (var result in _raycastResults)
+                {
+                    // In ra tên object UI đang chặn chuột
+                    // Dùng màu sắc để dễ nhìn trong Console
+                    Debug.Log($"<color=yellow>Blocked by UI:</color> {result.gameObject.name}", result.gameObject);
+                }
+            }
+            return isTouchingUI;
         }
     }
 }
