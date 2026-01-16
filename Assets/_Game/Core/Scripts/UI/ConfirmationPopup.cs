@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace _Game.Core.Scripts.UI
 {
-    public class ConfirmationPopup: BasePopup
+    public class   ConfirmationPopup: BasePopup
     {
         [Header("Components")]
         [SerializeField] private TextMeshProUGUI titleText;

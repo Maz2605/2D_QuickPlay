@@ -23,6 +23,8 @@ namespace _Game.Core.Scripts.Data
 
         // --- GAME EVENTS ---
         LevelStart,
-        PurchaseSuccess
+        PurchaseSuccess,
+        
+        Custom
     }
 }

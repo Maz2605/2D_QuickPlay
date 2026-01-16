@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using _Game.Core.Scripts.Utils.DesignPattern.Singleton;
+using _Game.Core.Scripts.Data; // <--- Cần thêm namespace này để hiểu Config và Enum
 using DG.Tweening;
 using UnityEngine;
 
@@ -8,18 +8,26 @@ namespace _Game.Core.Scripts.Audio.Manager
 {
     public class AudioManager : Singleton<AudioManager>
     {
+        // --- PHẦN MỚI THÊM VÀO ---
+        [Header("Config Data")]
+        [SerializeField] private UIAudioConfigSO uiAudioConfig; // Kéo file SO vào đây
+
         [Header("Setup")]
         [SerializeField] private AudioSource musicSource;
         [SerializeField] private AudioSource sfxSourcePrefab;
-        [SerializeField] private int sfxPoolSize = 15;
+        [SerializeField] private int initialSfxPoolSize = 15;
+        [SerializeField] private int maxPoolSize = 30; 
         
-        private float _masterVolume = 1f;
-        private float _musicVolume = 1f;
-        private float _sfxVolume = 1f;
+        [Header("Runtime Debug")]
+        [SerializeField] private float masterVolume = 1f;
+        [SerializeField] private float musicVolume = 1f;
+        [SerializeField] private float sfxVolume = 1f;
         
-        private bool _isSfxEnabled = false;
+        public bool IsSfxEnabled { get; private set; } = true; 
+        public bool IsMusicEnabled { get; private set; } = true;
 
         private Queue<AudioSource> _sfxPool;
+        private Transform _poolRoot;
 
         protected override void Awake()
         {
@@ -30,96 +38,165 @@ namespace _Game.Core.Scripts.Audio.Manager
         private void InitializePool()
         {
             _sfxPool = new Queue<AudioSource>();
-            GameObject poolRoot = new GameObject("SFX_Pool");
-            poolRoot.transform.SetParent(transform);
+            _poolRoot = new GameObject("SFX_Pool").transform;
+            _poolRoot.SetParent(transform);
 
-            for (int i = 0; i < sfxPoolSize; i++)
+            for (int i = 0; i < initialSfxPoolSize; i++)
             {
-                var audioSource = Instantiate(sfxSourcePrefab, poolRoot.transform);
-                audioSource.gameObject.SetActive(false);
-                _sfxPool.Enqueue(audioSource);
+                CreateNewSfxSource();
             }
         }
-        
-        //===Public API ===
-        
-        private void UpdateMusicVolume()
+
+        private AudioSource CreateNewSfxSource()
         {
-            if (musicSource != null) 
-                musicSource.volume = _musicVolume * _masterVolume;
+            var audioSource = Instantiate(sfxSourcePrefab, _poolRoot);
+            audioSource.gameObject.SetActive(false);
+            _sfxPool.Enqueue(audioSource);
+            return audioSource;
         }
+
+        //=== Public API ===
+
+        // --- HÀM MỚI: XỬ LÝ UI SOUND TỪ ENUM ---
+        public void PlayUISound(UISoundType type)
+        {
+            // Nếu chưa kéo config hoặc tắt SFX thì return
+            if (uiAudioConfig == null || !IsSfxEnabled) return;
+
+            // Lấy clip từ Config
+            AudioClip clip = uiAudioConfig.GetClip(type);
+            
+            if (clip != null)
+            {
+                // Gọi hàm PlaySfx bên dưới, truyền thêm uiVolume từ config
+                PlaySfx(clip, uiAudioConfig.uiVolume);
+            }
+        }
+        // ----------------------------------------
 
         public void SetMasterVolume(float volume)
         {
-            _masterVolume = Mathf.Clamp01(volume);
+            masterVolume = Mathf.Clamp01(volume);
             UpdateMusicVolume();
         }
 
         public void SetMusicVolume(float volume)
         {
-            _musicVolume = Mathf.Clamp01(volume);
+            musicVolume = Mathf.Clamp01(volume);
             UpdateMusicVolume();
+        }
+        
+        public void SetMusicState(bool state)
+        {
+            IsMusicEnabled = state;
+            if (musicSource) musicSource.mute = !IsMusicEnabled;
         }
 
         public void SetSfxVolume(float volume)
         {
-            _sfxVolume = Mathf.Clamp01(volume);
+            sfxVolume = Mathf.Clamp01(volume);
         }
 
         public void SetSfxState(bool state)
         {
-            _isSfxEnabled = state;
+            IsSfxEnabled = state;
         }
-        
+
         public void PlayMusic(AudioClip clip, bool loop = true, float fadeTime = 0.5f)
         {
-            if(clip == null) return;
-            if(musicSource.clip == clip) return;
+            if (musicSource == null || clip == null) return;
+            
+            if (musicSource.clip == clip && musicSource.isPlaying) return;
 
-            float targetVol = _musicVolume * _masterVolume;
+            musicSource.DOKill();
 
-            musicSource.DOFade(0, fadeTime / 2).OnComplete(() =>
+            float targetVol = musicVolume * masterVolume;
+
+            if (musicSource.clip == null || !musicSource.isPlaying)
+            {
+                musicSource.clip = clip;
+                musicSource.loop = loop;
+                musicSource.volume = 0;
+                musicSource.Play();
+                musicSource.DOFade(targetVol, fadeTime).SetUpdate(true);
+                return;
+            }
+
+            musicSource.DOFade(0, fadeTime / 2).SetUpdate(true).OnComplete(() =>
             {
                 musicSource.clip = clip;
                 musicSource.loop = loop;
                 musicSource.Play();
-                musicSource.DOFade(targetVol, fadeTime / 2);
+                musicSource.DOFade(targetVol, fadeTime / 2).SetUpdate(true);
             });
         }
-        
+
+        private void UpdateMusicVolume()
+        {
+            if (musicSource != null)
+            {
+                musicSource.DOKill(); 
+                musicSource.volume = musicVolume * masterVolume;
+            }
+        }
+
         public void PlaySfx(AudioClip clip, float volScale = 1f, float pitchVar = 0f)
         {
-            if (clip == null) return;
+            if (clip == null || !IsSfxEnabled) return;
 
             AudioSource source = GetSfxSource();
-            source.clip = clip;
             
-            source.volume = _sfxVolume * _masterVolume * volScale;
-            
-            if (pitchVar > 0) source.pitch = 1f + Random.Range(-pitchVar, pitchVar);
-            else source.pitch = 1f;
+            if (source == null) return;
 
+            source.transform.SetParent(_poolRoot);
+            source.clip = clip;
+            source.volume = sfxVolume * masterVolume * volScale;
+            source.pitch = 1f + (pitchVar > 0 ? Random.Range(-pitchVar, pitchVar) : 0f);
+            
             source.gameObject.SetActive(true);
             source.Play();
 
-            StartCoroutine(ReturnToPool(source, clip.length));
-        }
-        
-        public void StopMusic() => musicSource.Stop();
-        
-        //===Pool Helper (Giữ nguyên)===
-        private AudioSource GetSfxSource()
-        {
-            if (_sfxPool.Count == 0) return Instantiate(sfxSourcePrefab, transform);
-            return _sfxPool.Dequeue();
+            DOVirtual.DelayedCall(clip.length + 0.1f, () =>
+            {
+                ReturnToPool(source);
+            }).SetId(source); 
         }
 
-        private IEnumerator ReturnToPool(AudioSource source, float delayTime)
+        public void StopMusic()
         {
-            yield return new WaitForSeconds(delayTime);
+            if (musicSource == null) return;
+            musicSource.DOKill();
+            musicSource.Stop();
+        }
+
+        //=== Pool Internal ===
+        
+        private AudioSource GetSfxSource()
+        {
+            if (_sfxPool.Count > 0)
+            {
+                return _sfxPool.Dequeue();
+            }
+            
+            if (_poolRoot.childCount < maxPoolSize)
+            {
+                return Instantiate(sfxSourcePrefab, _poolRoot);
+            }
+            return null; 
+        }
+
+        private void ReturnToPool(AudioSource source)
+        {
+            if (source == null) return;
+            
             source.Stop();
+            source.clip = null; 
             source.gameObject.SetActive(false);
-            _sfxPool.Enqueue(source);
+            
+            if (_sfxPool != null) 
+            {
+                _sfxPool.Enqueue(source);
+            }
         }
     }
 }

@@ -1,19 +1,20 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Game.Core.Scripts.Data
 {
     [Serializable]
     public class BaseGameData 
     {
-        public string GameId;
-        public int HightScore;
-        public long LastPlayedTime;
+        [FormerlySerializedAs("GameId")] public string gameId;
+        [FormerlySerializedAs("HightScore")] public int hightScore;
+        [FormerlySerializedAs("LastPlayedTime")] public long lastPlayedTime;
 
         public BaseGameData()
         {
-            HightScore = 0;
-            LastPlayedTime = DateTime.Now.Ticks;
+            hightScore = 0;
+            lastPlayedTime = DateTime.Now.Ticks;
         }
     }
 }

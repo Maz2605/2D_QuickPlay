@@ -38,5 +38,11 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
             
             base.AddScore(finalScore);
         }
+
+        public override void ResetScore()
+        {
+            base.ResetScore();
+            _currentCombo = 0;
+        }
     }
 }

@@ -76,8 +76,19 @@ namespace _Game.Core.Scripts.UI.Manager
                 if (confirmationPrefab == null) return;
                 _confirmInstance = Instantiate(confirmationPrefab, globalCanvasRoot);
             }
-
-            _confirmInstance.Setup(title, message, onConfirm, onCancel, confirmLabel, cancelLabel);
+            float pauseTime = Time.timeScale;
+            Time.timeScale = 0f;
+            Action wrapperConfirm = () =>
+            {
+                Time.timeScale = pauseTime;
+                onConfirm?.Invoke();
+            };
+            Action wrapperCancel = () =>
+            {
+                Time.timeScale = pauseTime;
+                onCancel?.Invoke();
+            };
+            _confirmInstance.Setup(title, message, wrapperConfirm, wrapperCancel, confirmLabel, cancelLabel);
             _confirmInstance.Show();
         }
 

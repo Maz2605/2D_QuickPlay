@@ -23,7 +23,6 @@ namespace _Game.Core.Scripts.Data
 
         private Dictionary<UISoundType, AudioClip> _audioDict;
 
-        // --- HÀM MA THUẬT: CHỐNG QUÊN ---
 #if UNITY_EDITOR
         private void OnValidate()
         {
@@ -36,7 +35,7 @@ namespace _Game.Core.Scripts.Data
             
             foreach (UISoundType type in Enum.GetValues(typeof(UISoundType)))
             {
-                if (type == UISoundType.None) continue; // Bỏ qua None
+                if (type == UISoundType.None) continue; 
 
                 if (!currentTypes.Contains(type))
                 {
@@ -55,7 +54,7 @@ namespace _Game.Core.Scripts.Data
         {
             if (_audioDict == null) InitializeDictionary();
 
-            if (_audioDict.TryGetValue(type, out AudioClip clip))
+            if (_audioDict != null && _audioDict.TryGetValue(type, out AudioClip clip))
                 return clip;
             return null;
         }

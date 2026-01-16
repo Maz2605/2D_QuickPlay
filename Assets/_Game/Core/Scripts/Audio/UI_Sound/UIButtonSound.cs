@@ -1,49 +1,39 @@
-using System;
 using _Game.Core.Scripts.Audio.Manager;
 using _Game.Core.Scripts.Data;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-namespace _Game.Core.Scripts.Audio
+namespace _Game.Core.Scripts.Audio.UI_Sound
 {
-    [RequireComponent(typeof(Button))]
-    public class UIButtonSound : MonoBehaviour
+    public class UIButtonSound : MonoBehaviour, IPointerClickHandler
     {
-        [Header("Config References")]
-        [SerializeField] private UIAudioConfigSO config;
+        // Biến public để Editor truy cập dễ dàng
+        public UISoundType soundType = UISoundType.ClickNormal;
         
-        [Header("Sound Settings")]
-        [SerializeField] private UISoundType soundType = UISoundType.ClickNormal;
-        [SerializeField] private AudioClip customClipOverride;
+        // Chỉ dùng khi type = Custom
+        public AudioClip customClip; 
+        [Range(0f, 1f)] public float volumeScale = 1f;
 
-        private void Start()
+        public void OnPointerClick(PointerEventData eventData)
         {
-            GetComponent<Button>().onClick.AddListener(PlaySound);
+            PlaySound();
         }
 
-        private void PlaySound()
+        public void PlaySound()
         {
-            if(AudioManager.Instance == null) return;
-            
-            AudioClip clipToPlay = null;
-            float volume = 1f;
-            
-            if (customClipOverride != null)
-            {
-                clipToPlay = customClipOverride;
-                volume = config != null ? config.uiVolume : 1f;
-            }
-            else if (config != null)
-            {
-                clipToPlay = config.GetClip(soundType);
-                volume = config.uiVolume;
-            }
+            if (AudioManager.Instance == null) return;
 
-            if (clipToPlay != null)
+            if (soundType == UISoundType.Custom)
             {
-                AudioManager.Instance.PlaySfx(clipToPlay, volume, 0f);
+                // Logic Custom: Play file riêng
+                if (customClip != null) 
+                    AudioManager.Instance.PlaySfx(customClip, volumeScale);
+            }
+            else
+            {
+                // Logic Standard: Gọi qua Enum
+                AudioManager.Instance.PlayUISound(soundType);
             }
         }
-        
     }
 }

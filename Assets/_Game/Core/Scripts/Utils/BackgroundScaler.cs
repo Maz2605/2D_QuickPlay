@@ -2,29 +2,36 @@ using UnityEngine;
 
 namespace _Game.Core.Scripts.Utils
 {
+    [ExecuteInEditMode]
     public class BackgroundScaler : MonoBehaviour
     {
-        void Start()
+        void LateUpdate()
         {
-            var sr = gameObject.GetComponent<SpriteRenderer>();
-            if (sr != null || Camera.main == null) return;
-            float cameraHeight = Camera.main.orthographicSize * 2;
-            Vector2 cameraSize = new Vector2(Camera.main.aspect * cameraHeight, cameraHeight);
-            Vector2 spriteSize = sr.sprite.bounds.size;
+            ScaleToFill();
+        }
 
-            Vector2 scale = transform.localScale;
-            if (cameraSize.x >= cameraSize.y)
-            {
-                // Landscape
-                scale *= cameraSize.x / spriteSize.x;
-            }
-            else
-            {
-                // Portrait
-                scale *= cameraSize.y / spriteSize.y;
-            }
+        void ScaleToFill()
+        {
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            Camera cam = Camera.main;
 
-            transform.localScale = scale;
+            if (sr == null || cam == null) return;
+
+            transform.localScale = Vector3.one;
+
+            float width = sr.sprite.bounds.size.x;
+            float height = sr.sprite.bounds.size.y;
+
+            double worldScreenHeight = cam.orthographicSize * 2.0;
+            double worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
+
+            double scaleX = worldScreenWidth / width;
+            double scaleY = worldScreenHeight / height;
+
+            float targetScale = (float)System.Math.Max(scaleX, scaleY);
+
+            transform.localScale = new Vector3(targetScale, targetScale, 1);
+            transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y, 10);
         }
     }
 }

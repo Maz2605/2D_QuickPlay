@@ -1,3 +1,4 @@
+using _Game.Core.Scripts.Vibration;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
@@ -53,17 +54,16 @@ namespace _Game.Core.Scripts.UI.UI_New_Element
 
         private void ToggleState()
         {
-            // Debug.Log($"[SwitchToggle] Clicked! State cũ: {_isOn} -> Mới: {!_isOn} | TimeScale: {Time.timeScale}");
             _isOn = !_isOn;
             UpdateVisual(true);
             onValueChanged?.Invoke(_isOn);
+            VibrationManager.Instance.HapticLight();
         }
 
         public void ForceSetState(bool isOn)
         {
             _isOn = isOn;
             UpdateVisual(false);
-            // OnValueChanged?.Invoke(_isOn);
         }
 
         private void UpdateVisual(bool animate)

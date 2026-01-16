@@ -23,6 +23,7 @@ namespace _Game.Core.Scripts.Vibration
             if(!IsVibrationsEnabled) return;
             
             Handheld.Vibrate();
+            Debug.Log("HapticLight");
         }
     }
 }

@@ -2,14 +2,19 @@ using _Game.Core.Scripts.GameSystem;
 using _Game.Core.Scripts.UI.UI_New_Element;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 namespace _Game.Core.Scripts.UI.Base
 {
     public abstract class SettingBase : BasePopup 
     {
-        [Header("--- Data Binding (Logic) ---")]
+        [Header("--- Volume Sliders ---")]
         [SerializeField] protected Slider masterSlider;
         [SerializeField] protected Slider musicSlider;
+        [SerializeField] protected Slider sfxSlider;
+
+        [Header("--- State Toggles ---")]
+        [SerializeField] protected SwitchToggle musicToggle;
         [SerializeField] protected SwitchToggle sfxToggle;
         [SerializeField] protected SwitchToggle vibrationToggle;
         
@@ -20,7 +25,6 @@ namespace _Game.Core.Scripts.UI.Base
         protected override void Awake()
         {
             base.Awake(); 
-            
             if (closeButton) closeButton.onClick.AddListener(OnCloseClicked);
             if (backgroundButton) backgroundButton.onClick.AddListener(OnCloseClicked);
         }
@@ -34,34 +38,86 @@ namespace _Game.Core.Scripts.UI.Base
         private void InitData()
         {
             var settings = SettingsManager.Instance.CurrentSettings;
+            var manager = SettingsManager.Instance;
 
-            // Helper function setup slider
-            void Bind(Slider s, float val, UnityEngine.Events.UnityAction<float> act)
-            {
-                if (s == null) return;
-                s.SetValueWithoutNotify(val);
-                s.onValueChanged.RemoveAllListeners();
-                s.onValueChanged.AddListener(act);
-            }
+            BindSlider(masterSlider, settings.masterVolume, manager.SetMasterVolume);
+            BindToggleOnly(vibrationToggle, settings.isVibrationEnabled, manager.SetVibrationState);
+            SetupSmartGroup(
+                musicToggle, 
+                musicSlider, 
+                settings.isMusicEnabled, 
+                manager.SetMusicState,
+                settings.musicVolume,
+                manager.SetMusicVolume
+            );
 
-            Bind(masterSlider, settings.masterVolume, SettingsManager.Instance.SetMasterVolume);
-            Bind(musicSlider, settings.musicVolume, SettingsManager.Instance.SetMusicVolume);
+            // --- SMART LOGIC: SFX ---
+            SetupSmartGroup(
+                sfxToggle, 
+                sfxSlider, 
+                settings.isSfxEnabled, 
+                manager.SetSfxState,
+                settings.sfxVolume,
+                manager.SetSfxVolume
+            );
+        }
 
-            if (sfxToggle)
+        // --- CORE LOGIC: GROUP TOGGLE & SLIDER ---
+        private void SetupSmartGroup(
+            SwitchToggle toggle, 
+            Slider slider, 
+            bool isEnabled, 
+            UnityAction<bool> onToggleChanged,
+            float sliderVal, 
+            UnityAction<float> onSliderChanged)
+        {
+            if (toggle == null) return;
+            toggle.onValueChanged.RemoveAllListeners();
+            toggle.ForceSetState(isEnabled); 
+            
+            toggle.onValueChanged.AddListener((isOn) =>
             {
-                sfxToggle.onValueChanged.RemoveAllListeners();
-                sfxToggle.ForceSetState(settings.isSfxEnabled);
-                sfxToggle.onValueChanged.AddListener(SettingsManager.Instance.SetSfxState);
-            }
-            if (vibrationToggle)
+                onToggleChanged?.Invoke(isOn);
+                UpdateSliderVisualState(slider, isOn);
+            });
+
+            if (slider != null)
             {
-                vibrationToggle.onValueChanged.RemoveAllListeners();
-                vibrationToggle.ForceSetState(settings.isVibrationEnabled);
-                vibrationToggle.onValueChanged.AddListener(SettingsManager.Instance.SetVibrationState);
+                BindSlider(slider, sliderVal, onSliderChanged);
+                UpdateSliderVisualState(slider, isEnabled);
             }
         }
 
-        protected void OnCloseClicked()
+        private void UpdateSliderVisualState(Slider slider, bool isActive)
+        {
+            if (slider == null) return;
+
+            slider.interactable = isActive; 
+
+            var canvasGroup = slider.GetComponent<CanvasGroup>();
+            if (canvasGroup == null) canvasGroup = slider.gameObject.AddComponent<CanvasGroup>();
+            canvasGroup.alpha = isActive ? 1f : 0.5f;
+            canvasGroup.blocksRaycasts = isActive;
+        }
+
+        // --- Standard Helpers ---
+        private void BindSlider(Slider s, float val, UnityAction<float> action)
+        {
+            if (s == null) return;
+            s.SetValueWithoutNotify(val);
+            s.onValueChanged.RemoveAllListeners();
+            s.onValueChanged.AddListener(action);
+        }
+
+        private void BindToggleOnly(SwitchToggle t, bool state, UnityAction<bool> action)
+        {
+            if (t == null) return;
+            t.ForceSetState(state);
+            t.onValueChanged.RemoveAllListeners();
+            t.onValueChanged.AddListener(action);
+        }
+
+        protected virtual void OnCloseClicked()
         {
             Hide();
         }

@@ -56,6 +56,11 @@ namespace _Game.Core.Scripts.GameSystem
             NotifyUI();
         }
 
+        public virtual void ResetScore()
+        {
+            CurrentScore = 0;
+        }
+
         public void Save() => SaveSystem.Save(_gameID, _userData);
 
         private void NotifyUI()

@@ -139,29 +139,60 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
             
             _queue.Add(_config.GetSmartSpawnLevel(isDanger, lastLevel));
         }
+        
+        //---RESET LOGIC---
+        public void ResetSpawner()
+        {
+            StopAllCoroutines();
+            currentRenderer.transform.DOKill();
+            transform.DOKill();
+            
+            _canSpawn = true;
+            aimLine.enabled = false;
+
+            if (dropPoint != null)
+                currentRenderer.transform.position = dropPoint.position;
+            if (nextFruitPanel != null) nextFruitPanel.ResetPanel();
+
+            ResetDataAndUI();
+        }
+        
+        private void ResetDataAndUI()
+        {
+            _queue.Clear();
+            for (int i = 0; i < 4; i++)
+            {
+                _queue.Add(_config.GetSmartSpawnLevel(false, -1));
+            }
+
+            ShowNextFruit(true);
+        }
 
         // --- VISUAL LOGIC ---
 
         private void ShowNextFruit(bool isInit = false)
         {
             if (_queue.Count == 0) return;
-            
+
             var curInfo = _config.GetInfo(_queue[0]);
-            _baseScale = curInfo.scale; // Lưu scale gốc
+            _baseScale = curInfo.scale;
 
             currentRenderer.sprite = curInfo.visual;
             currentRenderer.enabled = true;
-            
+
             currentRenderer.transform.localScale = Vector3.zero;
-            currentRenderer.transform.DOScale(_baseScale, animDuration).SetEase(Ease.OutBounce);
-            
+            currentRenderer.transform.DOScale(_baseScale, animDuration)
+                .SetEase(Ease.OutBack)
+                .SetLink(currentRenderer.gameObject);
+
             List<Sprite> previews = new List<Sprite>();
             for (int i = 1; i < _queue.Count; i++)
             {
                 var info = _config.GetInfo(_queue[i]);
                 if (info != null) previews.Add(info.visual);
             }
-            nextFruitPanel.UpdatePreview(previews);
+
+            if (nextFruitPanel) nextFruitPanel.UpdatePreview(previews);
         }
 
         private void DrawAimLine(Vector3 startPos)

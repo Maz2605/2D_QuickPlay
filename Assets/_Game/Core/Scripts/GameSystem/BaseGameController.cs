@@ -9,6 +9,8 @@ namespace _Game.Core.Scripts.GameSystem
     public abstract class BaseGameController : MonoBehaviour
     {
         [SerializeField] private string mainSceneName = "MainMenu";
+        
+        protected abstract void OnResetGameplay();
         protected void RequestReplay()
         {
             UIManager.Instance.ShowConfirmation(
@@ -16,7 +18,7 @@ namespace _Game.Core.Scripts.GameSystem
                 "Are you sure you want to replay?",
                 () =>
                 {
-                    SceneLoader.Instance.LoadScene(SceneManager.GetActiveScene().name);
+                    ResetGameProcess();
                 },
                 null,
                 "Replay",
@@ -39,6 +41,12 @@ namespace _Game.Core.Scripts.GameSystem
                     SceneLoader.Instance.LoadScene(mainSceneName);
                 },
                 null);
+        }
+
+        private void ResetGameProcess()
+        {
+            
+            OnResetGameplay();
         }
     }
 }

@@ -12,6 +12,7 @@ namespace _Game.Core.Scripts.Data
         public float sfxVolume = 1f;
         
         public bool isSfxEnabled = true;
+        public bool isMusicEnabled = true;
         public bool isVibrationEnabled = true;
     }
 }
