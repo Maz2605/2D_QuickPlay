@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 6569066853171667330}
   - component: {fileID: 8837167381029414185}
   - component: {fileID: 7878945778655597673}
-  - component: {fileID: 611101476236000337}
+  - component: {fileID: 7939183790658645683}
   m_Layer: 0
   m_Name: Toasts_Layer
   m_TagString: Untagged
@@ -287,7 +287,7 @@ MonoBehaviour:
   slideDistance: 200
   showEase: 27
   hideEase: 26
---- !u!114 &611101476236000337
+--- !u!114 &7939183790658645683
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -299,8 +299,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8585e6cc8ba049f1aac8e5eb910b513f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openSound: 0
-  closeSound: 0
+  openSound: 5
+  closeSound: 6
   customOpenClip: {fileID: 0}
   customCloseClip: {fileID: 0}
 --- !u!1 &6503365755146452403

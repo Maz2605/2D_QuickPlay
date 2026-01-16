@@ -6,11 +6,9 @@ namespace _Game.Core.Scripts.Audio.UI_Sound
 {
     public class UIEventSound : MonoBehaviour
     {
-        [Header("Config")]
         [SerializeField] private UISoundType openSound = UISoundType.None;
         [SerializeField] private UISoundType closeSound = UISoundType.None;
 
-        [Header("Custom (Optional)")]
         [SerializeField] private AudioClip customOpenClip;
         [SerializeField] private AudioClip customCloseClip;
 

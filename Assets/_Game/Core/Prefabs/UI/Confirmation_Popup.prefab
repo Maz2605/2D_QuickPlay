@@ -99,7 +99,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 789.4957, y: -70}
+  m_AnchoredPosition: {x: 350, y: -154.38501}
   m_SizeDelta: {x: 152.51, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8642391241463856480
@@ -344,6 +344,7 @@ GameObject:
   - component: {fileID: 5222279645828499962}
   - component: {fileID: 3724922044262827830}
   - component: {fileID: 2497453315862700729}
+  - component: {fileID: 3120424594646779739}
   m_Layer: 0
   m_Name: Confirmation_Popup
   m_TagString: Untagged
@@ -414,6 +415,22 @@ MonoBehaviour:
   backgroundButton: {fileID: 280530754863618528}
   panelContent: {fileID: 1135854949708426958}
   mainContentRect: {fileID: 1135854949708426958}
+--- !u!114 &3120424594646779739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2233025103944587556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8585e6cc8ba049f1aac8e5eb910b513f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openSound: 5
+  closeSound: 6
+  customOpenClip: {fileID: 0}
+  customCloseClip: {fileID: 0}
 --- !u!1 &3992239289311820700
 GameObject:
   m_ObjectHideFlags: 0
@@ -1154,7 +1171,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 789.4957, y: -40}
+  m_AnchoredPosition: {x: 350, y: -71.645004}
   m_SizeDelta: {x: 255.22, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4066006454069722375
