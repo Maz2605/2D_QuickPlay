@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -152,10 +152,10 @@ TextureImporter:
       name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 913
-        width: 22
-        height: 22
+        x: 0
+        y: 811
+        width: 145
+        height: 142
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,10 +173,10 @@ TextureImporter:
       name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_1
       rect:
         serializedVersion: 2
-        x: 67
-        y: 928
-        width: 12
-        height: 33
+        x: 149
+        y: 810
+        width: 112
+        height: 106
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -191,36 +191,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_2
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 913
-        width: 22
-        height: 22
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ca840be1c058f8949a596ed2b89f88b4
-      internalID: 165411214
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_3
       rect:
         serializedVersion: 2
         x: 0
-        y: 547
-        width: 432
-        height: 377
+        y: 545
+        width: 258
+        height: 262
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -236,12 +215,12 @@ TextureImporter:
       name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_4
       rect:
         serializedVersion: 2
-        x: 395
-        y: 748
-        width: 125
-        height: 128
+        x: 403
+        y: 772
+        width: 108
+        height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -257,12 +236,12 @@ TextureImporter:
       name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_5
       rect:
         serializedVersion: 2
-        x: 400
+        x: 403
         y: 700
-        width: 51
+        width: 47
         height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -278,12 +257,12 @@ TextureImporter:
       name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_6
       rect:
         serializedVersion: 2
-        x: 563
+        x: 570
         y: 494
-        width: 432
-        height: 433
+        width: 425
+        height: 425
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -304,7 +283,7 @@ TextureImporter:
         width: 41
         height: 41
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -320,12 +299,12 @@ TextureImporter:
       name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_8
       rect:
         serializedVersion: 2
-        x: 1122
-        y: 735
-        width: 115
-        height: 116
+        x: 1130
+        y: 738
+        width: 99
+        height: 105
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -346,7 +325,7 @@ TextureImporter:
         width: 20
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -367,7 +346,7 @@ TextureImporter:
         width: 132
         height: 136
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -388,7 +367,7 @@ TextureImporter:
         width: 118
         height: 124
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -409,7 +388,7 @@ TextureImporter:
         width: 20
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -425,12 +404,12 @@ TextureImporter:
       name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_13
       rect:
         serializedVersion: 2
-        x: 429
-        y: 547
-        width: 108
-        height: 146
+        x: 434
+        y: 550
+        width: 95
+        height: 93
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -451,7 +430,7 @@ TextureImporter:
         width: 223
         height: 98
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -467,12 +446,12 @@ TextureImporter:
       name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_16
       rect:
         serializedVersion: 2
-        x: 1327
+        x: 1330
         y: 456
-        width: 180
-        height: 180
+        width: 158
+        height: 177
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -493,7 +472,7 @@ TextureImporter:
         width: 562
         height: 540
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -514,7 +493,7 @@ TextureImporter:
         width: 496
         height: 494
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -530,12 +509,12 @@ TextureImporter:
       name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_19
       rect:
         serializedVersion: 2
-        x: 1059
+        x: 1066
         y: 0
-        width: 265
-        height: 519
+        width: 255
+        height: 514
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -551,12 +530,12 @@ TextureImporter:
       name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_24
       rect:
         serializedVersion: 2
-        x: 1579
-        y: 206
-        width: 166
-        height: 148
+        x: 1587
+        y: 208
+        width: 155
+        height: 139
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -572,12 +551,12 @@ TextureImporter:
       name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_25
       rect:
         serializedVersion: 2
-        x: 1745
-        y: 201
-        width: 127
-        height: 132
+        x: 1746
+        y: 209
+        width: 119
+        height: 116
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -595,10 +574,10 @@ TextureImporter:
         serializedVersion: 2
         x: 1324
         y: 0
-        width: 260
-        height: 260
+        width: 258
+        height: 254
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -619,7 +598,7 @@ TextureImporter:
         width: 200
         height: 200
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -635,12 +614,12 @@ TextureImporter:
       name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_29
       rect:
         serializedVersion: 2
-        x: 1790
-        y: 0
-        width: 132
-        height: 125
+        x: 1792
+        y: 1
+        width: 122
+        height: 121
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -656,12 +635,12 @@ TextureImporter:
       name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_30
       rect:
         serializedVersion: 2
-        x: 1862
-        y: 122
-        width: 104
-        height: 131
+        x: 1870
+        y: 127
+        width: 88
+        height: 118
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -669,6 +648,90 @@ TextureImporter:
       bones: []
       spriteID: ec0a89aaa59210e4d9a26d8fd5eb3dcd
       internalID: -1743978512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_15
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 656
+        width: 136
+        height: 122
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32defab6f273d1e468b7453d2a7a66aa
+      internalID: -1573781595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_20
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 748
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac0fb9e82ffc19a4d8be99781d0bc5eb
+      internalID: 1046926013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_21
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 550
+        width: 167
+        height: 104
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9efd80d5d66f80844b3c365088c0eb9e
+      internalID: 1924815193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-2048x1024-ETC2-Games_Atlas-f7c133a8_22
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 652
+        width: 84
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b93311d4a410496408b1aa59510158b7
+      internalID: 1250335006
       vertices: []
       indices: 
       edges: []

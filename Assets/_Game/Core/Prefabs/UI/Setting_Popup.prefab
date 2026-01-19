@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97ee5c424c354fefbf4ac5c3ee4cb522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundType: 2
+  soundType: 1
   customClip: {fileID: 0}
   volumeScale: 1
 --- !u!1 &33737334583584273

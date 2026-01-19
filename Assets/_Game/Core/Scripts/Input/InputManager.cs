@@ -36,7 +36,7 @@ namespace _Game.Core.Scripts.Input
             _inputActions.Touch.TouchPosition.performed += OnTouchPosition;
         }
 
-        public override void OnDisable()
+        public void OnDisable()
         {
             _inputActions.Touch.TouchContact.started -= OnTouchPress;
             _inputActions.Touch.TouchContact.canceled -= OnTouchCancel;
@@ -91,15 +91,15 @@ namespace _Game.Core.Scripts.Input
 
             bool isTouchingUI = _raycastResults.Count > 0;
             
-            if (isTouchingUI)
-            {
-                foreach (var result in _raycastResults)
-                {
-                    // In ra tên object UI đang chặn chuột
-                    // Dùng màu sắc để dễ nhìn trong Console
-                    Debug.Log($"<color=yellow>Blocked by UI:</color> {result.gameObject.name}", result.gameObject);
-                }
-            }
+            // if (isTouchingUI)
+            // {
+            //     foreach (var result in _raycastResults)
+            //     {
+            //         // In ra tên object UI đang chặn chuột
+            //         // Dùng màu sắc để dễ nhìn trong Console
+            //         Debug.Log($"<color=yellow>Blocked by UI:</color> {result.gameObject.name}", result.gameObject);
+            //     }
+            // }
             return isTouchingUI;
         }
     }

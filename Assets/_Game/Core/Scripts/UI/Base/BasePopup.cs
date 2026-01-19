@@ -3,7 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace _Game.Core.Scripts.UI
+namespace _Game.Core.Scripts.UI.Base
 {
     [RequireComponent(typeof(CanvasGroup))]
     public abstract class BasePopup : MonoBehaviour

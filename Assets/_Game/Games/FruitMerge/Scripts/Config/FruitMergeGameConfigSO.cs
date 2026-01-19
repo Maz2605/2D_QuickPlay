@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace _Game.Games.FruitMerge.Scripts.Config
 {
-    [CreateAssetMenu(fileName = "FruitGameConfig", menuName = "FruitMerge/Config")]
+    [CreateAssetMenu(fileName = "FruitGameConfig", menuName = "Games/FruitMerge/Game Config")]
     public class FruitMergeGameConfigSO : ScriptableObject
     {
         [Header("Game Settings")] public string gameID = "fruit_merge";
@@ -31,8 +31,18 @@ namespace _Game.Games.FruitMerge.Scripts.Config
         }
 
         //Logic Random
-        private int _totalWeight = -1;
-        private readonly List<int> _spawnableIndices = new List<int>();
+        [NonSerialized]private int _totalWeight = -1;
+        [NonSerialized]private readonly List<int> _spawnableIndices = new List<int>();
+
+        private void OnEnable()
+        {
+            _totalWeight = -1;
+        }
+
+        private void OnValidate()
+        {
+            _totalWeight = -1;
+        }
 
         public int GetSmartSpawnLevel(bool isDanger, int lastLevel)
         {
@@ -70,6 +80,8 @@ namespace _Game.Games.FruitMerge.Scripts.Config
 
         private int RollWheel()
         {
+            if (_spawnableIndices.Count == 0) return 0;
+            
             int randomValue = Random.Range(0, _totalWeight);
             int currentSum = 0;
             foreach (var index in _spawnableIndices)

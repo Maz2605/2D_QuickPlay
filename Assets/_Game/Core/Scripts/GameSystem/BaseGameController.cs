@@ -1,51 +1,42 @@
-using _Game.Core.Scripts.SceneFlow;
-using _Game.Core.Scripts.UI.Manager;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
+using _Game.Core.Scripts.UI.Manager;
+using _Game.Core.Scripts.SceneFlow;
 
 namespace _Game.Core.Scripts.GameSystem
 {
     public abstract class BaseGameController : MonoBehaviour
     {
         [SerializeField] private string mainSceneName = "MainMenu";
-        
+        public abstract GlobalGameState CurrentGlobalState { get; }
+
         protected abstract void OnResetGameplay();
-        protected void RequestReplay()
+
+        protected virtual void OnResumeGameplay()
         {
-            UIManager.Instance.ShowConfirmation(
-                "Replay", 
-                "Are you sure you want to replay?",
-                () =>
-                {
-                    ResetGameProcess();
-                },
-                null,
-                "Replay",
-                "Cancel"
-                );
+            Debug.Log("Resume Gameplay");
         }
 
-        protected void RequestPause()
+        protected void RequestReplay()
         {
-            UIManager.Instance.OpenSettings();
+            UIManager.Instance.ShowConfirmation("Replay", "Replay game?", 
+                OnResetGameplay, null, "Yes", "No");
         }
+
+        protected void RequestPause() => UIManager.Instance.OpenSettings(OnResumeGameplay);
 
         protected void RequestBackHome()
         {
-            UIManager.Instance.ShowConfirmation(
-                "Back to home",
-                "Are you sure",
-                () =>
-                {
-                    SceneLoader.Instance.LoadScene(mainSceneName);
-                },
-                null);
+            UIManager.Instance.ShowConfirmation("Quit", "Back to Home?", 
+                () => SceneLoader.Instance.LoadScene(mainSceneName), null);
         }
 
-        private void ResetGameProcess()
+        protected void RequestBackHomeWithoutConfirmation()
         {
-            
+            SceneLoader.Instance.LoadScene(mainSceneName);
+        }
+
+        protected void RequestReplayWithoutConfirmation()
+        {
             OnResetGameplay();
         }
     }

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening; // Nhớ có dòng này
+using DG.Tweening; 
 using _Game.Core.Scripts.Input;
 using _Game.Games.FruitMerge.Scripts.Config;
 using _Game.Games.FruitMerge.Scripts.View;
@@ -23,6 +23,7 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
         [SerializeField] private float animDuration = 0.2f;
         [SerializeField] private LineRenderer aimLine; 
         [SerializeField] private LayerMask fruitLayer; 
+        
         [Header("Danger Zone")] 
         [SerializeField] private Transform dangerLine;
         [SerializeField] private float dangerCheckHeight = 2.0f;
@@ -33,7 +34,10 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
         
         private List<int> _queue = new List<int>(); 
         private bool _canSpawn = true;
-        private float _baseScale = 1f; 
+        private float _baseScale = 1f;
+        
+        // Cờ khóa input khi dùng Skill
+        private bool _isInputLocked = false; 
 
         public void Initialize(FruitMergeGameConfigSO config, Action<int, Vector3> onSpawnRequest)
         {
@@ -44,16 +48,13 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
             aimLine.positionCount = 2;
             aimLine.enabled = false; 
 
-            for (int i = 0; i < 4; i++)
-            {
-                _queue.Add(_config.GetSmartSpawnLevel(false, -1));
-            }
-
+            // Đăng ký sự kiện Input
             InputManager.Instance.OnTouchStart += HandleStart;
             InputManager.Instance.OnTouchMove += HandleMove;
             InputManager.Instance.OnTouchEnd += HandleRelease;
 
-            ShowNextFruit(true);
+            // Khởi tạo queue lần đầu
+            ResetDataAndUI();
         }
 
         private void OnDestroy()
@@ -68,34 +69,74 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
             currentRenderer.transform.DOKill();
         }
 
-        // --- INPUT HANDLING ---
+        // --- NEW: INPUT LOCKING (Hỗ trợ Skill) ---
+        public void SetInputActive(bool isActive)
+        {
+            _isInputLocked = !isActive;
+            
+            if (_isInputLocked)
+            {
+                // Ẩn tia ngắm, reset visual
+                aimLine.enabled = false;
+                currentRenderer.transform.DOKill();
+                currentRenderer.transform.localScale = Vector3.one * _baseScale;
+            }
+        }
 
+        // --- NEW: RESET LOGIC (Hỗ trợ Soft Reset) ---
+        public void ResetSpawner()
+        {
+            StopAllCoroutines();
+            currentRenderer.transform.DOKill();
+            transform.DOKill();
+            
+            _canSpawn = true;
+            _isInputLocked = false;
+            aimLine.enabled = false;
+
+            if (dropPoint != null)
+                currentRenderer.transform.position = dropPoint.position;
+            
+            if (nextFruitPanel != null) nextFruitPanel.ResetPanel();
+
+            ResetDataAndUI();
+        }
+        
+        private void ResetDataAndUI()
+        {
+            _queue.Clear();
+            for (int i = 0; i < 4; i++)
+            {
+                _queue.Add(_config.GetSmartSpawnLevel(false, -1));
+            }
+            ShowNextFruit(true);
+        }
+
+        // --- INPUT HANDLING ---
         private void HandleStart(Vector2 screenPos)
         {
-            if (!_canSpawn) return;
+            // Kiểm tra cả _canSpawn và _isInputLocked
+            if (!_canSpawn || _isInputLocked) return;
             
             MoveFruit(screenPos);
 
             aimLine.enabled = true;
-            // DrawAimLine(currentRenderer.transform.position);
-
             currentRenderer.transform.DOKill();
             currentRenderer.transform.DOScale(_baseScale * dragScaleFactor, animDuration).SetEase(Ease.InBack);
         }
 
         private void HandleMove(Vector2 screenPos)
         {
-            if (!_canSpawn) return;
+            if (!_canSpawn || _isInputLocked) return;
             MoveFruit(screenPos);
-            // DrawAimLine(currentRenderer.transform.position);
         }
 
         private void HandleRelease(Vector2 screenPos)
         {
-            if (!_canSpawn) return;
+            if (!_canSpawn || _isInputLocked) return;
             
             MoveFruit(screenPos);
-            aimLine.enabled = false; // Tắt tia ngắm
+            aimLine.enabled = false; 
 
             StartCoroutine(SpawnRoutine(currentRenderer.transform.position));
         }
@@ -108,13 +149,10 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
         }
 
         // --- SPAWN LOGIC ---
-
         private IEnumerator SpawnRoutine(Vector3 position)
         {
             _canSpawn = false;
-
             currentRenderer.transform.DOKill();
-
             currentRenderer.enabled = false;
 
             int levelToSpawn = _queue[0];
@@ -122,9 +160,10 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
 
             yield return new WaitForSeconds(_config.spawnCooldown);
 
-            yield return currentRenderer.transform.DOScale(0f, 0.15f).SetEase(Ease.InBack).WaitForCompletion();
+            // Xử lý queue
             AdvanceQueue();
             
+            // Animation hiện quả tiếp theo
             ShowNextFruit();
             
             _canSpawn = true;
@@ -139,36 +178,6 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
             
             _queue.Add(_config.GetSmartSpawnLevel(isDanger, lastLevel));
         }
-        
-        //---RESET LOGIC---
-        public void ResetSpawner()
-        {
-            StopAllCoroutines();
-            currentRenderer.transform.DOKill();
-            transform.DOKill();
-            
-            _canSpawn = true;
-            aimLine.enabled = false;
-
-            if (dropPoint != null)
-                currentRenderer.transform.position = dropPoint.position;
-            if (nextFruitPanel != null) nextFruitPanel.ResetPanel();
-
-            ResetDataAndUI();
-        }
-        
-        private void ResetDataAndUI()
-        {
-            _queue.Clear();
-            for (int i = 0; i < 4; i++)
-            {
-                _queue.Add(_config.GetSmartSpawnLevel(false, -1));
-            }
-
-            ShowNextFruit(true);
-        }
-
-        // --- VISUAL LOGIC ---
 
         private void ShowNextFruit(bool isInit = false)
         {
@@ -195,32 +204,14 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
             if (nextFruitPanel) nextFruitPanel.UpdatePreview(previews);
         }
 
-        private void DrawAimLine(Vector3 startPos)
-        {
-            aimLine.SetPosition(0, startPos);
-
-            RaycastHit2D hit = Physics2D.Raycast(startPos, Vector2.down, 10f, fruitLayer);
-            
-            Vector3 endPos;
-            if (hit.collider != null)
-            {
-                endPos = hit.point;
-            }
-            else
-            {
-                endPos = startPos + Vector3.down * 10f;
-            }
-            aimLine.SetPosition(1, endPos);
-        }
-
-        // --- GIZMOS ---
         private bool CheckDanger()
         {
             if (dangerLine == null) return false;
             Vector2 center = (Vector2)dangerLine.position - new Vector2(0, dangerCheckHeight / 2f);
             return Physics2D.OverlapBox(center, new Vector2(dangerCheckWidth, dangerCheckHeight), 0, fruitLayer);
         }
-
+        
+        // --- GIZMOS ---
         private void OnDrawGizmos()
         {
             if (dangerLine == null) return;

@@ -1,3 +1,4 @@
+using _Game.Core.Scripts.UI.Base;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;

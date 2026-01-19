@@ -22,7 +22,9 @@ namespace _Game.Core.Scripts.UI.Manager
         private ToastNotification _toastInstance;
         private LoadingScreen _loadingInstance;
 
+        // Lưu trạng thái
         private float _savedTimeScale = 1f;
+        private Action _onSettingsCloseCallback; 
         
         private void Start()
         {
@@ -31,7 +33,6 @@ namespace _Game.Core.Scripts.UI.Manager
 
         private void InitUI()
         {
-            // Kiểm tra và tạo Loading Screen ngay lập tức
             if (loadingScreenPrefab != null && _loadingInstance == null)
             {
                 _loadingInstance = Instantiate(loadingScreenPrefab, globalCanvasRoot);
@@ -40,9 +41,9 @@ namespace _Game.Core.Scripts.UI.Manager
             }
         }
 
-       
-        // SETTINGS SYSTEM
-        public void OpenSettings()
+        // SETTINGS SYSTEM 
+        
+        public void OpenSettings(Action onClose = null)
         {
             if (_settingInstance == null)
             {
@@ -53,6 +54,8 @@ namespace _Game.Core.Scripts.UI.Manager
                 }
                 _settingInstance = Instantiate(settingsPrefab, globalCanvasRoot);
             }
+
+            _onSettingsCloseCallback = onClose;
 
             _savedTimeScale = Time.timeScale;
             Time.timeScale = 0f;
@@ -66,6 +69,8 @@ namespace _Game.Core.Scripts.UI.Manager
         private void OnSettingsClosed()
         { 
             Time.timeScale = _savedTimeScale;
+            _onSettingsCloseCallback?.Invoke();
+            _onSettingsCloseCallback = null;
         }
 
         // CONFIRMATION SYSTEM
@@ -78,6 +83,7 @@ namespace _Game.Core.Scripts.UI.Manager
             }
             float pauseTime = Time.timeScale;
             Time.timeScale = 0f;
+            
             Action wrapperConfirm = () =>
             {
                 Time.timeScale = pauseTime;
@@ -88,6 +94,7 @@ namespace _Game.Core.Scripts.UI.Manager
                 Time.timeScale = pauseTime;
                 onCancel?.Invoke();
             };
+            
             _confirmInstance.Setup(title, message, wrapperConfirm, wrapperCancel, confirmLabel, cancelLabel);
             _confirmInstance.Show();
         }
@@ -99,14 +106,13 @@ namespace _Game.Core.Scripts.UI.Manager
             {
                 if (toastPrefab == null) return;
                 _toastInstance = Instantiate(toastPrefab, globalCanvasRoot);
-                _toastInstance.transform.SetAsLastSibling(); // Đè lên tất cả
+                _toastInstance.transform.SetAsLastSibling(); 
             }
 
             _toastInstance.ShowToast(message, duration);
         }
 
         // LOADING SYSTEM
-        
         public void ShowLoading(Action onCovered = null)
         {
             if (_loadingInstance == null) InitUI();
@@ -124,6 +130,7 @@ namespace _Game.Core.Scripts.UI.Manager
                 _loadingInstance.HideLoading();
             }
         }
+        
         public void ToggleLoading(bool isShow)
         {
             if (isShow) ShowLoading();

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace _Game.Games.FruitMerge.Scripts.Config
 {
-    [CreateAssetMenu(menuName = "FruitMerge/Audio Config")]
+    [CreateAssetMenu(fileName = "Audio Config", menuName = "Games/FruitMerge/Audio Config")]
     public class FruitAudioConfigSO: ScriptableObject
     {
         [Header("Music")] 

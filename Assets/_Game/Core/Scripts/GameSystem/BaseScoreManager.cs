@@ -7,10 +7,10 @@ namespace _Game.Core.Scripts.GameSystem
     public class BaseScoreManager<T> where T : class, IGameUserData, new()
     {
         private readonly string _gameID;
-        private T _userData;
+        protected T UserData;
 
         public int CurrentScore { get; private set; }
-        public int HighScore => _userData.HighScore;
+        public int HighScore => UserData.HighScore;
 
         public event Action<int> OnScoreChanged;
         public event Action<int> OnHighScoreChanged;
@@ -26,16 +26,16 @@ namespace _Game.Core.Scripts.GameSystem
         {
             try
             {
-                _userData = SaveSystem.Load<T>(_gameID);
+                UserData = SaveSystem.Load<T>(_gameID);
             }
             catch (Exception e)
             {
                 Debug.LogError($"Lỗi load save: {e.Message}. Tạo data mới.");
             }
 
-            if (_userData == null)
+            if (UserData == null)
             {
-                _userData = new T();
+                UserData = new T();
                 Debug.LogWarning("UserData bị null, đã tạo mới!");
             }
 
@@ -48,9 +48,9 @@ namespace _Game.Core.Scripts.GameSystem
             CurrentScore += amount;
             OnScoreChanged?.Invoke(CurrentScore);
 
-            if (CurrentScore > _userData.HighScore)
+            if (CurrentScore > UserData.HighScore)
             {
-                _userData.HighScore = CurrentScore;
+                UserData.HighScore = CurrentScore;
             }
 
             NotifyUI();
@@ -61,12 +61,12 @@ namespace _Game.Core.Scripts.GameSystem
             CurrentScore = 0;
         }
 
-        public void Save() => SaveSystem.Save(_gameID, _userData);
+        public void Save() => SaveSystem.Save(_gameID, UserData);
 
         private void NotifyUI()
         {
             OnScoreChanged?.Invoke(CurrentScore);
-            OnHighScoreChanged?.Invoke(_userData.HighScore);
+            OnHighScoreChanged?.Invoke(UserData.HighScore);
         }
     }
 }

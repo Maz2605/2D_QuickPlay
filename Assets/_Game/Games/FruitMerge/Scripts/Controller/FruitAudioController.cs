@@ -27,6 +27,7 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
 
         private void OnDestroy()
         { 
+            if(!AudioManager.HasInstance) return;
             if(InputManager.Instance != null) InputManager.Instance.OnTouchEnd -= PlayDrop;
             if(Audio != null) Audio.StopMusic();
         }
