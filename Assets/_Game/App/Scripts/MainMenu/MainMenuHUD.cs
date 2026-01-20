@@ -16,9 +16,6 @@ namespace _Game.App.Scripts.MainMenu
         [SerializeField] private Button settingBtn;
         [SerializeField] private Button removeAdsBtn;
         
-        
-        public event Action OnPauseClicked;
-        
         private void Start()
         {
             UpdateCoinUI();
@@ -35,7 +32,6 @@ namespace _Game.App.Scripts.MainMenu
 
         private void OnSettingClicked()
         {
-            Debug.Log("Open Setting Popup");
             UIManager.Instance.OpenSettings();
         }
 

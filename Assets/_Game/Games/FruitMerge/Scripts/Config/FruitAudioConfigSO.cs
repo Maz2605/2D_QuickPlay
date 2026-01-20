@@ -1,13 +1,11 @@
+using _Game.Core.Scripts.Audio;
 using UnityEngine;
 
 namespace _Game.Games.FruitMerge.Scripts.Config
 {
     [CreateAssetMenu(fileName = "Audio Config", menuName = "Games/FruitMerge/Audio Config")]
-    public class FruitAudioConfigSO: ScriptableObject
+    public class FruitAudioConfigSO: BaseAudioConfigSO
     {
-        [Header("Music")] 
-        public AudioClip backgroundMusic;
-
         [Header("SFX")] 
         public AudioClip dropSound;
         public AudioClip mergeSound;
