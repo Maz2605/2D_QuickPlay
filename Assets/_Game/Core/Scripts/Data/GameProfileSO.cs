@@ -9,5 +9,8 @@ namespace _Game.Core.Scripts.Data
         public string displayName;
         public Sprite uiSprite;
         public string sceneName;
+        
+        [Header("Visual Config")]
+        public Color textColor = Color.white;
     }
 }

@@ -99,7 +99,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 350, y: -70}
+  m_AnchoredPosition: {x: 350, y: -154.38501}
   m_SizeDelta: {x: 152.51, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8642391241463856480
@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 9097699593443364748}
   - component: {fileID: 5414246268568191355}
   - component: {fileID: 7990118310868462650}
+  - component: {fileID: 4950064823067423542}
   m_Layer: 0
   m_Name: Content_Panel
   m_TagString: Untagged
@@ -333,6 +334,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &4950064823067423542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478079142685102915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -10}
+  m_UseGraphicAlpha: 1
 --- !u!1 &2233025103944587556
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,6 +668,7 @@ GameObject:
   - component: {fileID: 691434469418745525}
   - component: {fileID: 441487267910272026}
   - component: {fileID: 741946485730092047}
+  - component: {fileID: 8088350262688555551}
   m_Layer: 0
   m_Name: Button_Confirm
   m_TagString: Untagged
@@ -761,6 +778,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8088350262688555551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4546886189584763910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &5425817477188755525
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,6 +805,7 @@ GameObject:
   - component: {fileID: 176439812101188624}
   - component: {fileID: 2364828119521265022}
   - component: {fileID: 2789142689364269333}
+  - component: {fileID: 6913941857127276386}
   m_Layer: 0
   m_Name: Button_Cancel
   m_TagString: Untagged
@@ -882,6 +915,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6913941857127276386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5425817477188755525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &5890028849374797489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1171,7 +1219,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 350, y: -40}
+  m_AnchoredPosition: {x: 350, y: -71.645004}
   m_SizeDelta: {x: 255.22, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4066006454069722375

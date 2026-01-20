@@ -11,45 +11,70 @@ namespace _Game.Core.Scripts.Input
     {
         public event Action<Vector2> OnTouchMove;
         public event Action<Vector2> OnTouchEnd;
-        public event Action<Vector2> OnTouchStart; 
-        
-        private GameInput _inputActions; 
+        public event Action<Vector2> OnTouchStart;
+
+        private GameInput _inputActions;
         private Camera _mainCamera;
         private bool _isDragging;
-        
+
         private List<RaycastResult> _raycastResults = new List<RaycastResult>();
         private PointerEventData _pointerEventData;
+
+        private Camera MainCamera
+        {
+            get
+            {
+                if (_mainCamera == null)
+                {
+                    _mainCamera = Camera.main;
+                }
+                return _mainCamera;
+            }
+        }
 
         protected override void Awake()
         {
             base.Awake();
+            if (Instance != null && Instance != this) 
+            {
+                return; 
+            }
+            
             KeepAlive(true);
             _inputActions = new GameInput();
-            _mainCamera = Camera.main;
         }
 
         private void OnEnable()
         {
+            if (_inputActions == null) return;
+
             _inputActions.Enable();
             _inputActions.Touch.TouchContact.started += OnTouchPress;
             _inputActions.Touch.TouchContact.canceled += OnTouchCancel;
             _inputActions.Touch.TouchPosition.performed += OnTouchPosition;
         }
 
-        public void OnDisable()
+        private void OnDisable()
         {
+            if (_inputActions == null) return;
+
             _inputActions.Touch.TouchContact.started -= OnTouchPress;
             _inputActions.Touch.TouchContact.canceled -= OnTouchCancel;
             _inputActions.Touch.TouchPosition.performed -= OnTouchPosition;
             _inputActions.Disable();
         }
 
+        private void OnDestroy()
+        {
+            _inputActions?.Dispose();
+        }
+
         private void OnTouchPress(InputAction.CallbackContext ctx)
         {
-            if (IsPointerOverUI()) return; // Chặn UI
+            if (IsPointerOverUI()) return;
+            
             _isDragging = true;
-
-            OnTouchStart?.Invoke(_inputActions.Touch.TouchPosition.ReadValue<Vector2>());
+            OnTouchStart?.Invoke(ReadTouchPosition());
         }
 
         private void OnTouchCancel(InputAction.CallbackContext ctx)
@@ -57,7 +82,7 @@ namespace _Game.Core.Scripts.Input
             if (_isDragging)
             {
                 _isDragging = false;
-                OnTouchEnd?.Invoke(_inputActions.Touch.TouchPosition.ReadValue<Vector2>());
+                OnTouchEnd?.Invoke(ReadTouchPosition());
             }
         }
 
@@ -69,38 +94,36 @@ namespace _Game.Core.Scripts.Input
             }
         }
 
+        private Vector2 ReadTouchPosition()
+        {
+            return _inputActions != null ? _inputActions.Touch.TouchPosition.ReadValue<Vector2>() : Vector2.zero;
+        }
+
         public Vector3 GetWorldPosition()
         {
-            Vector2 screenPos = _inputActions.Touch.TouchPosition.ReadValue<Vector2>();
-            Vector3 worldPos = _mainCamera.ScreenToWorldPoint(screenPos);
+            if (MainCamera == null) return Vector3.zero;
+
+            Vector2 screenPos = ReadTouchPosition();
+            Vector3 worldPos = MainCamera.ScreenToWorldPoint(screenPos);
             worldPos.z = 0;
             return worldPos;
         }
 
         private bool IsPointerOverUI()
         {
-            Vector2 touchPos = _inputActions.Touch.TouchPosition.ReadValue<Vector2>();
+            if (EventSystem.current == null) return false;
+
+            Vector2 touchPos = ReadTouchPosition();
 
             _pointerEventData = new PointerEventData(EventSystem.current)
             {
                 position = touchPos
             };
             _raycastResults.Clear();
-            
+
             EventSystem.current.RaycastAll(_pointerEventData, _raycastResults);
 
-            bool isTouchingUI = _raycastResults.Count > 0;
-            
-            // if (isTouchingUI)
-            // {
-            //     foreach (var result in _raycastResults)
-            //     {
-            //         // In ra tên object UI đang chặn chuột
-            //         // Dùng màu sắc để dễ nhìn trong Console
-            //         Debug.Log($"<color=yellow>Blocked by UI:</color> {result.gameObject.name}", result.gameObject);
-            //     }
-            // }
-            return isTouchingUI;
+            return _raycastResults.Count > 0;
         }
     }
 }
