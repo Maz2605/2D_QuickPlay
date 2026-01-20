@@ -392,7 +392,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 1
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -1013,23 +1013,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1698092942950291340, guid: aa89094e632fa5647a9eb24fd1395c1e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1698092942950291340, guid: aa89094e632fa5647a9eb24fd1395c1e, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1698092942950291340, guid: aa89094e632fa5647a9eb24fd1395c1e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 651
       objectReference: {fileID: 0}
     - target: {fileID: 1698092942950291340, guid: aa89094e632fa5647a9eb24fd1395c1e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 325.5
       objectReference: {fileID: 0}
     - target: {fileID: 1698092942950291340, guid: aa89094e632fa5647a9eb24fd1395c1e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -75
       objectReference: {fileID: 0}
     - target: {fileID: 2181309022190307922, guid: aa89094e632fa5647a9eb24fd1395c1e, type: 3}
       propertyPath: m_Color.a
@@ -1037,7 +1037,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4163710647719453952, guid: aa89094e632fa5647a9eb24fd1395c1e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -229
       objectReference: {fileID: 0}
     - target: {fileID: 4439650378525754576, guid: aa89094e632fa5647a9eb24fd1395c1e, type: 3}
       propertyPath: m_Name
@@ -1045,7 +1045,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4439650378525754576, guid: aa89094e632fa5647a9eb24fd1395c1e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6118495470158734352, guid: aa89094e632fa5647a9eb24fd1395c1e, type: 3}
       propertyPath: m_fontSize

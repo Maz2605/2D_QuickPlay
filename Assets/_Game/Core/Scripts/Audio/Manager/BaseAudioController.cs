@@ -16,7 +16,7 @@ namespace _Game.Core.Scripts.Audio.Manager
 
         private void OnDestroy()
         {
-            if(!AudioManager.HasInstance) return;
+            if(AudioManager.HasInstance) return;
             Audio.StopMusic();
         }
     }
