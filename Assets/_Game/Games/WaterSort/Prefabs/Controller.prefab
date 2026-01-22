@@ -184,6 +184,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0a5e19d55fdc3444f9e430166d4054c3, type: 2}
   - {fileID: 11400000, guid: 0f550aea6ca935747949391bc8685a6f, type: 2}
   - {fileID: 11400000, guid: 4d570a47e71fe22438a7fd496087a114, type: 2}
+  - {fileID: 11400000, guid: 61653770ccb2e7942a9916467f8f6b3e, type: 2}
+  - {fileID: 11400000, guid: f2d834f234ec8cd458632716299ffbac, type: 2}
+  - {fileID: 11400000, guid: 7fe606cc41858f143a3883a38b4c53d8, type: 2}
+  - {fileID: 11400000, guid: 3be87c6ed079ce1409018b7341699bc8, type: 2}
+  - {fileID: 11400000, guid: 45988b881d7fd7c4b9d3cc74f054f58d, type: 2}
   gamePlayController: {fileID: 636396895476366088}
 --- !u!1001 &8114710455960999114
 PrefabInstance:
