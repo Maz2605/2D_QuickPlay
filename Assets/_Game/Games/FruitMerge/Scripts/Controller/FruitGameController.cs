@@ -95,7 +95,6 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
         {
             _scoreManager?.Save();
             
-            // Unsubscribe Events để tránh Memory Leak
             if (_scoreManager != null)
             {
                 _scoreManager.OnScoreChanged -= HandleScoreChanged;

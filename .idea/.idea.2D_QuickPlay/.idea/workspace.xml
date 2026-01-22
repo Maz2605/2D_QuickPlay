@@ -6,14 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="18bf9dc0-a631-4852-9f8d-a18d3788e52e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.2D_QuickPlay/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.2D_QuickPlay/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Prefabs/MainMenuHUD.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/App/Prefabs/MainMenuHUD.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/Loading.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/App/Scenes/Loading.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/App/Scenes/MainMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scripts/Loading.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/App/Scripts/Loading.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Core/Prefabs/Core.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Core/Prefabs/Core.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Core/Prefabs/SetupLoader.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Core/Prefabs/SetupLoader.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/Audio/Manager/BaseAudioController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/Audio/Manager/BaseAudioController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/FlappyJumpGame.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/FlappyJumpGame.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/SudokuGame.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/SudokuGame.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Art/Texture2D/Square_1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Art/Texture2D/Square_1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Art/Texture2D/sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Art/Texture2D/sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Art/Texture2D/sactx-0-2048x1024-ETC2-64_TAPMATCH_Atlas-f45de621.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Art/Texture2D/sactx-0-2048x1024-ETC2-64_TAPMATCH_Atlas-f45de621.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +51,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/_Game/Core/Scripts/Utils/CoreLoader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Game/Core/Scripts/Utils/Editor/UIButtonSoundEditor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/View/FruitGameHUD.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Game/Games/WaterSort/Scripts/Utils/BottleTester.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/GraphicRaycaster.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -179,7 +180,8 @@
       <workItem from="1768641258009" duration="26620000" />
       <workItem from="1768762157228" duration="542000" />
       <workItem from="1768767112221" duration="3097000" />
-      <workItem from="1768816499635" duration="25011000" />
+      <workItem from="1768816499635" duration="35379000" />
+      <workItem from="1768943566882" duration="9682000" />
     </task>
     <servers />
   </component>

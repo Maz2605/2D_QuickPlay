@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b92b54888cf54c7a9cbd035432fe0ba6, type: 3}
+  m_Name: WaterSortGame
+  m_EditorClassIdentifier: 
+  id: water_sort
+  displayName: Water Sort
+  uiSprite: {fileID: 21300000, guid: ff15551c777e59047a1668d3736b8af6, type: 3}
+  sceneName: WaterSort
+  textColor: {r: 0.9764706, g: 0.8235294, b: 0.2784314, a: 1}

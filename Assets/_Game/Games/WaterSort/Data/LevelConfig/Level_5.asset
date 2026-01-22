@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f82f1f7f378144b09024bebf8da42f78, type: 3}
+  m_Name: Level_5
+  m_EditorClassIdentifier: 
+  nameLevel: Level 5
+  bottleCapacity: 4
+  bottlesPerRow: 0300000003000000
+  spacingX: 1.5
+  spacingY: 3
+  colorCount: 5
+  shuffleSteps: 40
+  bottles:
+  - colors: 00000000000000000100000002000000
+  - colors: 010000000100000000000000
+  - colors: 02000000020000000100000002000000
+  - colors: 0300000003000000
+  - colors: 040000000400000004000000
+  - colors: 03000000000000000400000003000000

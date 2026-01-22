@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -147,7 +147,196 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_1
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 1229
+        width: 103
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05dcc987196a8d441b335bed6223cd49
+      internalID: 156548522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_2
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1233
+        width: 299
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a2cdefdbb9bd094e93f3476185972e2
+      internalID: -314653695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_3
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 55
+        width: 391
+        height: 1170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b601f7ea91bfa640baa1d9ae83278b1
+      internalID: 22408484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_4
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 2
+        width: 373
+        height: 1151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2224434dfd8cbb948bfab9835453d463
+      internalID: 1212568192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_5
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 1
+        width: 90
+        height: 218
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40fdf157883fb484d9929081dd835285
+      internalID: 1039052416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1370
+        width: 89
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdad8f79e38669940bd82ccc3ec6d7bd
+      internalID: 1077338906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_6
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 1370
+        width: 88
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 940df8675066e484db06db07b07b30db
+      internalID: -2071107102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_7
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 1370
+        width: 90
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce9dc887fbeff7a4daf0ae76295778e9
+      internalID: -1187415216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1593
+        width: 89
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b70249d81930b9645850272f58ca1c6a
+      internalID: -1983961934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -158,7 +347,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_0: 1077338906
+      sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_1: 156548522
+      sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_2: -314653695
+      sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_3: 22408484
+      sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_4: 1212568192
+      sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_5: 1039052416
+      sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_6: -2071107102
+      sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_7: -1187415216
+      sactx-0-1024x2048-ETC2-99_WATERSORT_Atlas-c2f4eed7_8: -1983961934
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
