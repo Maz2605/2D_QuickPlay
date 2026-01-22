@@ -13,24 +13,20 @@ namespace _Game.Games.WaterSort.Scripts.Controller
 
         private AudioSource _pouringSource;
         
-        // Cache reference thay vì gọi property => Instance liên tục
         private AudioManager _audioManager; 
 
         private void Start()
         {
             if (config == null || gameController == null) return;
             
-            // Cache ngay lúc khởi tạo
             _audioManager = AudioManager.Instance;
 
-            // Setup Audio Source
             _pouringSource = gameObject.AddComponent<AudioSource>();
             _pouringSource.clip = config.sfxPouringLoop;
             _pouringSource.loop = true;
             _pouringSource.playOnAwake = false;
             _pouringSource.volume = 0;
 
-            // Safe call
             if (_audioManager != null)
             {
                 _audioManager.PlayMusic(config.backgroundMusic, true, 1f);
@@ -41,10 +37,8 @@ namespace _Game.Games.WaterSort.Scripts.Controller
 
         private void OnDestroy()
         {
-            // 1. Cleanup Events
             UnregisterEvents();
 
-            // 2. Kill Tween (QUAN TRỌNG: Tránh memory leak hoặc lỗi truy cập object đã hủy)
             if (_pouringSource != null)
             {
                 _pouringSource.DOKill(); 
@@ -88,7 +82,6 @@ namespace _Game.Games.WaterSort.Scripts.Controller
         private void PlayWin() => TryPlaySfx(config.sfxWin);
         private void PlayBottleSolved() => TryPlaySfx(config.sfxBottleComplete);
 
-        // Wrapper để tránh check null nhiều lần
         private void TryPlaySfx(AudioClip clip)
         {
             if (Audio != null) Audio.PlaySfx(clip, config.sfxVolume);
@@ -96,7 +89,6 @@ namespace _Game.Games.WaterSort.Scripts.Controller
 
         private void HandlePouringSound(bool isPouring)
         {
-            // Check null cho chắc chắn, tránh lỗi khi game đang đóng
             if (Audio == null || !Audio.IsSfxEnabled || _pouringSource == null) return;
 
             if (isPouring)
