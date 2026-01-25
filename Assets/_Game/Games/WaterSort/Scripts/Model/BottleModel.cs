@@ -40,7 +40,7 @@ namespace _Game.Games.WaterSort.Scripts.Model
         public void UndoPush(int colorId)
         {
             _liquids.Add(colorId);
-        }
+        }   
 
         public bool CanPush(int colorId)
         {

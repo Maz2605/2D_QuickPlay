@@ -393,6 +393,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4691050356105388758, guid: cc8009b845869c54b8a7d8ccae8624d6, type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5493575163559922746, guid: cc8009b845869c54b8a7d8ccae8624d6, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0

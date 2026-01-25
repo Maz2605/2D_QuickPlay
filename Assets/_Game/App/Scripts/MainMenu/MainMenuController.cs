@@ -29,7 +29,7 @@ namespace _Game.App.Scripts.MainMenu
         {
             if (profile.id.ToLower().Contains("none"))
             {
-                UIManager.Instance.ShowToast("You are going to the comming soon!");
+                UIManager.Instance.ShowToast("This game is still in development!");
                 return;
             }
             SceneLoader.Instance.LoadScene(profile.sceneName);
