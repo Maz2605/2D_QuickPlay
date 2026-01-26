@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 namespace _Game.Core.Scripts.Input
 {
     public class InputManager : Singleton<InputManager>
-    {
+    {   
         public event Action<Vector2> OnTouchMove;
         public event Action<Vector2> OnTouchEnd;
         public event Action<Vector2> OnTouchStart;

@@ -1,27 +1,44 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace _Game.Core.Scripts.Utils.DesignPattern.Command
 {
     public class CommandInvoker
     {
-        private Stack<ICommand> _undoStack = new Stack<ICommand>();
+        private LinkedList<ICommand> _undoHistory = new LinkedList<ICommand>();
         private Stack<ICommand> _redoStack = new Stack<ICommand>();
 
-        public void Excute(ICommand command)
+        private int _maxHistorySize;
+
+        public CommandInvoker(int maxHistorySize = 3)
         {
-            command.Execute();
-            _undoStack.Push(command);
-            
+            _maxHistorySize = maxHistorySize;
+        }
+        public void ExecuteCommand(ICommand command)
+        {
+            if (!command.Execute()) return;
+            _undoHistory.AddLast(command);
             _redoStack.Clear();
+
+            if (_undoHistory.Count > _maxHistorySize)
+            {
+                _undoHistory.RemoveFirst();
+            }
         }
 
         public void Undo()
         {
-            if (_undoStack.Count > 0)
+            if (_undoHistory.Count > 0)
             {
-                ICommand activeCommand = _undoStack.Pop();
-                activeCommand.Undo();
-                _redoStack.Push(activeCommand);
+                ICommand command = _undoHistory.Last.Value;
+                _undoHistory.RemoveLast();
+                command.Undo();
+                
+                _redoStack.Push(command);
+            }
+            else
+            {
+                Debug.Log("Hết cái để undo");
             }
         }
 
@@ -30,15 +47,25 @@ namespace _Game.Core.Scripts.Utils.DesignPattern.Command
             if (_redoStack.Count > 0)
             {
                 ICommand activeCommand = _redoStack.Pop();
-                activeCommand.Execute();
-                _undoStack.Push(activeCommand);
+                
+                if(!activeCommand.Execute()) return;
+                
+                _undoHistory.AddLast(activeCommand);
+
+                if (_undoHistory.Count > _maxHistorySize)
+                {
+                    _undoHistory.RemoveFirst();
+                }
             }
         }
 
         public void ClearHistory()
         {
-            _undoStack.Clear();
+            _undoHistory.Clear();
             _redoStack.Clear();
         }
+        
+        public bool CanUndo() => _undoHistory.Count > 0;
+        public bool CanRedo() => _redoStack.Count > 0;
     }
 }

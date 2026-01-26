@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/_Game/App/Scenes/FruitMergeGame.unity
     guid: f9ce676df0c4ba343b364635622bf45d
   - enabled: 1
-    path: Assets/_Game/App/Scenes/WaterSort.unity
+    path: Assets/_Game/App/Scenes/WaterSortGame.unity
     guid: edc1fb4b4bad5db46bcfdeb44b3dbddd
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 73bcd5d43d85aa64f954b7f2c2f0b1b7, type: 2}

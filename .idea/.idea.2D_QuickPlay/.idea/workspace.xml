@@ -5,21 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="18bf9dc0-a631-4852-9f8d-a18d3788e52e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.2D_QuickPlay/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.2D_QuickPlay/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/FruitMergeGame.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/App/Scenes/FruitMergeGame.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/Loading.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/App/Scenes/Loading.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/App/Scenes/MainMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/WaterSort.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/WaterSort.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/App/Scenes/WaterSort.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/WaterSort/LightingData.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/WaterSort/LightingData.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scripts/MainMenu/MainMenuController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/App/Scripts/MainMenu/MainMenuController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/Vibration/VibrationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/Vibration/VibrationManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/WaterSort/Data/LevelConfig/Level_1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/WaterSort/Data/LevelConfig/Level_1.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/WaterSort/Scripts/Model/BottleModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/WaterSort/Scripts/Model/BottleModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/BlockSlideGame.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/App/Scenes/BlockSlideGame.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Config/BlockColorConfigSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Config/BlockColorConfigSO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/BlockSlideHUD.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/BlockSlideHUD.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/TileView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/BoardView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/TileView.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/BoardView.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +181,7 @@
       <workItem from="1768943566882" duration="9682000" />
       <workItem from="1768961570814" duration="37084000" />
       <workItem from="1769333446428" duration="1807000" />
-      <workItem from="1769349800584" duration="4965000" />
+      <workItem from="1769349800584" duration="17936000" />
     </task>
     <servers />
   </component>
