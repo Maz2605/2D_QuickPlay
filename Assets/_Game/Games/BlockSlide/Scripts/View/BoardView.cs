@@ -1,4 +1,4 @@
-namespace _Game.Games._2048Game.Scripts.View
+namespace _Game.Games.BlockSlide.Scripts.View
 {
     public class TileView
     {
