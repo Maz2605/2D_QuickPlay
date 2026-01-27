@@ -2,9 +2,14 @@ namespace _Game.Games.BlockSlide.Scripts.Config
 {
     public enum BlockSlideEventID
     {
-        GameStart,
+        GameStateChanged,
+        
         BoardUpdate,
+        UndoUsed,
+                    
         ScoreUpdate,
-        GameOver
+        HighScoreUpdate,
+        
+        ShowGameOver
     }
 }

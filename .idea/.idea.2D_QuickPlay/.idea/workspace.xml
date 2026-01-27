@@ -5,11 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="18bf9dc0-a631-4852-9f8d-a18d3788e52e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Model/BlockSlideUserData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.2D_QuickPlay/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.2D_QuickPlay/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/BlockSlideGame.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/App/Scenes/BlockSlideGame.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/GameSystem/BaseScoreManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/GameSystem/BaseScoreManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Prefabs/Block.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Prefabs/Block.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Config/BlockColorConfigSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Config/BlockColorConfigSO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Config/BlockSlideConfigSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Config/BlockSlideConfigSO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Config/BlockSlideEventID.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Config/BlockSlideEventID.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Controller/BlockSlideController.Input.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Controller/BlockSlideController.Input.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Controller/BlockSlideController.Utils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Controller/BlockSlideController.Utils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Controller/BlockSlideController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Controller/BlockSlideController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Model/GridModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Model/GridModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Model/UserData.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Model/UserData.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Model/BlockSlideUserData.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/BlockSlideHUD.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/BlockSlideHUD.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/TileView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/BoardView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/TileView.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/BoardView.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/BlockView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/BlockView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/BoardView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/BoardView.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -182,6 +195,9 @@
       <workItem from="1768961570814" duration="37084000" />
       <workItem from="1769333446428" duration="1807000" />
       <workItem from="1769349800584" duration="17936000" />
+      <workItem from="1769451224038" duration="4005000" />
+      <workItem from="1769455702151" duration="17987000" />
+      <workItem from="1769477521009" duration="6451000" />
     </task>
     <servers />
   </component>

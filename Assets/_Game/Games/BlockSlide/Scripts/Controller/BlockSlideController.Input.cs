@@ -1,22 +1,22 @@
+using _Game.Games.BlockSlide.Scripts.Config;
 using UnityEngine;
 
 namespace _Game.Games.BlockSlide.Scripts.Controller
 {
     public partial class BlockSlideController
     {
-        [Header("Input Settings")]
-        [SerializeField] private float minSwipeDistance = 50f;
         
-        private Vector2 _startPosition;
-        private bool _isSwipeProcessing;
         private void HandleTouchStart(Vector2 position)
         {
+            if(_currentState != BlockSlideState.Playing) return;
             _startPosition = position;
             _isSwipeProcessing = true;
         }
 
         private void HandleTouchEnd(Vector2 endPosition)
         {
+            if(_currentState != BlockSlideState.Playing) return;
+            
             if(!_isSwipeProcessing || _gridModel == null) return;
             
             Vector2 swipeVector = endPosition - _startPosition;

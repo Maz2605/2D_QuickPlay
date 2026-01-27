@@ -26,7 +26,7 @@ namespace _Game.Games.BlockSlide.Scripts.Config
         
     }
     [Serializable]
-    public struct BlockStyle
+    public class BlockStyle
     {
         public int value;           
         public Color backgroundColor;

@@ -9,7 +9,7 @@ namespace _Game.Core.Scripts.GameSystem
         private readonly string _gameID;
         protected T UserData;
 
-        public int CurrentScore { get; private set; }
+        public int CurrentScore { get; protected set; }
         public int HighScore => UserData.HighScore;
 
         public event Action<int> OnScoreChanged;

@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Game/App/Scenes/WaterSortGame.unity
     guid: edc1fb4b4bad5db46bcfdeb44b3dbddd
+  - enabled: 1
+    path: Assets/_Game/App/Scenes/BlockSlideGame.unity
+    guid: d38b6698224f2cc46bb1b4a13fc44715
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 73bcd5d43d85aa64f954b7f2c2f0b1b7, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: cd504ad7438706345ae321cc39d83560, type: 3}

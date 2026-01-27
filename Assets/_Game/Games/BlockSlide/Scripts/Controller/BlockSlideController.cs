@@ -1,4 +1,5 @@
 using System;
+using _Game.Core.Scripts.GameSystem;
 using _Game.Core.Scripts.Input;
 using _Game.Core.Scripts.Utils.DesignPattern.Command;
 using _Game.Core.Scripts.Utils.DesignPattern.Events;
@@ -9,30 +10,51 @@ using UnityEngine;
 
 namespace _Game.Games.BlockSlide.Scripts.Controller
 {
-    public partial class BlockSlideController : MonoBehaviour 
+    public partial class BlockSlideController : BaseGameController 
     {
-        private GridModel _gridModel;
         [SerializeField] private BlockSlideConfigSO config;
         [SerializeField] private BoardView boardView;
+        [SerializeField] private BlockSlideHUD blockSlideHUD;
+        [SerializeField] private float minSwipeDistance = 50f;
         
+        private BlockSlideState _currentState;
+        private GridModel _gridModel;
+        private CommandInvoker _commandInvoker;
+        private BlockSlideScoreManager _scoreManager;
+        
+        private Vector2 _startPosition;
+        private bool _isSwipeProcessing;
+        
+        private void Start()
+        {
+            _gridModel = new GridModel(config.boardWith, config.boardHeight);
+            _commandInvoker = new CommandInvoker();
+            _scoreManager = new BlockSlideScoreManager(config.gameID);
+            
+            boardView.Initialize(_gridModel);
+            if (blockSlideHUD != null)
+            {
+                blockSlideHUD.Initialize();
+                blockSlideHUD.OnHomeClicked += RequestBackHome;
+                blockSlideHUD.OnPauseClicked += RequestPause;
+                blockSlideHUD.OnReplayClicked += RequestReplay;
+                blockSlideHUD.OnUndoClicked += RequestUndo;
+            }
+            
+            RestartGame();
+        }
 
         private void OnEnable()
         {
-            EventManager<BlockSlideEventID>.AddListener(BlockSlideEventID.BoardUpdate, OnBoardUpdated);
-            EventManager<BlockSlideEventID>.AddListener(BlockSlideEventID.GameOver, OnGameOver);
-
             if (InputManager.Instance != null)
             {
                 InputManager.Instance.OnTouchStart += HandleTouchStart;
                 InputManager.Instance.OnTouchEnd += HandleTouchEnd;
             }
-            else
-            {
-                Debug.LogWarning("No InputManager found");
-            }
+            
+            EventManager<BlockSlideEventID>.AddListener(BlockSlideEventID.BoardUpdate, OnBoardUpdate);
+            EventManager<BlockSlideEventID>.AddListener<int>(BlockSlideEventID.ScoreUpdate, OnScoreUpdate);
         }
-
-        
 
         private void OnDisable()
         {
@@ -41,59 +63,26 @@ namespace _Game.Games.BlockSlide.Scripts.Controller
                 InputManager.Instance.OnTouchStart -= HandleTouchStart;
                 InputManager.Instance.OnTouchEnd -= HandleTouchEnd;
             }
-            EventManager<BlockSlideEventID>.RemoveListener(BlockSlideEventID.BoardUpdate, OnBoardUpdated);
-            EventManager<BlockSlideEventID>.RemoveListener(BlockSlideEventID.GameOver, OnGameOver);
+            EventManager<BlockSlideEventID>.RemoveListener(BlockSlideEventID.BoardUpdate,OnBoardUpdate);
+            EventManager<BlockSlideEventID>.RemoveListener<int>(BlockSlideEventID.ScoreUpdate, OnScoreUpdate);
         }
 
-        private void Start()
+        private void OnDestroy()
         {
-            Debug.Log("Game started");
-            _commandInvoker = new CommandInvoker(undoLimit);
-            StartNewGame();
-        }
-
-        void StartNewGame()
-        {
-            _gridModel = new GridModel(config.boardWith, config.boardHeight);
-            boardView.Initialize(_gridModel);
-            _gridModel.ResetGame();
-        }
-        
-        private void OnBoardUpdated()
-        {
-            // _gridModel.LogBoard();
-        }
-        private void OnGameOver()
-        {
-            Debug.LogWarning("===Game over====");
+            _scoreManager?.Save();
+            if (blockSlideHUD != null)
+            {
+                blockSlideHUD.OnHomeClicked -= RequestBackHome;
+                blockSlideHUD.OnPauseClicked -= RequestPause;
+                blockSlideHUD.OnReplayClicked -= RequestReplay;
+                blockSlideHUD.OnUndoClicked -= RequestUndo;
+            }
         }
 
         private void Update()
         {
-            if (_gridModel == null) return;
-
-            if (_gridModel == null) return;
-
-            // Test Input - SỬA LẠI DÙNG EXECUTE MOVE ĐỂ LƯU HISTORY
-            if (Input.GetKeyDown(KeyCode.LeftArrow)) ExecuteMove(BlockMoveDirection.Left);
-            if (Input.GetKeyDown(KeyCode.RightArrow)) ExecuteMove(BlockMoveDirection.Right);
-            if (Input.GetKeyDown(KeyCode.UpArrow)) ExecuteMove(BlockMoveDirection.Up);
-            if (Input.GetKeyDown(KeyCode.DownArrow)) ExecuteMove(BlockMoveDirection.Down);
-    
-            if (Input.GetKeyDown(KeyCode.Space)) StartNewGame();
-    
-            // Undo / Redo Shortcuts
-            if (Input.GetKeyDown(KeyCode.U)) 
-            {
-                Debug.Log("Undo!");
-                _commandInvoker.Undo();
-            }
-
-            if (Input.GetKeyDown(KeyCode.R)) 
-            {
-                Debug.Log("Redo!");
-                _commandInvoker.Redo();
-            }
+            if(Input.GetKeyDown(KeyCode.A))
+                OnGameOver();
         }
     }
 }

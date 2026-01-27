@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using _Game.Core.Scripts.Utils.DesignPattern.Events;
 using _Game.Games.BlockSlide.Scripts.Config;
 using _Game.Games.BlockSlide.Scripts.Controller;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -122,9 +121,7 @@ namespace _Game.Games.BlockSlide.Scripts.Model
             {
                 SpawnRandomTile();
                 EventManager<BlockSlideEventID>.Post(BlockSlideEventID.BoardUpdate);
-                
-                if(CheckIsGameOver())
-                    EventManager<BlockSlideEventID>.Post(BlockSlideEventID.GameOver);
+                EventManager<BlockSlideEventID>.Post(BlockSlideEventID.ScoreUpdate, CurrentScore);
             }
 
         }
@@ -145,7 +142,6 @@ namespace _Game.Games.BlockSlide.Scripts.Model
                     _lineBuffer[writePos - 1] = newValue;
 
                     CurrentScore += newValue;
-                    EventManager<BlockSlideEventID>.Post(BlockSlideEventID.ScoreUpdate, newValue);
                     lastMergerPos = writePos - 1;
                 }
                 else
@@ -161,7 +157,7 @@ namespace _Game.Games.BlockSlide.Scripts.Model
             }
         }
 
-        private bool CheckIsGameOver()
+        public bool CheckIsGameOver()
         {
             for (int x = 0; x < Width; x++)
             {
@@ -204,7 +200,7 @@ namespace _Game.Games.BlockSlide.Scripts.Model
                 for (int j = 0; j < Height; j++)
                 {
                     if(_board[i, j] == 0)
-                        emptySpots?.Add(new Vector2Int(i, j));
+                        emptySpots.Add(new Vector2Int(i, j));
                 }
             }
 
@@ -238,9 +234,8 @@ namespace _Game.Games.BlockSlide.Scripts.Model
             SpawnRandomTile();
             SpawnRandomTile();
             
-            EventManager<BlockSlideEventID>.Post(BlockSlideEventID.GameStart);
             EventManager<BlockSlideEventID>.Post(BlockSlideEventID.BoardUpdate);
-            EventManager<BlockSlideEventID>.Post(BlockSlideEventID.ScoreUpdate);
+            EventManager<BlockSlideEventID>.Post(BlockSlideEventID.ScoreUpdate, 0);
         }
         
         public bool IsLastMoveChanged => _isMoved;

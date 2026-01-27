@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8700736225540401428}
   - component: {fileID: 2814224164757050919}
   - component: {fileID: 45116320259103715}
+  - component: {fileID: 6975179895798492367}
   m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
@@ -91,6 +92,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundImage: {fileID: 2814224164757050919}
   numberText: {fileID: 3998760622227092409}
+  auraPrefab: {fileID: 3637492823150621820, guid: 51d199cfc084e52439458fe29f0913c5, type: 3}
+  animDuration: 0.15
+  blockPunchBase: 0.2
+  textPunchBase: 0.5
+--- !u!225 &6975179895798492367
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677733407224375910}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3161446453531809642
 GameObject:
   m_ObjectHideFlags: 0

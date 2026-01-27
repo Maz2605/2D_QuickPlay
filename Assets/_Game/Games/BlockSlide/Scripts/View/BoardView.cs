@@ -1,90 +1,108 @@
-using System;
+using UnityEngine;
 using System.Collections.Generic;
-using _Game.Core.Scripts.Utils.DesignPattern.Events;
+using _Game.Core.Scripts.Utils.DesignPattern.ObjectPooling;
 using _Game.Games.BlockSlide.Scripts.Config;
 using _Game.Games.BlockSlide.Scripts.Model;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace _Game.Games.BlockSlide.Scripts.View
 {
     public class BoardView : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private BlockView blockPrefab;
-        [SerializeField] private Transform gridContainer;
-        [SerializeField] private BlockColorConfigSO blockColorConfig;
+        [Header("Components")]
+        [SerializeField] private RectTransform rectTransform; 
+        [SerializeField] private BlockView blockViewPrefab;
+        [SerializeField] private BlockColorConfigSO colorConfig;
+
+        private List<BlockView> _activeBlocks = new List<BlockView>();
         
-        private List<BlockView> _blocks = new List<BlockView>();
-        private GridModel _modelReference;
+        private int[,] _oldBoardState;
+        
+        private int _width;
+        private int _height;
 
         public void Initialize(GridModel model)
         {
-            _modelReference = model;
+            _width = model.Width;
+            _height = model.Height;
+            _oldBoardState = new int[_width, _height];
 
-            foreach (Transform child in gridContainer)
+            ClearBoard();
+
+            for (int i = 0; i < _width * _height; i++)
             {
-                Destroy(child.gameObject);
-            }
-            _blocks.Clear(); 
-            GridLayoutGroup layout = gridContainer.GetComponent<GridLayoutGroup>();
-            if (layout != null)
-            {
-                layout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-                layout.constraintCount = model.Width;
+                SpawnBlock();
             }
 
-            int totalCell = model.Height * model.Width;
-            for (int i = 0; i < totalCell; i++)
-            {
-                BlockView block = Instantiate(blockPrefab, gridContainer);
-                
-                block.SetData(0, blockColorConfig);
-                _blocks.Add(block);
-            }
-
-            RedrawBoard();
-
+            UpdateBoard(model);
         }
-        private void RedrawBoard()
-        {
-            if (_modelReference == null) return;
 
+        private void SpawnBlock()
+        {
+            var block = PoolingManager.Instance.Spawn(
+                blockViewPrefab, 
+                Vector3.zero, 
+                Quaternion.identity, 
+                rectTransform
+            );
+            
+            block.gameObject.SetActive(true);
+            block.transform.localScale = Vector3.one;
+            
+            _activeBlocks.Add(block);
+        }
+
+        public void UpdateBoard(GridModel model)
+        {
             int index = 0;
-            for (int y = _modelReference.Height - 1; y >= 0; y--)
+
+            
+            for (int y = _height - 1; y >= 0; y--) 
             {
-                for (int x = 0; x < _modelReference.Width; x++)
+                for (int x = 0; x < _width; x++)
                 {
-                    int value = _modelReference.GetCell(x, y);
-                    if (index < _blocks.Count)
+                    if (index >= _activeBlocks.Count) break;
+
+                    BlockView view = _activeBlocks[index];
+                    int newValue = model.GetCell(x, y);
+                    int oldValue = _oldBoardState[x, y];
+
+                    bool isSpawning = false;
+                    bool isMerging = false;
+
+                    if (newValue != oldValue)
                     {
-                        _blocks[index].SetData(value, blockColorConfig);
+                        if (oldValue == 0 && newValue > 0)
+                        {
+                            isSpawning = true;
+                        }
+                        else if (newValue > oldValue && oldValue != 0)
+                        {
+                            isMerging = true;
+                        }
                     }
+
+                    view.SetData(newValue, colorConfig, isSpawning, isMerging);
+
+                    // Lưu lại trạng thái mới
+                    _oldBoardState[x, y] = newValue;
+                    
+                    // Tăng index để lấy BlockView tiếp theo trong list
                     index++;
                 }
             }
         }
 
-        private void OnBoardUpdated()
+        private void ClearBoard()
         {
-            RedrawBoard();
+            foreach (var block in _activeBlocks)
+            {
+                if (block != null)
+                {
+                    block.ResetView();
+                    PoolingManager.Instance.Despawn(block.gameObject);
+                }
+            }
+            _activeBlocks.Clear();
         }
-
-        private void OnGameStarted()
-        {
-            RedrawBoard();
-        }
-        private void OnEnable()
-        {
-            EventManager<BlockSlideEventID>.AddListener(BlockSlideEventID.BoardUpdate, OnBoardUpdated);
-            EventManager<BlockSlideEventID>.AddListener(BlockSlideEventID.GameStart, OnGameStarted);
-        }
-
-        private void OnDisable()
-        {
-            EventManager<BlockSlideEventID>.RemoveListener(BlockSlideEventID.BoardUpdate, OnBoardUpdated);
-            EventManager<BlockSlideEventID>.RemoveListener(BlockSlideEventID.GameStart, OnGameStarted);
-        }
-        
     }
 }
