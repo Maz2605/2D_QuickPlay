@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f30b2fbec8c4f36b4202cf10e7df283, type: 3}
   m_Name: BlockSlideAudioConfig
   m_EditorClassIdentifier: 
-  backgroundMusic: {fileID: 0}
-  sfxMove: {fileID: 0}
-  sfxMerge: {fileID: 0}
-  sfxGameOver: {fileID: 0}
+  backgroundMusic: {fileID: 8300000, guid: 6f87233e24a6f9845ac611d0e1f30519, type: 3}
+  sfxMove: {fileID: 8300000, guid: 985a30f47537bfb4283f6bd1f02cc152, type: 3}
+  sfxMerge: {fileID: 8300000, guid: b71a2e76c0910934b8b66dfbd46bdc75, type: 3}
+  sfxGameOver: {fileID: 8300000, guid: 55a4f80cb058a384986bcaeb7f89ad62, type: 3}

@@ -29,7 +29,7 @@ namespace _Game.Games.BlockSlide.Scripts.Controller
         {
             _gridModel = new GridModel(config.boardWith, config.boardHeight);
             _commandInvoker = new CommandInvoker();
-            _scoreManager = new BlockSlideScoreManager(config.gameID);
+            _scoreManager = new BlockSlideScoreManager(config.gameProfile.id);
             
             boardView.Initialize(_gridModel);
             if (blockSlideHUD != null)
@@ -39,6 +39,8 @@ namespace _Game.Games.BlockSlide.Scripts.Controller
                 blockSlideHUD.OnPauseClicked += RequestPause;
                 blockSlideHUD.OnReplayClicked += RequestReplay;
                 blockSlideHUD.OnUndoClicked += RequestUndo;
+                blockSlideHUD.OnReplayWithoutPopupClicked += RequestReplayWithoutConfirmation;
+                blockSlideHUD.OnHomeWithoutPopupClicked += RequestBackHomeWithoutConfirmation;
             }
             
             RestartGame();
@@ -79,10 +81,10 @@ namespace _Game.Games.BlockSlide.Scripts.Controller
             }
         }
 
-        private void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.A))
-                OnGameOver();
-        }
+        // private void Update()
+        // {
+        //     if(Input.GetKeyDown(KeyCode.A))
+        //         OnGameOver();
+        // }
     }
 }

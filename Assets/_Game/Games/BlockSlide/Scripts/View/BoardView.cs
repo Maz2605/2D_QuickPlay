@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using _Game.Core.Scripts.Utils.DesignPattern.ObjectPooling;
+using _Game.Core.Scripts.Utils.DesignPattern.ObjectPooling; // Namespace Pooling của bạn
 using _Game.Games.BlockSlide.Scripts.Config;
 using _Game.Games.BlockSlide.Scripts.Model;
 
@@ -10,8 +10,8 @@ namespace _Game.Games.BlockSlide.Scripts.View
     {
         [Header("Components")]
         [SerializeField] private RectTransform rectTransform; 
-        [SerializeField] private BlockView blockViewPrefab;
-        [SerializeField] private BlockColorConfigSO colorConfig;
+        [SerializeField] private BlockView blockViewPrefab;   
+        [SerializeField] private BlockColorConfigSO colorConfig; 
 
         private List<BlockView> _activeBlocks = new List<BlockView>();
         
@@ -28,7 +28,8 @@ namespace _Game.Games.BlockSlide.Scripts.View
 
             ClearBoard();
 
-            for (int i = 0; i < _width * _height; i++)
+            int totalCells = _width * _height;
+            for (int i = 0; i < totalCells; i++)
             {
                 SpawnBlock();
             }
@@ -38,7 +39,8 @@ namespace _Game.Games.BlockSlide.Scripts.View
 
         private void SpawnBlock()
         {
-            var block = PoolingManager.Instance.Spawn(
+            
+            BlockView block = PoolingManager.Instance.Spawn(
                 blockViewPrefab, 
                 Vector3.zero, 
                 Quaternion.identity, 
@@ -50,43 +52,39 @@ namespace _Game.Games.BlockSlide.Scripts.View
             
             _activeBlocks.Add(block);
         }
-
+        
         public void UpdateBoard(GridModel model)
         {
             int index = 0;
 
-            
-            for (int y = _height - 1; y >= 0; y--) 
+       for (int y = _height - 1; y >= 0; y--) 
             {
                 for (int x = 0; x < _width; x++)
                 {
-                    if (index >= _activeBlocks.Count) break;
+                  if (index >= _activeBlocks.Count) break;
 
                     BlockView view = _activeBlocks[index];
                     int newValue = model.GetCell(x, y);
                     int oldValue = _oldBoardState[x, y];
 
-                    bool isSpawning = false;
+            bool isSpawning = false;
                     bool isMerging = false;
 
+                   
                     if (newValue != oldValue)
                     {
                         if (oldValue == 0 && newValue > 0)
                         {
-                            isSpawning = true;
+                            isSpawning = true; 
                         }
                         else if (newValue > oldValue && oldValue != 0)
                         {
-                            isMerging = true;
+                            isMerging = true; 
                         }
                     }
 
                     view.SetData(newValue, colorConfig, isSpawning, isMerging);
-
-                    // Lưu lại trạng thái mới
                     _oldBoardState[x, y] = newValue;
-                    
-                    // Tăng index để lấy BlockView tiếp theo trong list
                     index++;
                 }
             }
@@ -98,7 +96,7 @@ namespace _Game.Games.BlockSlide.Scripts.View
             {
                 if (block != null)
                 {
-                    block.ResetView();
+                    block.ResetView(); 
                     PoolingManager.Instance.Despawn(block.gameObject);
                 }
             }

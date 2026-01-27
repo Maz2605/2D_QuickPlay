@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70604a3539524b28beff25a9b465cfb5, type: 3}
   m_Name: BlockSlideConfigSO
   m_EditorClassIdentifier: 
+  gameProfile: {fileID: 11400000, guid: 14fd6742fa4ff2f4c85f484df6bf5fca, type: 2}
   boardWith: 4
   boardHeight: 4

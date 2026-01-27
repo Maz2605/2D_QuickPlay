@@ -8,13 +8,10 @@ namespace _Game.Games.BlockSlide.Scripts.Controller
 {
     public partial class BlockSlideController
     {
-
         private void ExecuteMove(BlockMoveDirection direction)
         {
             var command = new MoveBlockCommand(_gridModel, direction);
             _commandInvoker.ExecuteCommand(command);
-            
-            //Cập nhật UI
             
             CheckGameOver();
         }
@@ -24,7 +21,6 @@ namespace _Game.Games.BlockSlide.Scripts.Controller
             if (_commandInvoker.CanUndo())
             {
                 _commandInvoker.Undo();
-                // Cập nhật UI
             }
         }
         
