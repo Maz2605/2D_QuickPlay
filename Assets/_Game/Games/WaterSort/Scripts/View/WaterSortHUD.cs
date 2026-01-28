@@ -1,131 +1,127 @@
 using System;
-using UnityEngine;
-using UnityEngine.UI;
+using _Game.Core.Scripts.UI;
+using _Game.Core.Scripts.UI.Base;
+using _Game.Core.Scripts.Utils.DesignPattern.Events;
+using _Game.Games.WaterSort.Scripts.Config;
+using _Game.Games.WaterSort.Scripts.Controller;
 using TMPro;
-using DG.Tweening;
+using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace _Game.Games.WaterSort.Scripts.View
 {
-    public class WaterSortHUD : MonoBehaviour
+    public class WaterSortHUD : BaseHUD
     {
-        [Header("--- BUTTONS ---")]
+        [Header("--- WATER SORT SPECIFIC ---")]
+        [Header("Dependencies")]
+        [SerializeField] private LevelManager levelManager;
+
+        [Header("Skill Buttons")]
         [SerializeField] private Button btnUndo;
-        [SerializeField] private Button btnReplay;
-        [SerializeField] private Button btnHint; 
-        [SerializeField] private Button btnHome; 
-        [SerializeField] private Button btnPause; 
-        
-        [Header("--- TEXT DISPLAY ---")]
-        [SerializeField] private TextMeshProUGUI txtLevelName;
+        [SerializeField] private Button btnHint;
 
-        [Header("--- WIN SCREEN ANIMATION ---")]
-        [SerializeField] private RectTransform winPanel; 
-        [SerializeField] private CanvasGroup bgDim; 
-        [SerializeField] private Transform winLevelTextContainer; 
-        [SerializeField] private TextMeshProUGUI txtWinLevelName;
+        [Header("Level Info")]
+        [SerializeField] private TextMeshProUGUI txtLevelDisplayName; 
 
-        [Header("--- ANIM CONFIG ---")]
-        [SerializeField] private float slideDuration = 0.8f;
-        [SerializeField] private float stayDuration = 2.0f;
-        [SerializeField] private Ease enterEase = Ease.OutExpo;
-        [SerializeField] private Ease exitEase = Ease.InBack;
+        [Header("Components")]
+        [SerializeField] private LevelCompleteResult levelCompletePanel;
 
-        public event Action OnUndoClicked;
-        public event Action OnReplayClicked;
-        public event Action OnHintClicked;
-        public event Action OnHomeClicked;
-        public event Action OnPauseClicked;
-        
-        public event Action OnWinAnimationCovered; 
+        public Action OnUndoClicked;
+        public Action OnHintClicked;
+        public Action OnWinAnimationCovered; 
 
-        private float _screenWidth;
-        private Tween _transitionTween;
+        private string _currentLevelName = "Level 1";
 
-        private void Awake()
+        public override void Initialize()
         {
-            _screenWidth = Screen.width; 
-            
-            if (winPanel) 
+            base.Initialize();
+            BindButton(btnUndo, () => OnUndoClicked?.Invoke());
+            BindButton(btnHint, () => OnHintClicked?.Invoke());
+
+            if (levelManager == null)
             {
-                winPanel.gameObject.SetActive(false); 
-                winPanel.anchoredPosition = new Vector2(_screenWidth, 0); 
+                levelManager = GetComponentInParent<LevelManager>();
             }
-            if (bgDim) 
+
+            SyncLevelName();
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            EventManager<WaterSortEventID>.AddListener<WaterSortState>(WaterSortEventID.GameStateChanged, OnGameStateChanged);
+            EventManager<WaterSortEventID>.AddListener(WaterSortEventID.LevelWin, OnLevelWin);
+            EventManager<WaterSortEventID>.AddListener<string>(WaterSortEventID.LevelLoaded, OnLevelLoaded);
+            
+            SyncLevelName();
+        }
+
+        protected override void OnDisable()
+        {
+            EventManager<WaterSortEventID>.RemoveListener<WaterSortState>(WaterSortEventID.GameStateChanged, OnGameStateChanged);
+            EventManager<WaterSortEventID>.RemoveListener(WaterSortEventID.LevelWin, OnLevelWin);
+            EventManager<WaterSortEventID>.RemoveListener<string>(WaterSortEventID.LevelLoaded, OnLevelLoaded);
+            base.OnDisable();
+        }
+
+        // --- HELPER FIX SYNC ---
+        private void SyncLevelName()
+        {
+            if (levelManager != null)
             {
-                bgDim.gameObject.SetActive(false); 
-                bgDim.alpha = 0; 
+                OnLevelLoaded(levelManager.GetCurrentLevelName());
             }
         }
 
-        public void Initialize()
+        // --- EVENT HANDLERS ---
+
+        private void OnLevelLoaded(string levelName)
         {
-            btnUndo?.onClick.AddListener(() => OnUndoClicked?.Invoke());
-            btnReplay?.onClick.AddListener(() => OnReplayClicked?.Invoke());
-            btnHint?.onClick.AddListener(() => OnHintClicked?.Invoke());
-            btnHome?.onClick.AddListener(() => OnHomeClicked?.Invoke());
-            btnPause?.onClick.AddListener(() => OnPauseClicked?.Invoke());
-        }
-
-        private void OnDestroy()
-        {
-            btnUndo?.onClick.RemoveAllListeners();
-            btnReplay?.onClick.RemoveAllListeners();
-            btnHint?.onClick.RemoveAllListeners();
-            btnHome?.onClick.RemoveAllListeners();
-            btnPause?.onClick.RemoveAllListeners();
-
-            _transitionTween?.Kill();
-            if (winPanel) winPanel.DOKill();
-        }
-
-
-        public void UpdateLevelName(string name)
-        {
-            if (txtLevelName) txtLevelName.text = name;
-        }
-
-        public void SetPauseState(bool isPaused)
-        {
-            Debug.Log($"UI Paused State: {isPaused}");
-        }
-
-        
-        public void PlayWinSequence(string completedLevelName)
-        {
-            if (winPanel == null) return;
-
-            winPanel.gameObject.SetActive(true);
-            winPanel.anchoredPosition = new Vector2(_screenWidth, 0);
+            _currentLevelName = levelName;
             
-            if (bgDim) { bgDim.gameObject.SetActive(true); bgDim.alpha = 0; }
+            if (txtLevelDisplayName)
+            {
+                txtLevelDisplayName.text = levelName;
+            }
             
-            if (txtWinLevelName) txtWinLevelName.text = "COMPLETED\n" + completedLevelName;
-            if (winLevelTextContainer) winLevelTextContainer.localScale = Vector3.zero;
+            if (gamePlayPanel.alpha < 0.9f) ShowPanel(gamePlayPanel, true);
+        }
 
-            _transitionTween?.Kill();
-            Sequence seq = DOTween.Sequence();
+        private void OnLevelWin()
+        {
+            ShowPanel(gamePlayPanel, false);
 
-            if (bgDim) seq.Append(bgDim.DOFade(1f, 0.3f));
-            seq.Join(winPanel.DOAnchorPosX(0, slideDuration).SetEase(enterEase));
-            if (winLevelTextContainer) seq.Append(winLevelTextContainer.DOScale(1f, 0.6f).SetEase(Ease.OutElastic));
+            if (levelCompletePanel != null)
+            {
+                levelCompletePanel.Show(
+                    _currentLevelName, 
+                    onCoveredCallback: () => 
+                    {
+                        OnWinAnimationCovered?.Invoke();
+                    }
+                );
+            }
+        }
 
-            seq.AppendInterval(stayDuration);
+        private void OnGameStateChanged(WaterSortState state)
+        {
+            switch (state)
+            {
+                case WaterSortState.Intro:
+                case WaterSortState.Idle:
+                case WaterSortState.Pouring:
+                case WaterSortState.Reshuffling:
+                    if (gamePlayPanel.alpha < 0.9f) ShowPanel(gamePlayPanel, true);
+                    break;
 
-            seq.AppendCallback(() => {
-                OnWinAnimationCovered?.Invoke(); 
-            });
-
-            if (winLevelTextContainer) seq.Append(winLevelTextContainer.DOScale(0f, 0.2f).SetEase(Ease.InBack));
-            seq.Join(winPanel.DOAnchorPosX(-_screenWidth, 0.6f).SetEase(exitEase));
-            if (bgDim) seq.Join(bgDim.DOFade(0f, 0.4f));
-
-            seq.OnComplete(() => {
-                winPanel.gameObject.SetActive(false);
-                if (bgDim) bgDim.gameObject.SetActive(false);
-                winPanel.anchoredPosition = new Vector2(_screenWidth, 0);
-            });
-            
-            _transitionTween = seq;
+                case WaterSortState.Victory:
+                    ShowPanel(gamePlayPanel, false);
+                    break;
+                    
+                case WaterSortState.Paused:
+                    break;
+            }
         }
     }
 }

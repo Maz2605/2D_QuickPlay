@@ -17,4 +17,4 @@ MonoBehaviour:
   mergeSound: {fileID: 8300000, guid: 3c1c49c6157e97f4ebb2804d15b7bbd7, type: 3}
   bigMergeSound: {fileID: 8300000, guid: adedc9046eddc5943a07ec2ebd0f3f44, type: 3}
   comboSound: {fileID: 8300000, guid: e667c028a45869e47a91f13021dcbd16, type: 3}
-  pitchVariation: 0.1
+  gameOverSound: {fileID: 8300000, guid: 55a4f80cb058a384986bcaeb7f89ad62, type: 3}

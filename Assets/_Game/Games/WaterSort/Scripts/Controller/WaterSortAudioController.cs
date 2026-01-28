@@ -1,7 +1,8 @@
 using UnityEngine;
-using _Game.Core.Scripts.Audio.Manager;
-using _Game.Games.WaterSort.Scripts.Config;
 using DG.Tweening;
+using _Game.Core.Scripts.Audio.Manager;
+using _Game.Core.Scripts.Utils.DesignPattern.Events;
+using _Game.Games.WaterSort.Scripts.Config;
 
 namespace _Game.Games.WaterSort.Scripts.Controller
 {
@@ -9,72 +10,71 @@ namespace _Game.Games.WaterSort.Scripts.Controller
     {
         [Header("Refs")]
         [SerializeField] private WaterSortAudioConfig config;
-        [SerializeField] private WaterSortController gameController;
 
         private AudioSource _pouringSource;
-        
-        private AudioManager _audioManager; 
+        private AudioManager Audio => AudioManager.Instance;
 
-        private void Start()
+        private void Awake()
         {
-            if (config == null || gameController == null) return;
-            
-            _audioManager = AudioManager.Instance;
-
             _pouringSource = gameObject.AddComponent<AudioSource>();
-            _pouringSource.clip = config.sfxPouringLoop;
+            if (config)
+            {
+                _pouringSource.clip = config.sfxPouringLoop;
+            }
             _pouringSource.loop = true;
             _pouringSource.playOnAwake = false;
             _pouringSource.volume = 0;
+        }
 
-            if (_audioManager != null)
-            {
-                _audioManager.PlayMusic(config.backgroundMusic, true, 1f);
-            }
+        private void OnEnable()
+        {
+            EventManager<WaterSortEventID>.AddListener<WaterSortState>(WaterSortEventID.GameStateChanged, OnGameStateChanged);
+            EventManager<WaterSortEventID>.AddListener(WaterSortEventID.BottleSelected, PlaySelect);
+            EventManager<WaterSortEventID>.AddListener(WaterSortEventID.BottleDeselected, PlaySelect);
+            EventManager<WaterSortEventID>.AddListener(WaterSortEventID.MoveInvalid, PlayError);
+            EventManager<WaterSortEventID>.AddListener(WaterSortEventID.UndoExecuted, PlayUndo);
+            EventManager<WaterSortEventID>.AddListener(WaterSortEventID.LevelWin, PlayWin);
+            EventManager<WaterSortEventID>.AddListener(WaterSortEventID.BottleSolved, PlayBottleSolved);
             
-            RegisterEvents();
+            EventManager<WaterSortEventID>.AddListener(WaterSortEventID.PouringStarted, OnPouringStart);
+            EventManager<WaterSortEventID>.AddListener(WaterSortEventID.PouringCompleted, OnPouringStop);
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
-            UnregisterEvents();
+            EventManager<WaterSortEventID>.RemoveListener<WaterSortState>(WaterSortEventID.GameStateChanged, OnGameStateChanged);
 
-            if (_pouringSource != null)
+            EventManager<WaterSortEventID>.RemoveListener(WaterSortEventID.BottleSelected, PlaySelect);
+            EventManager<WaterSortEventID>.RemoveListener(WaterSortEventID.BottleDeselected, PlaySelect);
+            EventManager<WaterSortEventID>.RemoveListener(WaterSortEventID.MoveInvalid, PlayError);
+            EventManager<WaterSortEventID>.RemoveListener(WaterSortEventID.UndoExecuted, PlayUndo);
+            EventManager<WaterSortEventID>.RemoveListener(WaterSortEventID.LevelWin, PlayWin);
+            EventManager<WaterSortEventID>.RemoveListener(WaterSortEventID.BottleSolved, PlayBottleSolved);
+            
+            EventManager<WaterSortEventID>.RemoveListener(WaterSortEventID.PouringStarted, OnPouringStart);
+            EventManager<WaterSortEventID>.RemoveListener(WaterSortEventID.PouringCompleted, OnPouringStop);
+            
+            if (_pouringSource != null) _pouringSource.DOKill();
+        }
+
+        // --- HANDLERS ---
+
+        private void OnGameStateChanged(WaterSortState state)
+        {
+            if (Audio == null) return;
+
+            switch (state)
             {
-                _pouringSource.DOKill(); 
+                case WaterSortState.Intro:
+                case WaterSortState.Idle:
+                    Audio.PlayMusic(config.backgroundMusic, true, 1f);
+                    break;
+                
+                case WaterSortState.Victory:
+                    Audio.StopMusic();
+                    break;
             }
-
-            if (_audioManager != null) 
-            {
-                _audioManager.StopMusic();
-            }
         }
-
-        private void RegisterEvents()
-        {
-            if (gameController == null) return;
-            gameController.OnBottleSelected += PlaySelect;
-            gameController.OnBottleDeselected += PlaySelect;
-            gameController.OnMoveInvalid += PlayError;
-            gameController.OnUndo += PlayUndo;
-            gameController.OnLevelWin += PlayWin;
-            gameController.OnPouringStateChanged += HandlePouringSound;
-            gameController.OnBottleSolved += PlayBottleSolved;
-        }
-
-        private void UnregisterEvents()
-        {
-            if (gameController == null) return;
-            gameController.OnBottleSelected -= PlaySelect;
-            gameController.OnBottleDeselected -= PlaySelect;
-            gameController.OnMoveInvalid -= PlayError;
-            gameController.OnUndo -= PlayUndo;
-            gameController.OnLevelWin -= PlayWin;
-            gameController.OnPouringStateChanged -= HandlePouringSound;
-            gameController.OnBottleSolved -= PlayBottleSolved;
-        }
-
-        private AudioManager Audio => _audioManager; 
 
         private void PlaySelect() => TryPlaySfx(config.sfxSelect);
         private void PlayError() => TryPlaySfx(config.sfxError);
@@ -82,20 +82,28 @@ namespace _Game.Games.WaterSort.Scripts.Controller
         private void PlayWin() => TryPlaySfx(config.sfxWin);
         private void PlayBottleSolved() => TryPlaySfx(config.sfxBottleComplete);
 
+        private void OnPouringStart() => HandlePouringSound(true);
+        private void OnPouringStop() => HandlePouringSound(false);
+
+        // --- HELPER METHODS ---
+
         private void TryPlaySfx(AudioClip clip)
         {
-            if (Audio != null) Audio.PlaySfx(clip, config.sfxVolume);
+            if (Audio != null && clip != null) 
+                Audio.PlaySfx(clip, config.sfxVolume);
         }
 
         private void HandlePouringSound(bool isPouring)
         {
             if (Audio == null || !Audio.IsSfxEnabled || _pouringSource == null) return;
 
+            _pouringSource.DOKill(); 
+
             if (isPouring)
             {
                 _pouringSource.volume = 0;
                 _pouringSource.Play();
-                _pouringSource.DOFade(config.sfxVolume, 0.2f).SetTarget(_pouringSource); // SetTarget giúp DOKill hoạt động chính xác
+                _pouringSource.DOFade(config.sfxVolume, 0.2f).SetTarget(_pouringSource);
             }
             else
             {

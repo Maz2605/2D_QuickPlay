@@ -1,24 +1,19 @@
-using _Game.Core.Scripts.Data; 
-using _Game.Core.Scripts.Utils.DesignPattern.Singleton;
+using _Game.Core.Scripts.Data;
 using _Game.Games.WaterSort.Scripts.Config;
 using _Game.Games.WaterSort.Scripts.Model; 
+using UnityEngine;
 
 namespace _Game.Games.WaterSort.Scripts.Controller
 {
-    public class WaterSortDataManager : Singleton<WaterSortDataManager>
+    public class WaterSortDataManager
     {
         private WaterSortUserData _userData;
-        private string _gameID;
-        private bool _isInitialized = false;
+        private readonly string _gameID;
 
-        private WaterSortDataManager() { }
-
-        public void Initialize(string idFromConfig)
+        public WaterSortDataManager(string gameID)
         {
-            if (_isInitialized) return;
-            _gameID = idFromConfig;
+            _gameID = gameID;
             LoadData();
-            _isInitialized = true;
         }
 
         private void LoadData()
@@ -30,8 +25,6 @@ namespace _Game.Games.WaterSort.Scripts.Controller
             if (_userData == null)
             {
                 _userData = new WaterSortUserData();
-                _userData.CurrentLevelIndex = 0;
-                _userData.IsLevelInProgress = false; 
                 Save(); 
             }
         }
@@ -44,8 +37,9 @@ namespace _Game.Games.WaterSort.Scripts.Controller
             }
         }
 
-        public int GetCurrentLevel() => _userData != null ? _userData.CurrentLevelIndex : 0;
+        // --- PUBLIC API (Getter / Setter) ---
 
+        public int GetCurrentLevel() => _userData != null ? _userData.CurrentLevelIndex : 0;
 
         public bool HasProgressInCurrentLevel()
         {
@@ -87,6 +81,15 @@ namespace _Game.Games.WaterSort.Scripts.Controller
                 _userData.CurrentLevelIndex = 0;
                 _userData.IsLevelInProgress = false;
                 Save();
+            }
+        }
+
+        public void DeleteSaveFile()
+        {
+            if (!string.IsNullOrEmpty(_gameID))
+            {
+                SaveSystem.DeleteFile(_gameID);
+                _userData = new WaterSortUserData();
             }
         }
     }

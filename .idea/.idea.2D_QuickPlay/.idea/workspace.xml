@@ -6,34 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="18bf9dc0-a631-4852-9f8d-a18d3788e52e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.2D_QuickPlay/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.2D_QuickPlay/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/BlockSlideGame.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/App/Scenes/BlockSlideGame.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/App/Scenes/FruitMergeGame.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/App/Scenes/FruitMergeGame.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Core/Prefabs/Core.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Core/Prefabs/Core.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/GameSystem/BaseGameController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/GameSystem/BaseGameController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/GameSystem/BaseScoreManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/GameSystem/BaseScoreManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/GameSystem/BaseScoreManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/GameSystem/BaseScoreManager.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/GameSystem/EventScoreManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/GameSystem/EventScoreManager.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/Input/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Core/Scripts/Input/InputManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Controller/BlockSlideController.Utils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Controller/BlockSlideController.Utils.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Controller/BlockSlideScoreManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/Controller/BlockSlideScoreManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/BlockSlideHUD.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/BlockSlide/Scripts/View/BlockSlideHUD.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Prefabs/FruitGameHUD.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Prefabs/FruitGameHUD.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Config/FruitAudioConfigSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Config/FruitAudioConfigSO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Config/FruitSkillSO.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Config/FruitSkillSO.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Controller/FruitAudioController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Controller/FruitAudioController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Controller/FruitGameController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Controller/FruitGameController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Controller/FruitGameController_Skill.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Controller/FruitGameController_Skill.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Controller/FruitScoreManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Controller/FruitScoreManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Controller/FruitSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/Controller/FruitSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/View/FruitGameHUD.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/View/FruitGameHUD.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/View/FruitResultPanel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/View/FruitResultPanel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/View/FruitUnit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/View/FruitUnit.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/View/NextFruitPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Scripts/View/NextFruitPanel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/WaterSort/Scripts/Controller/WaterSortController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/WaterSort/Scripts/Controller/WaterSortController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Data/FM_AudioConfig.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Games/FruitMerge/Data/FM_AudioConfig.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,10 +107,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="18900">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="18900" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -208,6 +184,7 @@
       <workItem from="1769451224038" duration="4005000" />
       <workItem from="1769455702151" duration="17987000" />
       <workItem from="1769477521009" duration="6451000" />
+      <workItem from="1769585953239" duration="790000" />
     </task>
     <servers />
   </component>

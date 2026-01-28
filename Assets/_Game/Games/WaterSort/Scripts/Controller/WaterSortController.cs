@@ -1,11 +1,13 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
-using System;
 using _Game.Core.Scripts.GameSystem;
+using _Game.Core.Scripts.Input;
+using _Game.Core.Scripts.Utils.DesignPattern.Command;
+using _Game.Games.WaterSort.Scripts.Config;
 using DG.Tweening; 
 using _Game.Games.WaterSort.Scripts.View;
-using _Game.Games.WaterSort.Scripts.Model;
-using _Game.Games.WaterSort.Scripts.Config;
+using UnityEngine.Serialization;
 
 namespace _Game.Games.WaterSort.Scripts.Controller
 {
@@ -16,71 +18,90 @@ namespace _Game.Games.WaterSort.Scripts.Controller
         [SerializeField] private Transform spawnPoint;
         [SerializeField] private LayerMask bottleLayer;
 
-        [Header("--- UI & SCENE ---")]
+        [Header("--- MODULE DEPENDENCIES ---")]
+        [SerializeField] private LevelManager levelManager;
+
+        [Header("--- UI ---")]
         [SerializeField] private WaterSortHUD gameHUD;
         
         [Header("--- SETTINGS ---")]
         [SerializeField] private bool autoReshuffleOnDeadlock = true; 
 
-        // --- EVENTS ---
-        public event Action OnBottleSelected;
-        public event Action OnBottleDeselected;
-        public event Action OnMoveInvalid;
-        public event Action<bool> OnPouringStateChanged; 
-        public event Action OnUndo;
-        public event Action OnLevelWin;
-        public event Action OnBottleSolved;
-
-        // --- STATE & DATA ---
-        private WaterSortLocalState _localState = WaterSortLocalState.Intro;
-        private bool _isProcessingHint = false; 
-        private bool _isBusy = false; 
-        private bool _isPaused = false; 
-
+        private WaterSortState _currentState = WaterSortState.Intro;
+        private Camera _mainCamera;
+        
         private BottleView _currentSelectedBottle;
         private List<BottleView> _activeBottles = new List<BottleView>();
-        private Stack<MoveCommand> _undoStack = new Stack<MoveCommand>();
-        private Camera _mainCamera;
-
-        public GlobalGameState CurrentGlobalState => GlobalGameState.Playing; // Giả sử
+        
+        private CommandInvoker _commandInvoker; 
+        
+        private bool _isProcessingHint = false; 
+        private bool _isBusy = false; 
 
         private void Awake() 
         { 
             _mainCamera = Camera.main; 
+
+            if (levelManager == null)
+            {
+                levelManager = GetComponentInParent<LevelManager>();
+                
+                if (levelManager == null) levelManager = GetComponentInChildren<LevelManager>();
+                if (levelManager == null)
+                {
+                    Debug.LogError("[WaterSortController] CRITICAL: Không tìm thấy LevelManager! Game sẽ không chạy.");
+                    this.enabled = false;
+                    return;
+                }
+            }
         }
 
         private void Start()
         {
-            RegisterUIEvents();
-            RegisterInputEvents();
-            
-            _localState = WaterSortLocalState.Idle;
-            Time.timeScale = 1f;
+            _commandInvoker = new CommandInvoker(); 
 
-            if (LevelManager.HasInstance) UpdateHUDInfo();
+            if (gameHUD)
+            {
+                gameHUD.Initialize();
+                gameHUD.OnUndoClicked += RequestUndo;
+                gameHUD.OnReplayClicked += RequestReplay;
+                gameHUD.OnHintClicked += RequestHint;
+                gameHUD.OnPauseClicked += RequestPause;
+                gameHUD.OnHomeClicked += RequestBackHome;
+                gameHUD.OnWinAnimationCovered += LoadNextLevel;
+            }
+            
+            if (levelManager != null) 
+            {
+                levelManager.InitGame(this);
+            }
+        }
+
+        private void OnEnable()
+        {
+            if (InputManager.Instance != null) InputManager.Instance.OnTouchStart += HandleTouchInput;
+        }
+
+        private void OnDisable()
+        {
+            if (InputManager.Instance != null) InputManager.Instance.OnTouchStart -= HandleTouchInput;
         }
 
         private void OnDestroy()
         {
-            UnregisterUIEvents();
-            UnregisterInputEvents();
-
             transform.DOKill();
-            Time.timeScale = 1f;
-        }
-
-        protected override void OnResetGameplay()
-        {
-            if (LevelManager.HasInstance)
+            
+            if (gameHUD)
             {
-                Time.timeScale = 1f; 
-                _isPaused = false; 
-                _isBusy = false; 
-                DeselectCurrent();
-                
-                LevelManager.Instance.OnClickResetGame();
-                UpdateHUDInfo();
+                gameHUD.OnUndoClicked -= RequestUndo;
+                gameHUD.OnReplayClicked -= RequestReplay;
+                gameHUD.OnHintClicked -= RequestHint;
+                gameHUD.OnPauseClicked -= RequestPause;
+                gameHUD.OnHomeClicked -= RequestBackHome;
+                gameHUD.OnWinAnimationCovered -= LoadNextLevel;
             }
         }
+        
+        
     }
 }

@@ -1,24 +1,17 @@
 using UnityEngine;
-using _Game.Core.Scripts.Input;
+using DG.Tweening;
+using _Game.Core.Scripts.Utils.DesignPattern.Events;
+using _Game.Games.WaterSort.Scripts.Config;
+using _Game.Games.WaterSort.Scripts.Model;
 using _Game.Games.WaterSort.Scripts.View;
 
 namespace _Game.Games.WaterSort.Scripts.Controller
 {
     public partial class WaterSortController
     {
-        private void RegisterInputEvents()
-        {
-            if (InputManager.Instance != null) InputManager.Instance.OnTouchStart += HandleTouchInput;
-        }
-
-        private void UnregisterInputEvents()
-        {
-            if (InputManager.Instance != null) InputManager.Instance.OnTouchStart -= HandleTouchInput;
-        }
-
         private void HandleTouchInput(Vector2 p) 
         {
-             if(_localState != WaterSortLocalState.Idle || _isBusy || _isPaused || _isProcessingHint) return;
+             if(_currentState != WaterSortState.Idle || _isBusy || _isProcessingHint) return;
 
              Vector3 wp = _mainCamera.ScreenToWorldPoint(p);
              RaycastHit2D hit = Physics2D.Raycast(wp, Vector2.zero, Mathf.Infinity, bottleLayer);
@@ -40,24 +33,27 @@ namespace _Game.Games.WaterSort.Scripts.Controller
 
             if(_currentSelectedBottle == null) 
             { 
-                if(!b.Model.IsEmpty) { SelectBottle(b); OnBottleSelected?.Invoke(); } 
+                if(!b.Model.IsEmpty) 
+                { 
+                    SelectBottle(b); 
+                } 
             }
             else 
             {
                 if(_currentSelectedBottle == b) 
                 { 
-                    DeselectCurrent(); OnBottleDeselected?.Invoke(); 
+                    DeselectCurrent(); 
                 }
                 else 
                 {
-                    // Logic check valid move nằm ở file Logic
                     if(b.Model.CanPush(_currentSelectedBottle.Model.TopColor)) 
                     {
                         DoTransfer(_currentSelectedBottle, b);
                     }
                     else 
                     { 
-                        OnMoveInvalid?.Invoke(); 
+                        EventManager<WaterSortEventID>.Post(WaterSortEventID.MoveInvalid);
+                        
                         _isBusy = true; 
                         _currentSelectedBottle.AnimateShakeError(() => { 
                             DeselectCurrent(); 
@@ -68,7 +64,73 @@ namespace _Game.Games.WaterSort.Scripts.Controller
             }
         }
 
-        private void SelectBottle(BottleView b){ _currentSelectedBottle = b; b.SetSelected(true); }
-        private void DeselectCurrent(){ if(_currentSelectedBottle){ _currentSelectedBottle.SetSelected(false); _currentSelectedBottle = null; } }
+        private void SelectBottle(BottleView b)
+        { 
+            _currentSelectedBottle = b; 
+            b.SetSelected(true); 
+            EventManager<WaterSortEventID>.Post(WaterSortEventID.BottleSelected);
+        }
+        
+        private void DeselectCurrent()
+        { 
+            if(_currentSelectedBottle)
+            { 
+                _currentSelectedBottle.SetSelected(false); 
+                _currentSelectedBottle = null; 
+                EventManager<WaterSortEventID>.Post(WaterSortEventID.BottleDeselected);
+            } 
+        }
+
+        // --- TRANSFER & COMMAND LOGIC ---
+        private void DoTransfer(BottleView s, BottleView t) 
+        {
+            if(t.Model.IsSolved()){ DeselectCurrent(); return; }
+            
+            var sm = s.Model; 
+            var tm = t.Model; 
+            int c = sm.TopColor;
+            
+            if(tm.CanPush(c))
+            {
+                ChangeState(WaterSortState.Pouring);
+                _isBusy = true;
+                
+                int amt = Mathf.Min(sm.GetCountSameTopColor(), tm.Capacity - tm.Count);
+                
+                var command = new MoveCommand(sm, tm, amt, c);
+
+                EventManager<WaterSortEventID>.Post(WaterSortEventID.PouringStarted);
+
+                s.AnimatePouring(t, amt, 
+                    (isPouring) => {  }, 
+                    
+                    () => { 
+                        
+                        _commandInvoker.ExecuteCommand(command); 
+                    }, 
+                    
+                    () => { 
+                        OnTransferComplete(s, t);
+                    });
+            }
+        }
+
+        private void OnTransferComplete(BottleView s, BottleView t)
+        {
+            s.UpdateVisuals(); 
+            t.UpdateVisuals(); 
+            DeselectCurrent(); 
+            
+            EventManager<WaterSortEventID>.Post(WaterSortEventID.PouringCompleted);
+
+            if(t.Model.IsSolved()) 
+            { 
+                t.PlaySolvedEffect(); 
+                EventManager<WaterSortEventID>.Post(WaterSortEventID.BottleSolved);
+            } 
+            
+            _isBusy = false; 
+            CheckGameState(); 
+        }
     }
 }

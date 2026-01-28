@@ -72,6 +72,32 @@ namespace _Game.Core.Scripts.Data
             return Encoding.UTF8.GetString(bytes);
         }
         
+        public static void DeleteFile(string gameId)
+        {
+            try
+            {
+                string filePath = GetPath(gameId);
+                
+                // Xóa file chính
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                    Debug.Log($"[SaveSystem] Deleted Save File: {filePath}");
+                }
+                
+                // Xóa luôn file tạm (.tmp) nếu lỡ còn sót lại
+                string tempPath = filePath + ".tmp";
+                if (File.Exists(tempPath))
+                {
+                    File.Delete(tempPath);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[SaveSystem] Delete Error: {e.Message}");
+            }
+        }
+        
         
     }
 }
