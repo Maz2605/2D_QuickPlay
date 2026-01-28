@@ -42,7 +42,7 @@ namespace _Game.Games.WaterSort.Scripts.Controller
         private Stack<MoveCommand> _undoStack = new Stack<MoveCommand>();
         private Camera _mainCamera;
 
-        public override GlobalGameState CurrentGlobalState => GlobalGameState.Playing; // Giả sử
+        public GlobalGameState CurrentGlobalState => GlobalGameState.Playing; // Giả sử
 
         private void Awake() 
         { 

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace _Game.Games.BlockSlide.Scripts.Controller
 {
-    public class BlockSlideScoreManager : EventScoreManager<BlockSlideUserData, BlockSlideEventID>
+    public class BlockSlideScoreManager : BaseScoreManager<BlockSlideUserData, BlockSlideEventID>
     {
         public BlockSlideScoreManager(string gameID)
             : base(gameID, BlockSlideEventID.ScoreUpdate, BlockSlideEventID.HighScoreUpdate)
@@ -18,20 +18,11 @@ namespace _Game.Games.BlockSlide.Scripts.Controller
         
         public void SyncScore(int totalScoreFromModel)
         {
-            CurrentScore = totalScoreFromModel;
-
-            if (CurrentScore > UserData.HighScore)
+            int delta = totalScoreFromModel - CurrentScore;
+            if (delta != 0)
             {
-                UserData.HighScore = CurrentScore;
-                EventManager<BlockSlideEventID>.Post(BlockSlideEventID.HighScoreUpdate, UserData.HighScore);
-                
-                Save(); 
+                base.AddScore(delta);
             }
-        }
-
-        public override void AddScore(int amount)
-        {
-            
         }
 
         public void UpdateLeaderboard()

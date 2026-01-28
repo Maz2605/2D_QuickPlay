@@ -1,151 +1,57 @@
-using System;
-using System.Collections.Generic;
-using DG.Tweening;
-using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
-using _Game.Core.Scripts.GameSystem; 
+using _Game.Core.Scripts.Data;
+using _Game.Core.Scripts.UI.Base;
+using _Game.Core.Scripts.Utils.DesignPattern.Events;
+using _Game.Games.FruitMerge.Scripts.Config;
 
 namespace _Game.Games.FruitMerge.Scripts.View
 {
-    [RequireComponent(typeof(CanvasGroup))]
-    public class FruitGameHUD : MonoBehaviour
+    public class FruitGameHUD : BaseHUD
     {
-        [Header("--- REFS ---")]
-        [Tooltip("Kéo Prefab hoặc Object Result Panel vào đây")]
-        [SerializeField] private FruitResultPanel resultPanel;
-        
-        [SerializeField] private CanvasGroup gameplayContainer; 
-
-        [Header("--- BUTTONS ---")]
-        [SerializeField] private Button btnHome;
-        [SerializeField] private Button btnPause;
-        [SerializeField] private Button btnReplay;
-        
-        [Header("--- DISPLAY ---")]
-        [SerializeField] private TextMeshProUGUI txtScore;
-        [SerializeField] private TextMeshProUGUI txtHighScore;
-        
-        [Header("--- COMBO EFFECT ---")]
-        [SerializeField] private TextMeshProUGUI txtCombo;
-        
-        public event Action OnPauseClicked;
-        public event Action OnReplayClicked;
-        public event Action OnHomeClicked;
-
-        private Tween _scoreTween;
-        private Tween _comboTween;
-
-        private void Awake()
+        protected override void OnEnable()
         {
-            if (txtCombo) txtCombo.gameObject.SetActive(false);
+            base.OnEnable();
+            EventManager<FruitMergeEventID>.AddListener<FruitMergeState>(FruitMergeEventID.GameStateChanged, OnGameStateChanged);
+            EventManager<FruitMergeEventID>.AddListener<int>(FruitMergeEventID.ScoreUpdated, OnScoreUpdated);
+            EventManager<FruitMergeEventID>.AddListener<int>(FruitMergeEventID.HighScoreUpdated, OnHighScoreUpdated);
+            EventManager<FruitMergeEventID>.AddListener<GameOverPayLoad>(FruitMergeEventID.ShowGameOver, OnShowGameOver);
         }
 
-        public void Initialize()
+        protected override void OnDisable()
         {
-            if (resultPanel != null)
-            {
-                resultPanel.Initialize(
-                    onReplay: () => OnReplayClicked?.Invoke(),
-                    onHome: () => OnHomeClicked?.Invoke()
-                );
-            }
-
-            btnPause?.onClick.AddListener(() => OnPauseClicked?.Invoke());
-            btnReplay?.onClick.AddListener(() => OnReplayClicked?.Invoke());
-            btnHome?.onClick.AddListener(() => OnHomeClicked?.Invoke());
-
-            SetUIState(GlobalGameState.Playing);
+            EventManager<FruitMergeEventID>.RemoveListener<FruitMergeState>(FruitMergeEventID.GameStateChanged, OnGameStateChanged);
+            EventManager<FruitMergeEventID>.RemoveListener<int>(FruitMergeEventID.ScoreUpdated, OnScoreUpdated);
+            EventManager<FruitMergeEventID>.RemoveListener<int>(FruitMergeEventID.HighScoreUpdated, OnHighScoreUpdated);
+            EventManager<FruitMergeEventID>.RemoveListener<GameOverPayLoad>(FruitMergeEventID.ShowGameOver, OnShowGameOver);
+            base.OnDisable();
         }
 
-        private void OnDestroy()
+        private void OnShowGameOver(GameOverPayLoad result)
         {
-            btnPause?.onClick.RemoveAllListeners();
-            btnReplay?.onClick.RemoveAllListeners();
-            btnHome?.onClick.RemoveAllListeners();
-
-            _scoreTween?.Kill();
-            _comboTween?.Kill();
-            transform.DOKill();
+            ShowResultPanel(result.FinalScore, result.TopScores);
         }
 
+        private void OnHighScoreUpdated(int score)
+        {
+            AnimateScoreText(txtHighScore, score, ref ScoreTween);
+        }
 
-        public void SetUIState(GlobalGameState state, int finalScore = 0, List<int> topScores = null)
+        private void OnScoreUpdated(int score)
+        {
+            AnimateScoreText(txtCurrentScore, score, ref ScoreTween);
+        }
+
+        private void OnGameStateChanged(FruitMergeState state)
         {
             switch (state)
             {
-                case GlobalGameState.Playing:
-                case GlobalGameState.Loading:
-                    FadeContainer(gameplayContainer, 1f, true);
-                    if(resultPanel) resultPanel.Hide();
+                case FruitMergeState.Playing:
+                    HideResultPanel();
+                    ShowPanel(gamePlayPanel, true);
                     break;
-
-                case GlobalGameState.Paused:
-                    FadeContainer(gameplayContainer, 0.5f, false);
-                    break;
-
-                case GlobalGameState.GameOver:
-                    FadeContainer(gameplayContainer, 0f, false);
-                    if (resultPanel) resultPanel.Show(false, finalScore, topScores); 
-                    break;
-
-                case GlobalGameState.Resetting:
-                    FadeContainer(gameplayContainer, 1f, false);
-                    if(resultPanel) resultPanel.Hide();
+                case FruitMergeState.GameOver:
+                    ShowPanel(gamePlayPanel, false);
                     break;
             }
-        }
-
-        private void FadeContainer(CanvasGroup cg, float alpha, bool interactable)
-        {
-            if (cg == null) return;
-            cg.DOKill(); 
-            cg.DOFade(alpha, 0.3f).SetLink(cg.gameObject);
-            cg.interactable = interactable;
-            cg.blocksRaycasts = interactable;
-        }
-
-        public void UpdateScore(int score)
-        {
-            if (txtScore == null) return;
-            txtScore.text = score.ToString();
-
-            _scoreTween?.Complete(); 
-            _scoreTween = txtScore.transform.DOPunchScale(Vector3.one * 0.2f, 0.2f, 1, 0)
-                .SetLink(txtScore.gameObject);
-        }
-
-        public void UpdateHighScore(int highScore)
-        {
-            if (txtHighScore) txtHighScore.text = highScore.ToString();
-        }
-
-        public void ShowCombo(int comboMultiplier)
-        {
-            if (txtCombo == null || comboMultiplier <= 1) return;
-
-            _comboTween?.Kill();
-    
-            txtCombo.gameObject.SetActive(true);
-            txtCombo.text = $"COMBO x{comboMultiplier}!";
-            
-            txtCombo.transform.localScale = Vector3.zero;
-            txtCombo.alpha = 1f;
-
-            Sequence seq = DOTween.Sequence();
-            
-            seq.Append(txtCombo.transform.DOScale(Vector3.one * 1.2f, 0.2f).SetEase(Ease.OutBack));
-            seq.AppendInterval(0.5f);
-            seq.Append(txtCombo.transform.DOLocalMoveY(txtCombo.transform.localPosition.y + 100f, 0.4f));
-            seq.Join(txtCombo.DOFade(0f, 0.4f));
-            seq.OnComplete(() =>
-            {
-                txtCombo.gameObject.SetActive(false);
-                txtCombo.transform.localPosition -= new Vector3(0, 100f, 0);
-            });
-
-            seq.SetLink(gameObject);
-            _comboTween = seq;
         }
     }
 }

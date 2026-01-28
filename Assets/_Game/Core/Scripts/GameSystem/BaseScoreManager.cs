@@ -1,72 +1,84 @@
 using System;
 using _Game.Core.Scripts.Data;
+using _Game.Core.Scripts.Utils.DesignPattern.Events;
 using UnityEngine;
 
 namespace _Game.Core.Scripts.GameSystem
 {
-    public class BaseScoreManager<T> where T : class, IGameUserData, new()
+    public abstract class BaseScoreManager<TUserData, TEventID> 
+        where TUserData : class, IGameUserData, new()    
+        where TEventID : struct, Enum
     {
         private readonly string _gameID;
-        protected T UserData;
-
+        private readonly TEventID _scoreEventID;
+        private readonly TEventID _highScoreEventID;
+        
+        protected TUserData UserData;
+        
         public int CurrentScore { get; protected set; }
-        public int HighScore => UserData.HighScore;
-
-        public event Action<int> OnScoreChanged;
-        public event Action<int> OnHighScoreChanged;
-
-        protected BaseScoreManager(string gameID)
+        public int HighScore => UserData?.HighScore ?? 0;
+        protected BaseScoreManager(string gameID, TEventID scoreEventID, TEventID highScoreEventID) 
         {
             _gameID = gameID;
+            _scoreEventID = scoreEventID;
+            _highScoreEventID = highScoreEventID;
+
             LoadData();
-            NotifyUI();
         }
 
-        private void LoadData()
+
+        protected void LoadData()
         {
             try
             {
-                UserData = SaveSystem.Load<T>(_gameID);
+                UserData = SaveSystem.Load<TUserData>(_gameID);
             }
             catch (Exception e)
             {
-                Debug.LogError($"Lỗi load save: {e.Message}. Tạo data mới.");
+                Debug.LogError($"[BaseScoreManager] Lỗi load data: {e.Message}. Tạo mới.");
             }
 
             if (UserData == null)
             {
-                UserData = new T();
-                Debug.LogWarning("UserData bị null, đã tạo mới!");
+                UserData = new TUserData();
             }
 
             CurrentScore = 0;
-            NotifyUI();
+
+            ForceUpdateEventUI();
         }
 
+        public void Save()
+        {
+            SaveSystem.Save(_gameID, UserData);
+        }
         public virtual void AddScore(int amount)
         {
             CurrentScore += amount;
-            OnScoreChanged?.Invoke(CurrentScore);
+            
+            EventManager<TEventID>.Post(_scoreEventID, CurrentScore);
 
             if (CurrentScore > UserData.HighScore)
             {
                 UserData.HighScore = CurrentScore;
+                EventManager<TEventID>.Post(_highScoreEventID, UserData.HighScore);
+                Save();
             }
-
-            NotifyUI();
+            
         }
 
-        public virtual void ResetScore()
+        public void ResetScore()
         {
             CurrentScore = 0;
+            EventManager<TEventID>.Post(_scoreEventID, 0);
         }
-
-        public void Save() => SaveSystem.Save(_gameID, UserData);
-
-        private void NotifyUI()
+        
+        public void ForceUpdateEventUI()
         {
-            OnScoreChanged?.Invoke(CurrentScore);
-            OnHighScoreChanged?.Invoke(UserData.HighScore);
+            if(UserData == null) return;
+            
+            EventManager<TEventID>.Post(_scoreEventID, CurrentScore);
+            EventManager<TEventID>.Post(_highScoreEventID, UserData.HighScore);
         }
     }
 }

@@ -47,9 +47,7 @@ namespace _Game.Games.BlockSlide.Scripts.Controller
             _currentState = newState;
             EventManager<BlockSlideEventID>.Post(BlockSlideEventID.GameStateChanged, newState);
         }
-
-
-        public override GlobalGameState CurrentGlobalState { get; }
+        
         protected override void OnResetGameplay()
         {
             RestartGame();
@@ -58,7 +56,7 @@ namespace _Game.Games.BlockSlide.Scripts.Controller
         
         private void OnScoreUpdate(int score)
         {
-            _scoreManager.SyncScore(score);
+            _scoreManager?.SyncScore(score);
         }
 
         private void OnGameOver()

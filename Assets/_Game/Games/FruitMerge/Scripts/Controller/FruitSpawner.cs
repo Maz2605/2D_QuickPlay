@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Game.Core.Scripts.Input;
+using _Game.Core.Scripts.Utils.DesignPattern.Events;
 using UnityEngine;
 using DG.Tweening; 
-using _Game.Core.Scripts.Input;
 using _Game.Games.FruitMerge.Scripts.Config;
 using _Game.Games.FruitMerge.Scripts.View;
 
@@ -16,7 +17,6 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
         [SerializeField] private float xLimit = 2.5f;
         [SerializeField] private Transform dropPoint;
         [SerializeField] private SpriteRenderer currentRenderer;
-        [SerializeField] private NextFruitPanel nextFruitPanel; 
 
         [Header("Juicy & Guide")]
         [SerializeField] private float dragScaleFactor = 1.1f; 
@@ -35,8 +35,6 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
         private List<int> _queue = new List<int>(); 
         private bool _canSpawn = true;
         private float _baseScale = 1f;
-        
-        // Cờ khóa input khi dùng Skill
         private bool _isInputLocked = false; 
 
         public void Initialize(FruitMergeGameConfigSO config, Action<int, Vector3> onSpawnRequest)
@@ -47,43 +45,27 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
             if (aimLine == null) aimLine = GetComponent<LineRenderer>();
             aimLine.positionCount = 2;
             aimLine.enabled = false; 
-
-            // Đăng ký sự kiện Input
-            InputManager.Instance.OnTouchStart += HandleStart;
-            InputManager.Instance.OnTouchMove += HandleMove;
-            InputManager.Instance.OnTouchEnd += HandleRelease;
-
-            // Khởi tạo queue lần đầu
+            
             ResetDataAndUI();
         }
 
         private void OnDestroy()
         {
-            if (InputManager.Instance != null)
-            {
-                InputManager.Instance.OnTouchStart -= HandleStart;
-                InputManager.Instance.OnTouchMove -= HandleMove;
-                InputManager.Instance.OnTouchEnd -= HandleRelease;
-            }
             transform.DOKill();
             currentRenderer.transform.DOKill();
         }
 
-        // --- NEW: INPUT LOCKING (Hỗ trợ Skill) ---
         public void SetInputActive(bool isActive)
         {
             _isInputLocked = !isActive;
-            
             if (_isInputLocked)
             {
-                // Ẩn tia ngắm, reset visual
                 aimLine.enabled = false;
                 currentRenderer.transform.DOKill();
                 currentRenderer.transform.localScale = Vector3.one * _baseScale;
             }
         }
 
-        // --- NEW: RESET LOGIC (Hỗ trợ Soft Reset) ---
         public void ResetSpawner()
         {
             StopAllCoroutines();
@@ -97,7 +79,7 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
             if (dropPoint != null)
                 currentRenderer.transform.position = dropPoint.position;
             
-            if (nextFruitPanel != null) nextFruitPanel.ResetPanel();
+            EventManager<FruitMergeEventID>.Post(FruitMergeEventID.NextFruitChanged, new List<Sprite>());
 
             ResetDataAndUI();
         }
@@ -112,10 +94,10 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
             ShowNextFruit(true);
         }
 
-        // --- INPUT HANDLING ---
-        private void HandleStart(Vector2 screenPos)
+        // --- INPUT HANDLING (Được gọi từ Controller) ---
+        
+        public void HandleStart(Vector2 screenPos)
         {
-            // Kiểm tra cả _canSpawn và _isInputLocked
             if (!_canSpawn || _isInputLocked) return;
             
             MoveFruit(screenPos);
@@ -125,13 +107,13 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
             currentRenderer.transform.DOScale(_baseScale * dragScaleFactor, animDuration).SetEase(Ease.InBack);
         }
 
-        private void HandleMove(Vector2 screenPos)
+        public void HandleMove(Vector2 screenPos)
         {
             if (!_canSpawn || _isInputLocked) return;
             MoveFruit(screenPos);
         }
 
-        private void HandleRelease(Vector2 screenPos)
+        public void HandleRelease(Vector2 screenPos)
         {
             if (!_canSpawn || _isInputLocked) return;
             
@@ -144,11 +126,12 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
         private void MoveFruit(Vector2 screenPos)
         {
             float worldX = InputManager.Instance.GetWorldPosition().x;
+            
             float clampedX = Mathf.Clamp(worldX, -xLimit, xLimit);
             currentRenderer.transform.position = new Vector3(clampedX, dropPoint.position.y, 0);
         }
 
-        // --- SPAWN LOGIC ---
+        // --- SPAWN LOGIC (Giữ nguyên) ---
         private IEnumerator SpawnRoutine(Vector3 position)
         {
             _canSpawn = false;
@@ -160,10 +143,7 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
 
             yield return new WaitForSeconds(_config.spawnCooldown);
 
-            // Xử lý queue
             AdvanceQueue();
-            
-            // Animation hiện quả tiếp theo
             ShowNextFruit();
             
             _canSpawn = true;
@@ -172,10 +152,8 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
         private void AdvanceQueue()
         {
             if (_queue.Count > 0) _queue.RemoveAt(0);
-
             bool isDanger = CheckDanger();
             int lastLevel = (_queue.Count > 0) ? _queue[_queue.Count - 1] : -1;
-            
             _queue.Add(_config.GetSmartSpawnLevel(isDanger, lastLevel));
         }
 
@@ -201,7 +179,7 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
                 if (info != null) previews.Add(info.visual);
             }
 
-            if (nextFruitPanel) nextFruitPanel.UpdatePreview(previews);
+            EventManager<FruitMergeEventID>.Post(FruitMergeEventID.NextFruitChanged, previews);
         }
 
         private bool CheckDanger()
@@ -211,7 +189,6 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
             return Physics2D.OverlapBox(center, new Vector2(dangerCheckWidth, dangerCheckHeight), 0, fruitLayer);
         }
         
-        // --- GIZMOS ---
         private void OnDrawGizmos()
         {
             if (dangerLine == null) return;

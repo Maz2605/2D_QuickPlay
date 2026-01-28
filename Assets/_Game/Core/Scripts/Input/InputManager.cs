@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 namespace _Game.Core.Scripts.Input
 {
+    [DefaultExecutionOrder(-100)]
     public class InputManager : Singleton<InputManager>
     {   
         public event Action<Vector2> OnTouchMove;

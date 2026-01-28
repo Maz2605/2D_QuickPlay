@@ -1,7 +1,5 @@
-using System;
-using _Game.Core.Scripts.Audio;
 using _Game.Core.Scripts.Audio.Manager;
-using _Game.Core.Scripts.Input;
+using _Game.Core.Scripts.Utils.DesignPattern.Events;
 using _Game.Games.FruitMerge.Scripts.Config;
 using UnityEngine;
 
@@ -12,40 +10,52 @@ namespace _Game.Games.FruitMerge.Scripts.Controller
         [SerializeField] private FruitAudioConfigSO config;
         
         private AudioManager Audio => AudioManager.Instance;
+        
 
-        public void Initialize(FruitGameController controller)
+        private void OnEnable()
         {
-            Audio.PlayMusic(config.backgroundMusic);
+            EventManager<FruitMergeEventID>.AddListener<FruitMergeState>(FruitMergeEventID.GameStateChanged, OnGameStateChanged);
+            EventManager<FruitMergeEventID>.AddListener(FruitMergeEventID.FruitDropped, OnFruitDropped);
+            EventManager<FruitMergeEventID>.AddListener<int>(FruitMergeEventID.FruitMerged, OnMerged);
+        }
 
-            if (InputManager.Instance != null)
+        private void OnGameStateChanged(FruitMergeState state)
+        {
+            switch (state)
             {
-                InputManager.Instance.OnTouchEnd += PlayDrop;
+                case FruitMergeState.Playing:
+                    Audio.PlayMusic(config.backgroundMusic);
+                    break;
+                case FruitMergeState.GameOver:
+                    Audio.StopMusic();
+                    Audio.PlaySfx(config.gameOverSound);
+                    break;
+                default:
+                    Audio.StopMusic();
+                    break;
             }
-
-            controller.OnFruitMerged += PlayMerge;
         }
 
-        private void OnDestroy()
-        { 
-            if(!AudioManager.HasInstance) return;
-            if(InputManager.Instance != null) InputManager.Instance.OnTouchEnd -= PlayDrop;
-            if(Audio != null) Audio.StopMusic();
-        }
-
-        private void PlayDrop(Vector2 position)
+        private void OnDisable()
         {
-            Audio.PlaySfx(config.dropSound, config.dropVolume, config.pitchVariation);
+            EventManager<FruitMergeEventID>.RemoveListener(FruitMergeEventID.FruitDropped, OnFruitDropped);
+        }
+        
+
+        private void OnFruitDropped()
+        {
+            Audio.PlaySfx(config.dropSound);
         }
 
-        private void PlayMerge(int newLevel)
+        private void OnMerged(int newLevel)
         {
             if (newLevel >= 8)
             {
-                Audio.PlaySfx(config.bigMergeSound, config.bigMergeVol, 0f);
+                Audio.PlaySfx(config.bigMergeSound);
             }
             else
             {
-                Audio.PlaySfx(config.mergeSound, config.normalMergeVol, config.pitchVariation);
+                Audio.PlaySfx(config.mergeSound);
             }
         }
         

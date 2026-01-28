@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening; 
+using _Game.Core.Scripts.Utils.DesignPattern.Events;
+using _Game.Games.FruitMerge.Scripts.Config;
 
 namespace _Game.Games.FruitMerge.Scripts.View
 {
@@ -13,6 +15,21 @@ namespace _Game.Games.FruitMerge.Scripts.View
         [SerializeField] private float punchStrength = 0.3f;
         [SerializeField] private float duration = 0.2f;
 
+        private void OnEnable()
+        {
+            EventManager<FruitMergeEventID>.AddListener<List<Sprite>>(
+                FruitMergeEventID.NextFruitChanged, OnNextFruitChanged);
+        }
+
+        private void OnDisable()
+        {
+            EventManager<FruitMergeEventID>.RemoveListener<List<Sprite>>(
+                FruitMergeEventID.NextFruitChanged, OnNextFruitChanged);
+            
+            transform.DOKill();
+            foreach (var slot in slots) slot.transform.DOKill();
+        }
+
         public void ResetPanel()
         {
             foreach (var slot in slots)
@@ -23,8 +40,10 @@ namespace _Game.Games.FruitMerge.Scripts.View
             }
         }
 
-        public void UpdatePreview(List<Sprite> sprites)
+        private void OnNextFruitChanged(List<Sprite> sprites)
         {
+            if (sprites == null) return;
+
             for (int i = 0; i < slots.Length; i++)
             {
                 slots[i].transform.DOKill();
@@ -37,18 +56,13 @@ namespace _Game.Games.FruitMerge.Scripts.View
                     
                     slots[i].transform.DOPunchScale(Vector3.one * punchStrength, duration, 5, 1)
                         .SetDelay(i * 0.05f)
-                        .SetLink(slots[i].gameObject); // An toàn
+                        .SetLink(slots[i].gameObject);
                 }
                 else
                 {
                     slots[i].gameObject.SetActive(false);
                 }
             }
-        }
-        
-        private void OnDestroy()
-        {
-            foreach (var slot in slots) slot.transform.DOKill();
         }
     }
 }

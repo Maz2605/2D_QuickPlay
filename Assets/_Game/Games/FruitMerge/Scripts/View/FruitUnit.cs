@@ -1,5 +1,7 @@
 using System;
+using _Game.Core.Scripts.Utils.DesignPattern.Events;
 using _Game.Games.FruitMerge.Scripts.Config;
+using _Game.Games.FruitMerge.Scripts.Model;
 using UnityEngine;
 
 namespace _Game.Games.FruitMerge.Scripts.View
@@ -7,14 +9,10 @@ namespace _Game.Games.FruitMerge.Scripts.View
     [RequireComponent(typeof(SpriteRenderer), typeof(CircleCollider2D), typeof(Rigidbody2D))]
     public class FruitUnit : MonoBehaviour
     {
-        public int Level { get; private set; }
-        public bool IsMerge { get; private set; }
-
+        public FruitModel Data { get; private set; }
         private SpriteRenderer _renderer;
         private CircleCollider2D _collider;
         private Rigidbody2D _rb;
-
-        public event Action<FruitUnit, Collision2D> OnCollisionWithFruit;
 
         private void Awake()
         {
@@ -22,11 +20,12 @@ namespace _Game.Games.FruitMerge.Scripts.View
             _collider = GetComponent<CircleCollider2D>();
             _rb = GetComponent<Rigidbody2D>();
         }
-
-        public void Initialize(int level, FruitMergeGameConfigSO.FruitInfo info)
+        
+        public void Initialize(FruitModel data, FruitMergeGameConfigSO.FruitInfo info)
         {
-            Level = level;
-            IsMerge = false;
+     
+            Data = data;
+            ResetPhysics();
 
             _renderer.sprite = info.visual;
             transform.localScale = Vector3.one * info.scale;
@@ -34,27 +33,50 @@ namespace _Game.Games.FruitMerge.Scripts.View
             _collider.radius = info.physicRadius;
             _rb.mass = info.mass;
             
-            _rb.velocity = Vector2.zero;
-            _rb.angularVelocity = 0f;
-            _collider.enabled = true;
-            
             gameObject.SetActive(true);
         }
 
+        public void ResetPhysics()
+        {
+            if (Data != null) Data.isMerging = false;
+
+            _collider.enabled = true;
+            _rb.velocity = Vector2.zero;
+            _rb.angularVelocity = 0f;
+            _rb.bodyType = RigidbodyType2D.Dynamic;
+        }
+
+        public void MarkAsMerging()
+        {
+            if (Data != null) Data.isMerging = true;
+
+            _collider.enabled = false;
+            _rb.velocity = Vector2.zero;
+            _rb.bodyType = RigidbodyType2D.Kinematic; 
+        }
+        
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if(IsMerge) return;
+            if (Data == null || Data.isMerging) return;
 
-            if (other.gameObject.CompareTag("Fruit"))
+            if (!other.gameObject.CompareTag("Fruit")) return;
+            
+            FruitUnit otherFruit = other.gameObject.GetComponent<FruitUnit>();
+            if (otherFruit == null || otherFruit.Data == null) return;
+            
+            if (this.Data.instanceID > otherFruit.Data.instanceID)
             {
-                OnCollisionWithFruit?.Invoke(this, other);
+                var payload = new FruitCollisionPayload
+                {
+                    FruitA = this,
+                    FruitB = otherFruit
+                };
+                
+                EventManager<FruitMergeEventID>.Post(FruitMergeEventID.FruitCollision, payload);
             }
         }
-
-        public void MarkAsMerge()
-        {
-            IsMerge = true;
-            _collider.enabled = false;
-        }
+        
+        public int Level => Data?.level ?? -1;
     }
+    
 }

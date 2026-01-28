@@ -7,7 +7,6 @@ namespace _Game.Core.Scripts.GameSystem
     public abstract class BaseGameController : MonoBehaviour
     {
         [SerializeField] private string mainSceneName = "MainMenu";
-        public abstract GlobalGameState CurrentGlobalState { get; }
 
         protected abstract void OnResetGameplay();
 
